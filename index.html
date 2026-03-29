@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <title>Juan Diaz — Portfolio</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;700;800&display=swap"
@@ -516,6 +518,52 @@
       }
     }
 
+    .card:nth-child(6) {
+      animation-delay: 0.7s;
+    }
+
+    /* ── CLARA NIGHTWELL ── */
+    .card-clara {
+      background: linear-gradient(135deg, rgba(8, 4, 20, 0.97), rgba(15, 8, 35, 0.99));
+      border-color: rgba(180, 100, 255, 0.18);
+    }
+
+    .card-clara:hover {
+      box-shadow: 0 20px 60px rgba(180, 100, 255, 0.12), 0 0 0 1px rgba(180, 100, 255, 0.35);
+    }
+
+    .card-clara::before {
+      background: linear-gradient(90deg, transparent, #b464ff, #ff4444, transparent);
+    }
+
+    .card-clara .card-tag { color: #b464ff; }
+    .card-clara .card-title { color: #f0e8ff; }
+    .card-clara .card-desc { color: #4a3a6a; opacity: 1; }
+    .card-clara .card-arrow { color: #ff4444; }
+
+    .card-clara .card-icon {
+      background: rgba(180, 100, 255, 0.1);
+      border: 1px solid rgba(180, 100, 255, 0.22);
+      animation: pulseClara 3s ease-in-out infinite;
+    }
+
+    .card-clara .tech-pill {
+      background: rgba(180, 100, 255, 0.1);
+      color: #b464ff;
+      border: 1px solid rgba(180, 100, 255, 0.2);
+    }
+
+    .card-clara .tech-pill:nth-child(2) {
+      background: rgba(255, 68, 68, 0.08);
+      color: #ff6666;
+      border-color: rgba(255, 68, 68, 0.2);
+    }
+
+    @keyframes pulseClara {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(180, 100, 255, 0); }
+      50%       { box-shadow: 0 0 16px 4px rgba(180, 100, 255, 0.2); }
+    }
+
     /* ── FOOTER ── */
     .footer {
       text-align: center;
@@ -599,7 +647,7 @@
       <span class="hero-eyebrow">Software Engineer · AI · Netherlands</span>
       <h1>Juan <em>Diaz</em></h1>
       <p>Full-stack engineer with 14+ years of experience building AI-powered systems, production pipelines and web
-        platforms. Based in Nuenen, NL.</p>
+        platforms. Based in Eindhoven, NL.</p>
     </div>
 
     <div class="card-grid">
@@ -679,18 +727,26 @@
         </div>
       </a>
 
+      <a class="card card-clara" href="https://www.youtube.com/@ClaraNightwell" target="_blank">
+        <span class="card-tag">AI · YouTube · English</span>
+        <div class="card-icon">▶</div>
+        <div class="card-title">Clara Nightwell</div>
+        <p class="card-desc">Fully automated YouTube channel — history & philosophy content generated end-to-end with TTS, AI image synthesis and automated publishing. Zero human intervention.</p>
+        <div class="card-footer">
+          <div class="card-tech">
+            <span class="tech-pill">TTS · IS</span>
+            <span class="tech-pill">Pipeline</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
     </div>
 
     <div class="footer">
       <div class="footer-links">
         <a href="https://github.com/sistaterro" target="_blank">GitHub</a>
-        <a href="mailto:dazjuancarlos@gmail.com">Contact</a>
+        <a href="/cdn-cgi/l/email-protection#d6b2b7acbca3b7b8b5b7a4bab9a596b1bbb7bfbaf8b5b9bb">Contact</a>
         <a href="https://github.com/sistaterro/portfolio" target="_blank">This project</a>
       </div>
-      <span>© 2026 Juan Diaz · Eindhoven, Netherlands</span>
-    </div>
-
-  </div>
-</body>
-
-</html>
+      <span>© 2026 Juan Diaz · Eindhoven, Netherlands
