@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <title>Juan Diaz — Portfolio</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #e8e8f0;
+      --text2: #a0a0b8;
+      --text3: #505068;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 20%, rgba(0, 120, 255, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(120, 0, 255, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+      gap: 52px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      max-width: 580px;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(36px, 5vw, 54px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #4488ff, #00ccff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 15px;
+      color: var(--text2);
+      line-height: 1.75;
+    }
+
+    /* ── GRID ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 300px);
+      grid-template-rows: auto auto;
+      gap: 16px;
+      width: 100%;
+      max-width: 940px;
+    }
+
+    .card:nth-child(4) {
+      grid-column: 1;
+    }
+
+    .card:nth-child(5) {
+      grid-column: 2;
+    }
+
+    /* ── CARD BASE ── */
+    .card {
+      position: relative;
+      border-radius: 16px;
+      padding: 26px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid var(--border);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    .card-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+    }
+
+    .card-tech {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tech-pill {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 20px;
+      letter-spacing: 0.3px;
+    }
+
+    .card-arrow {
+      font-size: 16px;
+      opacity: 0.3;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .card:hover .card-arrow {
+      opacity: 0.8;
+      transform: translateX(4px);
+    }
+
+    /* ── NEXUSGRID ── */
+    .card-nexus {
+      background: linear-gradient(135deg, rgba(0, 20, 50, 0.92), rgba(0, 10, 30, 0.96));
+      border-color: rgba(0, 170, 255, 0.18);
+    }
+
+    .card-nexus:hover {
+      box-shadow: 0 20px 60px rgba(0, 170, 255, 0.12), 0 0 0 1px rgba(0, 170, 255, 0.3);
+    }
+
+    .card-nexus::before {
+      background: linear-gradient(90deg, transparent, #00aaff, transparent);
+    }
+
+    .card-nexus .card-tag {
+      color: #00aaff;
+    }
+
+    .card-nexus .card-title {
+      color: #d0e8f5;
+    }
+
+    .card-nexus .card-desc {
+      color: #5a8aaa;
+    }
+
+    .card-nexus .card-arrow {
+      color: #00aaff;
+    }
+
+    .card-nexus .card-icon {
+      background: rgba(0, 170, 255, 0.1);
+      border: 1px solid rgba(0, 170, 255, 0.2);
+      animation: pulse1 3s ease-in-out infinite;
+    }
+
+    .card-nexus .tech-pill {
+      background: rgba(0, 170, 255, 0.1);
+      color: #00aaff;
+      border: 1px solid rgba(0, 170, 255, 0.2);
+    }
+
+    @keyframes pulse1 {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 170, 255, 0)
+      }
+
+      50% {
+        box-shadow: 0 0 16px 4px rgba(0, 170, 255, 0.2)
+      }
+    }
+
+    /* ── SOLTECH ── */
+    .card-soltech {
+      background: linear-gradient(135deg, rgba(15, 12, 28, 0.94), rgba(8, 8, 20, 0.97));
+      border-color: rgba(245, 166, 35, 0.18);
+    }
+
+    .card-soltech:hover {
+      box-shadow: 0 20px 60px rgba(245, 166, 35, 0.1), 0 0 0 1px rgba(245, 166, 35, 0.3);
+    }
+
+    .card-soltech::before {
+      background: linear-gradient(90deg, transparent, #f5a623, transparent);
+    }
+
+    .card-soltech .card-tag {
+      color: #f5a623;
+    }
+
+    .card-soltech .card-title {
+      color: #e8edf5;
+    }
+
+    .card-soltech .card-desc {
+      color: #5a6070;
+    }
+
+    .card-soltech .card-arrow {
+      color: #f5a623;
+    }
+
+    .card-soltech .card-icon {
+      background: rgba(245, 166, 35, 0.1);
+      border: 1px solid rgba(245, 166, 35, 0.2);
+      animation: pulse2 3s ease-in-out infinite;
+    }
+
+    .card-soltech .tech-pill {
+      background: rgba(245, 166, 35, 0.1);
+      color: #f5a623;
+      border: 1px solid rgba(245, 166, 35, 0.2);
+    }
+
+    @keyframes pulse2 {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(245, 166, 35, 0)
+      }
+
+      50% {
+        box-shadow: 0 0 16px 4px rgba(245, 166, 35, 0.2)
+      }
+    }
+
+    /* ── TALKING DUTCH ── */
+    .card-dutch {
+      background: linear-gradient(135deg, rgba(20, 14, 8, 0.94), rgba(12, 8, 4, 0.97));
+      border-color: rgba(232, 116, 42, 0.18);
+    }
+
+    .card-dutch:hover {
+      box-shadow: 0 20px 60px rgba(232, 116, 42, 0.1), 0 0 0 1px rgba(232, 116, 42, 0.3);
+    }
+
+    .card-dutch::before {
+      background: linear-gradient(90deg, transparent, #e8742a, transparent);
+    }
+
+    .card-dutch .card-tag {
+      color: #e8742a;
+    }
+
+    .card-dutch .card-title {
+      color: #f0f0f0;
+    }
+
+    .card-dutch .card-desc {
+      color: #666;
+    }
+
+    .card-dutch .card-arrow {
+      color: #e8742a;
+    }
+
+    .card-dutch .card-icon {
+      background: rgba(232, 116, 42, 0.1);
+      border: 1px solid rgba(232, 116, 42, 0.2);
+      animation: pulse3 3s ease-in-out infinite;
+    }
+
+    .card-dutch .tech-pill {
+      background: rgba(232, 116, 42, 0.1);
+      color: #e8742a;
+      border: 1px solid rgba(232, 116, 42, 0.2);
+    }
+
+    .card-dutch::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #AE1C28 33%, #fff 33% 66%, #21468B 66%);
+      opacity: 0.35;
+    }
+
+    @keyframes pulse3 {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(232, 116, 42, 0)
+      }
+
+      50% {
+        box-shadow: 0 0 16px 4px rgba(232, 116, 42, 0.2)
+      }
+    }
+
+    /* ── VERDANT ── */
+    .card-verdant {
+      background: linear-gradient(135deg, rgba(248, 250, 246, 0.96), rgba(232, 239, 228, 0.98));
+      border-color: rgba(74, 140, 92, 0.22);
+    }
+
+    .card-verdant:hover {
+      box-shadow: 0 20px 60px rgba(74, 140, 92, 0.12), 0 0 0 1px rgba(74, 140, 92, 0.35);
+    }
+
+    .card-verdant::before {
+      background: linear-gradient(90deg, transparent, #4a8c5c, transparent);
+    }
+
+    .card-verdant .card-tag {
+      color: #4a8c5c;
+    }
+
+    .card-verdant .card-title {
+      color: #1e2d1a;
+    }
+
+    .card-verdant .card-desc {
+      color: #7a9070;
+      opacity: 1;
+    }
+
+    .card-verdant .card-arrow {
+      color: #4a8c5c;
+    }
+
+    .card-verdant .card-icon {
+      background: rgba(74, 140, 92, 0.12);
+      border: 1px solid rgba(74, 140, 92, 0.22);
+      animation: pulse4 3s ease-in-out infinite;
+    }
+
+    .card-verdant .tech-pill {
+      background: rgba(74, 140, 92, 0.1);
+      color: #2d5e3a;
+      border: 1px solid rgba(74, 140, 92, 0.2);
+    }
+
+    @keyframes pulse4 {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(74, 140, 92, 0)
+      }
+
+      50% {
+        box-shadow: 0 0 14px 4px rgba(74, 140, 92, 0.15)
+      }
+    }
+
+    /* ── LUMEX ── */
+    .card-lumex {
+      background: linear-gradient(135deg, rgba(6, 0, 26, 0.97), rgba(3, 0, 15, 0.99));
+      border-color: rgba(191, 0, 255, 0.18);
+    }
+
+    .card-lumex:hover {
+      box-shadow: 0 20px 60px rgba(191, 0, 255, 0.12), 0 0 0 1px rgba(191, 0, 255, 0.35);
+    }
+
+    .card-lumex::before {
+      background: linear-gradient(90deg, transparent, #bf00ff, #00f5ff, transparent);
+    }
+
+    .card-lumex .card-tag {
+      color: #bf00ff;
+    }
+
+    .card-lumex .card-title {
+      color: #e8e0ff;
+    }
+
+    .card-lumex .card-desc {
+      color: #4a3a6a;
+      opacity: 1;
+    }
+
+    .card-lumex .card-arrow {
+      color: #00f5ff;
+    }
+
+    .card-lumex .card-icon {
+      background: rgba(191, 0, 255, 0.1);
+      border: 1px solid rgba(191, 0, 255, 0.22);
+      animation: pulse5 2.5s ease-in-out infinite;
+    }
+
+    .card-lumex .tech-pill {
+      background: rgba(191, 0, 255, 0.1);
+      color: #bf00ff;
+      border: 1px solid rgba(191, 0, 255, 0.2);
+    }
+
+    .card-lumex .tech-pill:nth-child(2) {
+      background: rgba(0, 245, 255, 0.08);
+      color: #00f5ff;
+      border-color: rgba(0, 245, 255, 0.2);
+    }
+
+    @keyframes pulse5 {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(191, 0, 255, 0), 0 0 0 0 rgba(0, 245, 255, 0)
+      }
+
+      50% {
+        box-shadow: 0 0 20px 4px rgba(191, 0, 255, 0.22), 0 0 40px 8px rgba(0, 245, 255, 0.08)
+      }
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      color: var(--text3);
+      text-decoration: none;
+      font-size: 12px;
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover {
+      color: var(--text2);
+    }
+
+    .footer span {
+      font-size: 11px;
+      color: var(--text3);
+    }
+
+    /* ── ENTRANCE ANIMATION ── */
+    .hero,
+    .card,
+    .footer {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .hero {
+      animation-delay: 0.1s;
+    }
+
+    .card:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .card:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+
+    .card:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    .card:nth-child(4) {
+      animation-delay: 0.5s;
+    }
+
+    .card:nth-child(5) {
+      animation-delay: 0.6s;
+    }
+
+    .footer {
+      animation-delay: 0.7s;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+
+    <div class="hero">
+      <span class="hero-eyebrow">Software Engineer · AI · Netherlands</span>
+      <h1>Juan <em>Diaz</em></h1>
+      <p>Full-stack engineer with 14+ years of experience building AI-powered systems, production pipelines and web
+        platforms. Based in Nuenen, NL.</p>
+    </div>
+
+    <div class="card-grid">
+
+      <a class="card card-nexus" href="nexusgrid.html">
+        <span class="card-tag">Technology</span>
+        <div class="card-icon">⬡</div>
+        <div class="card-title">NexusGrid</div>
+        <p class="card-desc">Advanced technology systems platform with a cyberpunk-inspired interface for
+          next-generation infrastructure.</p>
+        <div class="card-footer">
+          <div class="card-tech">
+            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">Python</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <a class="card card-soltech" href="soltech_english.html">
+        <span class="card-tag">Solar · Software</span>
+        <div class="card-icon">☀️</div>
+        <div class="card-title">SolTech</div>
+        <p class="card-desc">Solar energy meets software engineering. End-to-end platform for renewable energy
+          monitoring and optimization.</p>
+        <div class="card-footer">
+          <div class="card-tech">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">ML</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <a class="card card-dutch" href="talkingdutch.html">
+        <span class="card-tag">Education · NL</span>
+        <div class="card-icon">🇳🇱</div>
+        <div class="card-title">Talking Dutch</div>
+        <p class="card-desc">Dutch language learning platform for professionals relocating to the Netherlands. Practical
+          and immersive.</p>
+        <div class="card-footer">
+          <div class="card-tech">
+            <span class="tech-pill">TTS</span>
+            <span class="tech-pill">AI</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <a class="card card-verdant" href="verdant.html">
+        <span class="card-tag">Green Energy</span>
+        <div class="card-icon">🌿</div>
+        <div class="card-title">Verdant Energy</div>
+        <p class="card-desc">Clean solar solutions with a design philosophy rooted in nature. Organic, light and
+          purposeful.</p>
+        <div class="card-footer">
+          <div class="card-tech">
+            <span class="tech-pill">Solar</span>
+            <span class="tech-pill">Web</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <a class="card card-lumex" href="lumex.html">
+        <span class="card-tag">Zonne-energie · NL</span>
+        <div class="card-icon">⚡</div>
+        <div class="card-title">LUMEX</div>
+        <p class="card-desc">Zonne-energie van de toekomst. Neon-futuristische interface voor de Nederlandse
+          zonne-energiemarkt.</p>
+        <div class="card-footer">
+          <div class="card-tech">
+            <span class="tech-pill">Dutch</span>
+            <span class="tech-pill">Neon UI</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/sistaterro" target="_blank">GitHub</a>
+        <a href="mailto:dazjuancarlos@gmail.com">Contact</a>
+        <a href="https://github.com/sistaterro/portfolio" target="_blank">This project</a>
+      </div>
+      <span>© 2026 Juan Diaz · Eindhoven, Netherlands</span>
+    </div>
+
+  </div>
+</body>
+
+</html>

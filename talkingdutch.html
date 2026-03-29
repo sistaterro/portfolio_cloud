@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+  <title>Talking Dutch – Ameliorate your Dutch, today!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black:      #111111;
+      --dark:       #1a1a1a;
+      --dark2:      #222222;
+      --orange:     #e8742a;
+      --orange-lt:  #f5943a;
+      --orange-dim: rgba(232,116,42,.15);
+      --white:      #f0f0f0;
+      --muted:      #888888;
+      --line:       #2e2e2e;
+      /* Dutch flag */
+      --dutch-red:  #AE1C28;
+      --dutch-blue: #21468B;
+      --dutch-white:#FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── DUTCH FLAG STRIPE (top) ── */
+    .flag-stripe {
+      display: flex;
+      height: 5px;
+      width: 100%;
+    }
+    .flag-stripe span {
+      flex: 1;
+    }
+    .flag-stripe .f-red   { background: var(--dutch-red); }
+    .flag-stripe .f-white { background: var(--dutch-white); }
+    .flag-stripe .f-blue  { background: var(--dutch-blue); }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--dark);
+      border-bottom: 1px solid var(--line);
+      padding: 0 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: 'Exo 2', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: .05em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Exo 2', sans-serif;
+      font-size: .78rem;
+      font-weight: 400;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+    }
+    .nav-links a:hover {
+      color: var(--orange);
+      border-bottom-color: var(--orange);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 60px;
+      align-items: center;
+      padding: 80px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle grid bg */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: .25;
+      pointer-events: none;
+    }
+
+    /* orange glow blob */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 20%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,116,42,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-left {
+      position: relative;
+      z-index: 1;
+      animation: fadeUp .8s ease both;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .72rem;
+      font-family: 'Exo 2', sans-serif;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 28px;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--orange);
+    }
+
+    h1 {
+      font-family: 'Exo 2', sans-serif;
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      font-weight: 200;
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    h1 .orange-line {
+      display: block;
+      color: var(--orange);
+      font-weight: 300;
+    }
+
+    .hero-body {
+      max-width: 600px;
+      color: #aaaaaa;
+      font-size: .95rem;
+      margin-top: 32px;
+      margin-bottom: 16px;
+    }
+    .hero-body strong { color: var(--white); font-weight: 500; }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      margin-top: 44px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      padding: 14px 32px;
+      background: var(--orange);
+      color: #111;
+      font-family: 'Exo 2', sans-serif;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .btn-primary:hover { background: var(--orange-lt); transform: translateY(-2px); }
+
+    .btn-outline {
+      padding: 14px 32px;
+      background: transparent;
+      color: var(--orange);
+      font-family: 'Exo 2', sans-serif;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--orange);
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+    .btn-outline:hover { background: var(--orange-dim); }
+
+    /* ── MOCK VIDEO CALL CARD ── */
+    .hero-right {
+      position: relative;
+      z-index: 1;
+      animation: fadeUp .8s .15s ease both;
+    }
+
+    .video-card {
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(232,116,42,.12);
+    }
+
+    .vc-titlebar {
+      background: #2a2a2a;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #333;
+    }
+    .vc-dots { display: flex; gap: 6px; }
+    .vc-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .vc-dot:nth-child(1) { background: #ff5f57; }
+    .vc-dot:nth-child(2) { background: #febc2e; }
+    .vc-dot:nth-child(3) { background: #28c840; }
+    .vc-url {
+      font-size: .7rem;
+      color: #666;
+      font-family: 'Exo 2', monospace;
+      margin-left: 8px;
+    }
+
+    .vc-header {
+      background: #1a1a1a;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    .vc-avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--orange);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .65rem;
+      font-weight: 700;
+      color: #111;
+    }
+    .vc-name { font-size: .8rem; color: #ccc; font-weight: 500; }
+    .vc-presenting {
+      margin-left: auto;
+      font-size: .65rem;
+      background: var(--orange-dim);
+      color: var(--orange);
+      padding: 2px 8px;
+      border-radius: 2px;
+      font-family: 'Exo 2', sans-serif;
+      letter-spacing: .08em;
+    }
+
+    .vc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      padding: 3px;
+      background: #111;
+    }
+    .vc-tile {
+      aspect-ratio: 4/3;
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+    .vc-tile-bg {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Exo 2', sans-serif;
+    }
+    .vc-tile-1 { background: linear-gradient(135deg, #2a3a2a, #1a2a1a); }
+    .vc-tile-2 { background: linear-gradient(135deg, #3a2a1a, #2a1a0a); }
+    .vc-tile-3 { background: linear-gradient(135deg, #1a2a3a, #0a1a2a); }
+    .vc-tile-4 { background: linear-gradient(135deg, #2a1a2a, #1a0a1a); }
+
+    .vc-tile-icon {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.7);
+      font-family: 'Exo 2', sans-serif;
+    }
+    .icon-orange { background: rgba(232,116,42,.25); color: var(--orange); }
+    .icon-blue   { background: rgba(33,70,139,.3);  color: #6699dd; }
+    .icon-green  { background: rgba(40,139,80,.3);  color: #66cc88; }
+    .icon-gray   { background: rgba(120,120,120,.2); color: #aaa; }
+
+    .vc-tile-label {
+      position: absolute; bottom: 6px; left: 8px;
+      font-size: .65rem;
+      color: rgba(255,255,255,.6);
+      font-family: 'Exo 2', sans-serif;
+      background: rgba(0,0,0,.4);
+      padding: 1px 6px;
+      border-radius: 2px;
+    }
+
+    .vc-controls {
+      background: #1a1a1a;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border-top: 1px solid #2a2a2a;
+    }
+    .vc-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: #2e2e2e;
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .vc-btn:hover { background: #3e3e3e; }
+    .vc-btn-end {
+      background: #c0392b;
+      width: 44px; height: 36px;
+      border-radius: 18px;
+    }
+    .vc-btn-end:hover { background: #e74c3c; }
+    .vc-btn svg { width: 16px; height: 16px; }
+
+    /* ── DUTCH FLAG ACCENT BAR ── */
+    .flag-bar {
+      display: flex;
+      height: 4px;
+    }
+    .flag-bar .fb { flex: 1; }
+    .flag-bar .fb-r { background: var(--dutch-red); }
+    .flag-bar .fb-w { background: var(--dutch-white); }
+    .flag-bar .fb-b { background: var(--dutch-blue); }
+
+    /* ── SECTION GENERIC ── */
+    section {
+      padding: 100px 60px;
+      position: relative;
+    }
+    section + section { border-top: 1px solid var(--line); }
+
+    .section-label {
+      font-family: 'Exo 2', sans-serif;
+      font-size: .72rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-family: 'Exo 2', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 200;
+      color: var(--white);
+      margin-bottom: 32px;
+      letter-spacing: -.01em;
+    }
+
+    .body-text {
+      color: #aaa;
+      max-width: 700px;
+      font-size: .95rem;
+    }
+    .body-text + .body-text { margin-top: 1em; }
+    .body-text strong { color: var(--white); font-weight: 500; }
+
+    hr.section-rule {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 40px 0;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+    .dutch-flag-card {
+      background: var(--dark2);
+      border: 1px solid var(--line);
+      padding: 40px;
+      text-align: center;
+    }
+    .flag-full {
+      display: flex;
+      flex-direction: column;
+      width: 140px;
+      height: 90px;
+      margin: 0 auto 24px;
+      border: 1px solid rgba(255,255,255,.1);
+      overflow: hidden;
+    }
+    .flag-full .fr { flex: 1; background: var(--dutch-red); }
+    .flag-full .fw { flex: 1; background: var(--dutch-white); }
+    .flag-full .fb2 { flex: 1; background: var(--dutch-blue); }
+    .flag-caption {
+      font-family: 'Exo 2', sans-serif;
+      font-size: .75rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .flag-caption span { color: var(--orange); }
+
+    .credentials {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .cred-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px;
+      background: var(--dark2);
+      border-left: 2px solid var(--orange);
+    }
+    .cred-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .cred-text {
+      font-size: .85rem;
+      color: #bbb;
+    }
+    .cred-text strong { color: var(--white); display: block; font-size: .9rem; }
+
+    /* ── COURSES ── */
+    .courses-section { background: var(--dark); }
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+    }
+    .course-card {
+      background: var(--black);
+      padding: 36px 28px;
+      border-top: 2px solid transparent;
+      transition: border-color .3s, transform .3s;
+      cursor: default;
+    }
+    .course-card:hover {
+      border-top-color: var(--orange);
+      transform: translateY(-4px);
+    }
+    .course-level {
+      font-family: 'Exo 2', sans-serif;
+      font-size: .7rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+    .course-name {
+      font-family: 'Exo 2', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .course-desc {
+      font-size: .85rem;
+      color: #777;
+      line-height: 1.6;
+    }
+    /* Dutch flag mini strip on cards */
+    .course-flag {
+      display: flex;
+      height: 2px;
+      margin-bottom: 20px;
+      width: 40px;
+    }
+    .course-flag span { flex: 1; }
+    .cf-r { background: var(--dutch-red) !important; }
+    .cf-w { background: var(--dutch-white) !important; }
+    .cf-b { background: var(--dutch-blue) !important; }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .service-item {
+      padding: 32px;
+      border: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s;
+    }
+    .service-item::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 0;
+      background: var(--orange);
+      transition: height .35s ease;
+    }
+    .service-item:hover { border-color: #444; }
+    .service-item:hover::after { height: 100%; }
+    .service-num {
+      font-family: 'Exo 2', sans-serif;
+      font-size: 2rem;
+      font-weight: 200;
+      color: var(--orange-dim);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .service-title {
+      font-family: 'Exo 2', sans-serif;
+      font-size: 1.05rem;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .service-desc { font-size: .88rem; color: #777; }
+
+    /* ── STATS ── */
+    .stats-bar {
+      background: var(--orange);
+      padding: 48px 60px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 40px;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Exo 2', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 200;
+      color: #111;
+      line-height: 1;
+      display: block;
+    }
+    .stat-lbl {
+      font-family: 'Exo 2', sans-serif;
+      font-size: .7rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,.55);
+      margin-top: 6px;
+      display: block;
+    }
+    .stat-divider { width: 1px; height: 60px; background: rgba(0,0,0,.2); }
+
+    /* ── FAQ ── */
+    .faq-list { margin-top: 40px; max-width: 760px; }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-family: 'Exo 2', sans-serif;
+      font-size: .95rem;
+      color: var(--white);
+      text-align: left;
+      gap: 20px;
+    }
+    .faq-q:hover { color: var(--orange); }
+    .faq-icon {
+      width: 20px; height: 20px;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: .75rem;
+      transition: transform .3s, background .2s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--orange); border-color: var(--orange); color: #111; }
+    .faq-a {
+      font-size: .9rem;
+      color: #888;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease, padding .35s;
+      padding: 0;
+    }
+    .faq-item.open .faq-a { max-height: 300px; padding-bottom: 20px; }
+
+    /* ── CONTACT ── */
+    .contact-section {
+      background: var(--dark);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .contact-heading {
+      font-family: 'Exo 2', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 200;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .contact-heading em { font-style: italic; color: var(--orange); }
+    .contact-sub { color: #777; font-size: .9rem; }
+    .contact-form { display: flex; flex-direction: column; gap: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-input {
+      background: var(--black);
+      border: 1px solid var(--line);
+      color: var(--white);
+      padding: 14px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: .9rem;
+      outline: none;
+      transition: border-color .2s;
+      width: 100%;
+    }
+    .form-input:focus { border-color: var(--orange); }
+    .form-input::placeholder { color: #444; }
+    textarea.form-input { resize: vertical; min-height: 100px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0d0d0d;
+      padding: 48px 60px 32px;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-brand {
+      font-family: 'Exo 2', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+    .footer-tagline { font-size: .85rem; color: #555; }
+    .footer-links-group h4 {
+      font-family: 'Exo 2', sans-serif;
+      font-size: .7rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 14px;
+    }
+    .footer-links-group a {
+      display: block;
+      font-size: .85rem;
+      color: #777;
+      text-decoration: none;
+      margin-bottom: 8px;
+      transition: color .2s;
+    }
+    .footer-links-group a:hover { color: var(--orange); }
+    .footer-bottom {
+      border-top: 1px solid var(--line);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-copy { font-size: .78rem; color: #444; }
+    .footer-flag { display: flex; gap: 3px; align-items: center; }
+    .footer-flag span {
+      width: 14px; height: 10px;
+      display: inline-block;
+    }
+    .footer-flag .ff-r { background: var(--dutch-red); }
+    .footer-flag .ff-w { background: var(--dutch-white); border: 1px solid #333; }
+    .footer-flag .ff-b { background: var(--dutch-blue); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { gap: 18px; }
+      .hero { grid-template-columns: 1fr; padding: 60px 24px; min-height: auto; }
+      section { padding: 72px 24px; }
+      .about-grid, .contact-section { grid-template-columns: 1fr; gap: 48px; }
+      .courses-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .stats-bar { flex-direction: column; padding: 48px 24px; }
+      .stat-divider { width: 60px; height: 1px; }
+      footer { padding: 48px 24px 24px; }
+      .footer-top { flex-direction: column; }
+      .footer-bottom { flex-direction: column; gap: 12px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DUTCH FLAG TOP STRIPE -->
+  <div class="flag-stripe">
+    <span class="f-red"></span>
+    <span class="f-white"></span>
+    <span class="f-blue"></span>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">TalkingDutch</a>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#courses">Courseware</a></li>
+      <li><a href="#">Login</a></li>
+      <li><a href="#">Register</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#">Syllabus</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" style="border:none; padding-top:80px;">
+    <div class="hero-left">
+      <p class="hero-tag">Online Dutch Lessons</p>
+      <h1>
+        Ameliorate your Dutch, today!
+        <span class="orange-line">Learn from home!</span>
+      </h1>
+      <p class="hero-body">
+        Before we dive into the exciting world of learning Dutch, I want to take a moment to introduce myself. My passion for learning a language stems from a desire to become more articulate in my communication. Joyfully, I share my knowledge to others. The best philosophy is to have an approachable, open-minded attitude.
+      </p>
+      <p class="hero-body">
+        During the course, open communication and a stable collaboration will be encouraged. We all play a crucial role in each other's learning journey. I am here to support students to reach their academic, integration exam or other goals. <strong>Ready to embark on this learning adventure?</strong>
+      </p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-primary">Register Now</a>
+        <a href="#courses" class="btn-outline">View Courses</a>
+      </div>
+    </div>
+
+    <!-- MOCK VIDEO CALL -->
+    <div class="hero-right">
+      <div class="video-card">
+        <!-- fake browser bar -->
+        <div class="vc-titlebar">
+          <div class="vc-dots">
+            <div class="vc-dot"></div>
+            <div class="vc-dot"></div>
+            <div class="vc-dot"></div>
+          </div>
+          <span class="vc-url">meet.talkingdutch.com</span>
+        </div>
+        <!-- participant header -->
+        <div class="vc-header">
+          <div class="vc-avatar">JvH</div>
+          <span class="vc-name">Jonathan van Hassel</span>
+          <span class="vc-presenting">● Presenting</span>
+        </div>
+        <!-- video grid -->
+        <div class="vc-grid">
+          <div class="vc-tile">
+            <div class="vc-tile-bg vc-tile-1">
+              <div class="vc-tile-icon icon-orange">JvH</div>
+            </div>
+            <span class="vc-tile-label">Jonathan van H.</span>
+          </div>
+          <div class="vc-tile">
+            <div class="vc-tile-bg vc-tile-2">
+              <div class="vc-tile-icon icon-blue">S1</div>
+            </div>
+            <span class="vc-tile-label">Student 1</span>
+          </div>
+          <div class="vc-tile">
+            <div class="vc-tile-bg vc-tile-3">
+              <div class="vc-tile-icon icon-green">S2</div>
+            </div>
+            <span class="vc-tile-label">Student 2</span>
+          </div>
+          <div class="vc-tile">
+            <div class="vc-tile-bg vc-tile-4">
+              <div class="vc-tile-icon icon-gray">S3</div>
+            </div>
+            <span class="vc-tile-label">Student 3</span>
+          </div>
+        </div>
+        <!-- controls -->
+        <div class="vc-controls">
+          <button class="vc-btn" title="Mute">
+            <svg viewBox="0 0 16 16" fill="none" stroke="#aaa" stroke-width="1.3">
+              <path d="M8 1v8M5 3.5C4 4.5 3.5 6 3.5 8c0 2.5 2 4.5 4.5 4.5S12.5 10.5 12.5 8c0-2-.5-3.5-1.5-4.5"/>
+              <line x1="8" y1="12.5" x2="8" y2="15"/>
+              <line x1="5.5" y1="15" x2="10.5" y2="15"/>
+            </svg>
+          </button>
+          <button class="vc-btn" title="Camera">
+            <svg viewBox="0 0 16 16" fill="none" stroke="#aaa" stroke-width="1.3">
+              <rect x="1" y="4" width="10" height="8" rx="1"/>
+              <path d="M11 6.5l4-2v7l-4-2"/>
+            </svg>
+          </button>
+          <button class="vc-btn vc-btn-end" title="End call">
+            <svg viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="1.3">
+              <path d="M2 10c1-2 4-3 6-3s5 1 6 3l-2 2a12 12 0 00-8 0L2 10z"/>
+            </svg>
+          </button>
+          <button class="vc-btn" title="Chat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="#aaa" stroke-width="1.3">
+              <path d="M2 2h12v10H9l-3 2v-2H2z"/>
+            </svg>
+          </button>
+          <button class="vc-btn" title="More">
+            <svg viewBox="0 0 16 16" fill="none" stroke="#aaa" stroke-width="1.3">
+              <circle cx="4" cy="8" r="1" fill="#aaa"/>
+              <circle cx="8" cy="8" r="1" fill="#aaa"/>
+              <circle cx="12" cy="8" r="1" fill="#aaa"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLAG DIVIDER -->
+  <div class="flag-bar">
+    <div class="fb fb-r"></div>
+    <div class="fb fb-w"></div>
+    <div class="fb fb-b"></div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-num">497</span>
+      <span class="stat-lbl">Students Taught</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num">A1–C1</span>
+      <span class="stat-lbl">All Levels</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num">100%</span>
+      <span class="stat-lbl">Online & Flexible</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num">4.8★</span>
+      <span class="stat-lbl">Average Rating</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about" class="reveal">
+    <p class="section-label">About Me</p>
+    <h2>Background</h2>
+    <hr class="section-rule"/>
+    <div class="about-grid">
+      <div>
+        <p class="body-text">My expertise as a language tutor aligns well with the qualifications you desire. I hold a <strong>Master of Arts degree in Media and Culture</strong> and a <strong>TEFL certificate</strong>. My passion lies in educating English and Dutch online to adults, all around the world. Furthermore, I have been educating English for five years at "Longwell Education Center" in China.</p>
+        <p class="body-text" style="margin-top:1em;">Managing the speaking abilities of various students often proves to be challenging, though gratifying. I tailor activities to maintain the interest, critical, didactic correctness. Thanks to my experience, I learned how to incorporate practical concepts that are playful and easy to grasp.</p>
+        <div class="credentials">
+          <div class="cred-item">
+            <span class="cred-icon">🎓</span>
+            <div class="cred-text">
+              <strong>MA in Media & Culture</strong>
+              University of Amsterdam
+            </div>
+          </div>
+          <div class="cred-item">
+            <span class="cred-icon">📜</span>
+            <div class="cred-text">
+              <strong>TEFL Certificate</strong>
+              Teaching English as a Foreign Language
+            </div>
+          </div>
+          <div class="cred-item">
+            <span class="cred-icon">🌍</span>
+            <div class="cred-text">
+              <strong>International Experience</strong>
+              Teaching in China, Europe & Online
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="dutch-flag-card">
+          <div class="flag-full">
+            <div class="fr"></div>
+            <div class="fw"></div>
+            <div class="fb2"></div>
+          </div>
+          <p class="flag-caption">Teaching the language of the <span>Netherlands</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSES -->
+  <section id="courses" class="courses-section reveal">
+    <p class="section-label">Courseware</p>
+    <h2>Available Courses</h2>
+    <div class="courses-grid">
+      <div class="course-card">
+        <div class="course-flag"><span class="cf-r"></span><span class="cf-w"></span><span class="cf-b"></span></div>
+        <p class="course-level">Beginner · A1–A2</p>
+        <p class="course-name">Talking Dutch A1–A2</p>
+        <p class="course-desc">Start from zero. Learn greetings, everyday vocabulary, basic sentence structures and pronunciation fundamentals in Dutch.</p>
+      </div>
+      <div class="course-card">
+        <div class="course-flag"><span class="cf-r"></span><span class="cf-w"></span><span class="cf-b"></span></div>
+        <p class="course-level">Intermediate · B1–B2</p>
+        <p class="course-name">Talking Dutch B1–B2</p>
+        <p class="course-desc">Expand your fluency. Focus on complex grammar, reading comprehension, conversational Dutch and integration exam preparation.</p>
+      </div>
+      <div class="course-card">
+        <div class="course-flag"><span class="cf-r"></span><span class="cf-w"></span><span class="cf-b"></span></div>
+        <p class="course-level">Advanced · C1</p>
+        <p class="course-name">Talking Dutch C1</p>
+        <p class="course-desc">Achieve near-native proficiency. Academic writing, advanced idiomatic expressions and professional Dutch communication skills.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLAG DIVIDER -->
+  <div class="flag-bar">
+    <div class="fb fb-r"></div>
+    <div class="fb fb-w"></div>
+    <div class="fb fb-b"></div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services" class="reveal">
+    <p class="section-label">Services</p>
+    <h2>What I Offer</h2>
+    <div class="services-grid">
+      <div class="service-item">
+        <p class="service-num">01</p>
+        <p class="service-title">One-on-One Lessons</p>
+        <p class="service-desc">Personalized sessions tailored entirely to your pace, goals, and learning style. Full attention, real progress.</p>
+      </div>
+      <div class="service-item">
+        <p class="service-num">02</p>
+        <p class="service-title">Group Classes</p>
+        <p class="service-desc">Learn collaboratively in a small group. Practice speaking with peers and benefit from shared learning dynamics.</p>
+      </div>
+      <div class="service-item">
+        <p class="service-num">03</p>
+        <p class="service-title">Integration Exam Prep</p>
+        <p class="service-desc">Targeted preparation for the Dutch Civic Integration Exam (inburgering). Structured, efficient, results-oriented.</p>
+      </div>
+      <div class="service-item">
+        <p class="service-num">04</p>
+        <p class="service-title">Conversation Practice</p>
+        <p class="service-desc">Build confidence through guided conversation. Ideal for those who already have a base and want to speak more fluently.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="reveal" style="background: var(--dark);">
+    <p class="section-label">FAQ</p>
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">
+          How do I register for a course?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Click the Register button in the navigation or on the homepage. You'll be guided through creating an account and selecting your course level.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          What platform are lessons held on?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Lessons are held via video call — fully online and accessible from anywhere in the world. All you need is a stable internet connection.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          Can I take lessons at any level?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Absolutely. Courses range from complete beginner (A1) to advanced (C1). A short intake session ensures you're placed at the right level.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          Is there support for the integration exam (inburgering)?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Yes — specific exam preparation is available as part of the B1–B2 course and as a standalone service. This covers all components of the civic integration exam.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          How flexible are the lesson schedules?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Lessons can be scheduled to fit around your availability. Evenings and weekends are available. Get in touch to discuss a timetable that suits you.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section reveal">
+    <div>
+      <p class="section-label">Contact</p>
+      <h2 class="contact-heading">Start your<br><em>Dutch journey</em><br>today.</h2>
+      <p class="contact-sub">Reach out with any questions or to book your first trial lesson. I typically respond within 24 hours.</p>
+    </div>
+    <div>
+      <form class="contact-form" onsubmit="return false;">
+        <div class="form-row">
+          <input class="form-input" type="text" placeholder="First name"/>
+          <input class="form-input" type="text" placeholder="Last name"/>
+        </div>
+        <input class="form-input" type="email" placeholder="Email address"/>
+        <input class="form-input" type="text" placeholder="Desired level (A1, A2, B1…)"/>
+        <textarea class="form-input" placeholder="Your message…"></textarea>
+        <button class="btn-primary" style="align-self:flex-start; border:none;">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FLAG DIVIDER -->
+  <div class="flag-bar">
+    <div class="fb fb-r"></div>
+    <div class="fb fb-w"></div>
+    <div class="fb fb-b"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <p class="footer-brand">TalkingDutch</p>
+        <p class="footer-tagline">Ameliorate your Dutch, from home.</p>
+      </div>
+      <div class="footer-links-group">
+        <h4>Navigation</h4>
+        <a href="#">Home</a>
+        <a href="#courses">Courseware</a>
+        <a href="#services">Services</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-links-group">
+        <h4>Account</h4>
+        <a href="#">Login</a>
+        <a href="#">Register</a>
+        <a href="#">Syllabus</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 TalkingDutch · Jonathan van Hassel · All rights reserved</p>
+      <div class="footer-flag">
+        <span class="ff-r"></span>
+        <span class="ff-w"></span>
+        <span class="ff-b"></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+  <title>Verdant Energy — Solar Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400&family=Playfair+Display:ital,wght@1,400;1,500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --white:      #f8faf6;
+      --off:        #f0f4ee;
+      --paper:      #e8efe4;
+      --green-lt:   #c8dfc0;
+      --green:      #4a8c5c;
+      --green-dk:   #2d5e3a;
+      --green-deep: #1a3d25;
+      --mint:       #7fbf8f;
+      --sage:       #8aad80;
+      --earth:      #6b7c5a;
+      --text:       #1e2d1a;
+      --muted:      #7a9070;
+      --line:       #d4e2cc;
+      --sun:        #e8c84a;
+      --sun-lt:     #f5e08a;
+    }
+
+    html { scroll-behavior:smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size:17px;
+      line-height:1.7;
+      overflow-x:hidden;
+      cursor:none;
+    }
+
+    /* ── CURSOR ── */
+    #cur {
+      position:fixed; width:10px; height:10px;
+      border-radius:50%;
+      background:var(--green);
+      pointer-events:none; z-index:9999;
+      transform:translate(-50%,-50%);
+      transition:width .18s, height .18s, background .2s;
+    }
+    #cur-ring {
+      position:fixed; width:34px; height:34px;
+      border:1.5px solid rgba(74,140,92,.4);
+      border-radius:50%;
+      pointer-events:none; z-index:9998;
+      transform:translate(-50%,-50%);
+      transition:all .22s ease;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:500;
+      height:64px; padding:0 64px;
+      display:flex; align-items:center; justify-content:space-between;
+      background:rgba(248,250,246,.92);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-logo {
+      font-family:'DM Sans',sans-serif;
+      font-size:1.1rem; font-weight:500;
+      color:var(--green-dk); text-decoration:none;
+      letter-spacing:.02em;
+      display:flex; align-items:center; gap:10px;
+    }
+    .logo-leaf {
+      width:28px; height:28px;
+      background:var(--green);
+      border-radius:50% 0 50% 50%;
+      transform:rotate(-45deg);
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0;
+    }
+    .logo-leaf::after {
+      content:'';
+      width:12px; height:1.5px;
+      background:rgba(255,255,255,.7);
+      border-radius:2px;
+      transform:rotate(45deg);
+    }
+    .nav-links { display:flex; gap:36px; list-style:none; }
+    .nav-links a {
+      font-size:.85rem; font-weight:400; letter-spacing:.04em;
+      color:var(--muted); text-decoration:none;
+      transition:color .2s;
+    }
+    .nav-links a:hover { color:var(--green-dk); }
+    .nav-cta {
+      padding:10px 26px;
+      background:var(--green);
+      color:#fff;
+      font-size:.82rem; font-weight:500; letter-spacing:.04em;
+      text-decoration:none; border-radius:40px;
+      transition:background .25s, transform .2s, box-shadow .25s;
+      box-shadow:0 2px 12px rgba(74,140,92,.25);
+    }
+    .nav-cta:hover { background:var(--green-dk); transform:translateY(-1px); box-shadow:0 6px 20px rgba(74,140,92,.3); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height:100vh;
+      display:grid; grid-template-columns:1fr 1fr;
+      align-items:center;
+      padding:100px 64px 80px;
+      position:relative; overflow:hidden;
+      gap:60px;
+    }
+
+    /* organic blob background */
+    .hero-blob {
+      position:absolute;
+      border-radius:50%;
+      pointer-events:none;
+      filter:blur(80px);
+      opacity:.35;
+    }
+    .blob1 { width:500px; height:500px; background:var(--green-lt); top:-100px; right:-100px; animation:blobMove1 12s ease-in-out infinite alternate; }
+    .blob2 { width:350px; height:350px; background:#d4e8c0; bottom:-80px; left:30%; animation:blobMove2 15s ease-in-out infinite alternate; }
+    @keyframes blobMove1 { from{transform:translate(0,0) scale(1);} to{transform:translate(-40px,30px) scale(1.1);} }
+    @keyframes blobMove2 { from{transform:translate(0,0) scale(1);} to{transform:translate(30px,-20px) scale(.9);} }
+
+    /* leaf particles */
+    .leaf-particle {
+      position:absolute;
+      pointer-events:none;
+      opacity:0;
+      animation:leafFall var(--ld) var(--ldelay) ease-in infinite;
+    }
+    @keyframes leafFall {
+      0%   { opacity:0; transform:translateY(-20px) rotate(0deg); }
+      10%  { opacity:.6; }
+      90%  { opacity:.2; }
+      100% { opacity:0; transform:translateY(100vh) rotate(var(--lr)); }
+    }
+
+    /* subtle dot grid */
+    .hero::before {
+      content:'';
+      position:absolute; inset:0; pointer-events:none;
+      background-image:radial-gradient(circle, var(--line) 1px, transparent 1px);
+      background-size:36px 36px;
+      opacity:.5;
+    }
+
+    .hero-left { position:relative; z-index:2; animation:fadeUp .8s ease both; }
+    .hero-right { position:relative; z-index:2; animation:fadeUp .8s .15s ease both; }
+
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(74,140,92,.1);
+      border:1px solid rgba(74,140,92,.2);
+      padding:6px 16px; border-radius:40px;
+      font-size:.78rem; font-weight:500; color:var(--green);
+      letter-spacing:.04em; margin-bottom:28px;
+    }
+    .badge-dot { width:6px; height:6px; border-radius:50%; background:var(--green); animation:pulseDot 2s ease infinite; }
+    @keyframes pulseDot { 0%,100%{transform:scale(1);opacity:1;} 50%{transform:scale(1.5);opacity:.5;} }
+
+    h1 {
+      font-family:'DM Sans',sans-serif;
+      font-size:clamp(2.6rem,4.5vw,4.2rem);
+      font-weight:300;
+      line-height:1.1;
+      letter-spacing:-.02em;
+      color:var(--green-deep);
+      margin-bottom:8px;
+    }
+    h1 em {
+      font-family:'Playfair Display',serif;
+      font-style:italic; font-weight:400;
+      color:var(--green);
+    }
+
+    .hero-sub {
+      color:var(--muted);
+      font-size:1.05rem; font-weight:300;
+      max-width:480px; margin:24px 0 44px;
+      line-height:1.75;
+    }
+
+    .hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
+    .btn-green {
+      padding:14px 32px;
+      background:var(--green);
+      color:#fff; font-size:.88rem; font-weight:500;
+      text-decoration:none; border-radius:40px;
+      box-shadow:0 4px 20px rgba(74,140,92,.3);
+      transition:all .25s; border:none; cursor:pointer;
+      position:relative; overflow:hidden;
+    }
+    .btn-green::after {
+      content:'';
+      position:absolute; top:-50%; left:-60%;
+      width:40%; height:200%;
+      background:rgba(255,255,255,.2);
+      transform:skewX(-20deg);
+      transition:left .5s;
+    }
+    .btn-green:hover { background:var(--green-dk); transform:translateY(-2px); box-shadow:0 8px 28px rgba(74,140,92,.35); }
+    .btn-green:hover::after { left:120%; }
+    .btn-outline-green {
+      padding:14px 32px;
+      background:transparent;
+      color:var(--green); font-size:.88rem; font-weight:500;
+      text-decoration:none; border-radius:40px;
+      border:1.5px solid rgba(74,140,92,.35);
+      transition:all .25s;
+    }
+    .btn-outline-green:hover { background:rgba(74,140,92,.07); border-color:var(--green); }
+
+    /* ── SOLAR ILLUSTRATION (right side hero) ── */
+    .solar-illustration {
+      position:relative;
+      height:460px;
+      display:flex; align-items:center; justify-content:center;
+    }
+
+    /* sun orb */
+    .sun-orb {
+      position:absolute;
+      width:160px; height:160px;
+      top:30px; right:60px;
+      border-radius:50%;
+      background:radial-gradient(circle at 40% 35%, var(--sun-lt), var(--sun));
+      box-shadow:0 0 40px rgba(232,200,74,.4), 0 0 80px rgba(232,200,74,.15);
+      animation:sunRise 4s ease-in-out infinite alternate;
+    }
+    @keyframes sunRise { from{transform:translateY(0) scale(1);} to{transform:translateY(-10px) scale(1.04);} }
+
+    /* sun rays */
+    .sun-rays-wrap {
+      position:absolute;
+      top:30px; right:60px;
+      width:160px; height:160px;
+      animation:slowSpin 20s linear infinite;
+    }
+    @keyframes slowSpin { to{transform:rotate(360deg);} }
+    .sun-ray {
+      position:absolute;
+      left:50%; top:50%;
+      width:1.5px;
+      background:linear-gradient(180deg,rgba(232,200,74,.6),transparent);
+      transform-origin:0 0;
+      border-radius:2px;
+    }
+
+    /* house silhouette */
+    .house-wrap {
+      position:absolute;
+      bottom:40px; left:20px; right:20px;
+    }
+    .house-svg { width:100%; height:auto; }
+
+    /* energy flow lines */
+    .flow-line {
+      position:absolute;
+      pointer-events:none;
+    }
+    .flow-dot {
+      position:absolute;
+      width:8px; height:8px;
+      border-radius:50%;
+      background:var(--green);
+      box-shadow:0 0 10px rgba(74,140,92,.6);
+    }
+
+    /* floating data cards */
+    .data-card {
+      position:absolute;
+      background:rgba(248,250,246,.92);
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:12px 16px;
+      backdrop-filter:blur(8px);
+      box-shadow:0 4px 24px rgba(74,140,92,.1);
+      animation:cardFloat var(--cf) ease-in-out infinite alternate;
+    }
+    @keyframes cardFloat {
+      from{transform:translateY(0);} to{transform:translateY(var(--cy));}
+    }
+    .dc-label { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.15em; color:var(--muted); text-transform:uppercase; }
+    .dc-val { font-size:1.1rem; font-weight:500; color:var(--green-dk); line-height:1.2; margin-top:2px; }
+    .dc-sub { font-size:.72rem; color:var(--mint); margin-top:1px; }
+    .dc-bar { height:3px; background:var(--line); border-radius:2px; margin-top:8px; overflow:hidden; }
+    .dc-fill { height:100%; background:linear-gradient(90deg,var(--green),var(--mint)); border-radius:2px; animation:fillAnim 2s ease forwards; }
+    @keyframes fillAnim { from{width:0;} to{width:var(--fw);} }
+
+    /* ── SECTION BASE ── */
+    section { padding:110px 64px; position:relative; }
+    section+section { border-top:1px solid var(--line); }
+
+    .sec-tag {
+      display:inline-flex; align-items:center; gap:8px;
+      font-family:'DM Mono',monospace;
+      font-size:.68rem; letter-spacing:.18em; text-transform:uppercase;
+      color:var(--green); margin-bottom:16px;
+    }
+    .sec-tag::before { content:''; width:16px; height:1.5px; background:var(--green); border-radius:2px; }
+
+    h2 {
+      font-family:'DM Sans',sans-serif;
+      font-size:clamp(1.8rem,3vw,2.8rem);
+      font-weight:300; line-height:1.15;
+      color:var(--green-deep); margin-bottom:16px;
+      letter-spacing:-.015em;
+    }
+    h2 em { font-family:'Playfair Display',serif; font-style:italic; font-weight:400; color:var(--green); }
+    .sec-body { color:var(--muted); max-width:580px; font-size:.97rem; font-weight:300; }
+
+    /* ── ABOUT ── */
+    .about-section { background:var(--off); }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; margin-top:60px; }
+    .about-visual { position:relative; height:380px; }
+
+    /* animated circle rings */
+    .ring-anim {
+      position:absolute;
+      border-radius:50%;
+      border:1px solid rgba(74,140,92,.2);
+      left:50%; top:50%;
+      transform:translate(-50%,-50%);
+      animation:ringExpand var(--re) var(--rd) ease-out infinite;
+    }
+    @keyframes ringExpand {
+      0%   { transform:translate(-50%,-50%) scale(.6); opacity:.8; }
+      100% { transform:translate(-50%,-50%) scale(1.6); opacity:0; }
+    }
+
+    .about-center {
+      position:absolute;
+      left:50%; top:50%;
+      transform:translate(-50%,-50%);
+      width:120px; height:120px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--green-lt),var(--mint));
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 8px 40px rgba(74,140,92,.25);
+    }
+    .about-center svg { width:48px; height:48px; }
+
+    .about-stats { display:flex; flex-direction:column; gap:28px; }
+    .about-stat {
+      display:flex; align-items:flex-start; gap:20px;
+      padding:20px 24px;
+      background:var(--white);
+      border-radius:12px;
+      border:1px solid var(--line);
+      transition:border-color .3s, box-shadow .3s;
+    }
+    .about-stat:hover { border-color:var(--green-lt); box-shadow:0 4px 20px rgba(74,140,92,.1); }
+    .about-stat-num {
+      font-family:'DM Sans',sans-serif;
+      font-size:2rem; font-weight:300;
+      color:var(--green); line-height:1; flex-shrink:0;
+    }
+    .about-stat-label { font-weight:500; color:var(--green-deep); font-size:.95rem; }
+    .about-stat-desc { font-size:.85rem; color:var(--muted); margin-top:3px; }
+
+    /* ── PRODUCTS ── */
+    .products-section { }
+    .products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:60px; }
+    .product-card {
+      background:var(--white);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:36px 28px;
+      transition:all .3s;
+      position:relative; overflow:hidden;
+    }
+    .product-card::after {
+      content:'';
+      position:absolute; bottom:0; left:0; right:0; height:3px;
+      background:linear-gradient(90deg,var(--green),var(--mint));
+      transform:scaleX(0); transform-origin:left;
+      transition:transform .4s ease;
+      border-radius:0 0 16px 16px;
+    }
+    .product-card:hover { transform:translateY(-6px); border-color:var(--green-lt); box-shadow:0 12px 40px rgba(74,140,92,.15); }
+    .product-card:hover::after { transform:scaleX(1); }
+
+    .pc-icon {
+      width:52px; height:52px;
+      background:rgba(74,140,92,.1);
+      border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:20px;
+      transition:background .3s;
+    }
+    .product-card:hover .pc-icon { background:rgba(74,140,92,.18); }
+    .pc-icon svg { width:26px; height:26px; }
+    .pc-tag { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.15em; color:var(--mint); margin-bottom:8px; }
+    .pc-name { font-size:1.05rem; font-weight:500; color:var(--green-deep); margin-bottom:10px; }
+    .pc-desc { font-size:.88rem; color:var(--muted); line-height:1.65; }
+    .pc-specs { display:flex; gap:8px; flex-wrap:wrap; margin-top:18px; }
+    .pc-spec {
+      font-family:'DM Mono',monospace; font-size:.58rem;
+      letter-spacing:.1em; padding:4px 10px;
+      background:rgba(74,140,92,.08);
+      color:var(--green); border-radius:20px;
+    }
+
+    /* ── PROCESS ── */
+    .process-section { background:var(--green-deep); }
+    .process-section .sec-tag { color:var(--mint); }
+    .process-section .sec-tag::before { background:var(--mint); }
+    .process-section h2 { color:var(--white); }
+    .process-section h2 em { color:var(--sun); }
+    .process-section .sec-body { color:rgba(200,223,192,.6); }
+
+    .process-steps {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:2px; margin-top:60px;
+      position:relative;
+    }
+    .process-steps::before {
+      content:'';
+      position:absolute;
+      top:36px; left:12.5%; right:12.5%;
+      height:1px;
+      background:linear-gradient(90deg,transparent,rgba(200,223,192,.2),rgba(200,223,192,.2),transparent);
+    }
+    .step-card { padding:32px 24px; text-align:center; position:relative; }
+    .step-num {
+      width:72px; height:72px;
+      border-radius:50%;
+      border:1px solid rgba(200,223,192,.2);
+      display:flex; align-items:center; justify-content:center;
+      margin:0 auto 20px;
+      font-family:'DM Mono',monospace;
+      font-size:.7rem; letter-spacing:.15em;
+      color:var(--mint);
+      position:relative; z-index:1;
+      background:var(--green-deep);
+      transition:all .3s;
+    }
+    .step-card:hover .step-num { border-color:var(--mint); box-shadow:0 0 24px rgba(127,191,143,.2); background:rgba(127,191,143,.08); }
+    .step-title { font-weight:500; color:var(--white); margin-bottom:8px; font-size:.95rem; }
+    .step-desc { font-size:.85rem; color:rgba(200,223,192,.5); line-height:1.6; }
+
+    /* ── DASHBOARD / MONITORING ── */
+    .monitor-section { background:var(--off); }
+    .monitor-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; margin-top:60px; }
+
+    /* Eco dashboard mock */
+    .eco-dashboard {
+      background:var(--white);
+      border:1px solid var(--line);
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0 8px 40px rgba(74,140,92,.1);
+    }
+    .dash-top {
+      background:var(--green-deep);
+      padding:16px 20px;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .dash-brand { font-family:'DM Mono',monospace; font-size:.65rem; letter-spacing:.2em; color:rgba(200,223,192,.6); }
+    .dash-live { display:flex; align-items:center; gap:6px; font-family:'DM Mono',monospace; font-size:.6rem; color:var(--mint); }
+    .dash-live::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--mint); animation:pulseDot 1.5s ease infinite; }
+    .dash-body { padding:20px; }
+    .dash-kpis { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px; }
+    .kpi-box {
+      background:var(--off);
+      padding:14px 12px;
+      border-radius:10px;
+      border-left:3px solid var(--green);
+    }
+    .kpi-val { font-size:1.2rem; font-weight:500; color:var(--green-deep); display:block; line-height:1; }
+    .kpi-lbl { font-family:'DM Mono',monospace; font-size:.58rem; letter-spacing:.1em; color:var(--muted); margin-top:4px; display:block; }
+
+    /* organic chart */
+    .eco-chart { padding:0 0 8px; }
+    .chart-label { font-family:'DM Mono',monospace; font-size:.58rem; letter-spacing:.1em; color:var(--muted); margin-bottom:10px; }
+    .chart-bars { display:flex; align-items:flex-end; gap:4px; height:80px; }
+    .cb {
+      flex:1; border-radius:4px 4px 0 0;
+      animation:cbGrow .8s var(--cb) ease both;
+      transform-origin:bottom;
+    }
+    @keyframes cbGrow { from{transform:scaleY(0);} to{transform:scaleY(1);} }
+    .cb-green { background:linear-gradient(180deg,var(--green),rgba(74,140,92,.3)); }
+    .cb-mint  { background:linear-gradient(180deg,var(--mint),rgba(127,191,143,.3)); }
+    .cb-sun   { background:linear-gradient(180deg,var(--sun),rgba(232,200,74,.3)); }
+
+    /* leaf mini gauge */
+    .gauge-row { display:flex; gap:10px; margin-top:12px; }
+    .gauge-item { flex:1; }
+    .gauge-lbl { font-family:'DM Mono',monospace; font-size:.55rem; color:var(--muted); letter-spacing:.1em; margin-bottom:5px; }
+    .gauge-track { height:4px; background:var(--paper); border-radius:2px; overflow:hidden; }
+    .gauge-fill { height:100%; border-radius:2px; animation:fillAnim 1.8s ease forwards; }
+    .gf-green { background:var(--green); }
+    .gf-mint  { background:var(--mint); }
+    .gf-sun   { background:var(--sun); }
+
+    /* monitor features */
+    .monitor-features { display:flex; flex-direction:column; gap:20px; }
+    .mf-item {
+      display:flex; gap:16px; align-items:flex-start;
+      padding:20px 22px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      transition:all .3s;
+    }
+    .mf-item:hover { border-color:var(--green-lt); background:rgba(74,140,92,.04); }
+    .mf-icon {
+      width:42px; height:42px; flex-shrink:0;
+      background:rgba(74,140,92,.1);
+      border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      color:var(--green);
+    }
+    .mf-icon svg { width:20px; height:20px; }
+    .mf-title { font-weight:500; color:var(--green-deep); font-size:.95rem; margin-bottom:4px; }
+    .mf-desc { font-size:.85rem; color:var(--muted); line-height:1.6; }
+
+    /* ── IMPACT ── */
+    .impact-section { }
+    .impact-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-top:60px; }
+    .impact-card {
+      padding:40px 28px;
+      background:var(--off);
+      border-radius:0;
+      text-align:left;
+      position:relative; overflow:hidden;
+      border:1px solid var(--line);
+      transition:background .3s;
+    }
+    .impact-card:hover { background:rgba(74,140,92,.06); }
+    .impact-icon { font-size:1.6rem; margin-bottom:16px; display:block; }
+    .impact-val {
+      font-family:'DM Sans',sans-serif;
+      font-size:2.6rem; font-weight:300;
+      color:var(--green); line-height:1;
+      margin-bottom:8px;
+      display:block;
+    }
+    .impact-unit { font-family:'DM Mono',monospace; font-size:.68rem; color:var(--mint); letter-spacing:.12em; display:block; margin-bottom:10px; }
+    .impact-desc { font-size:.85rem; color:var(--muted); }
+
+    /* ── CONTACT ── */
+    .contact-section {
+      background:var(--green-deep);
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:80px; align-items:start;
+    }
+    .contact-section .sec-tag { color:var(--mint); }
+    .contact-section .sec-tag::before { background:var(--mint); }
+    .contact-section h2 { color:var(--white); }
+    .contact-section h2 em { color:var(--sun); }
+    .contact-section .sec-body { color:rgba(200,223,192,.5); }
+
+    .contact-info { margin-top:40px; display:flex; flex-direction:column; gap:20px; }
+    .ci-row { display:flex; gap:14px; align-items:flex-start; }
+    .ci-dot {
+      width:36px; height:36px; flex-shrink:0;
+      border:1px solid rgba(200,223,192,.2);
+      border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      color:var(--mint); font-size:.8rem;
+    }
+    .ci-label { font-family:'DM Mono',monospace; font-size:.58rem; letter-spacing:.15em; color:rgba(200,223,192,.35); }
+    .ci-val { font-size:.95rem; color:rgba(240,244,238,.85); margin-top:3px; }
+
+    .contact-form { display:flex; flex-direction:column; gap:12px; }
+    .cf-label { font-family:'DM Mono',monospace; font-size:.58rem; letter-spacing:.15em; color:rgba(200,223,192,.35); display:block; margin-bottom:5px; }
+    .cf-input {
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(200,223,192,.15);
+      color:var(--white); padding:13px 16px;
+      font-family:'DM Sans',sans-serif; font-size:.95rem;
+      outline:none; border-radius:8px; width:100%;
+      transition:border-color .2s, background .2s;
+    }
+    .cf-input:focus { border-color:rgba(127,191,143,.5); background:rgba(255,255,255,.08); }
+    .cf-input::placeholder { color:rgba(200,223,192,.2); }
+    textarea.cf-input { resize:vertical; min-height:100px; }
+    .cf-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background:var(--green-deep);
+      padding:56px 64px 32px;
+      border-top:1px solid rgba(200,223,192,.1);
+    }
+    .footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; margin-bottom:48px; }
+    .footer-logo-wrap { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+    .footer-logo-text { font-size:1.1rem; font-weight:500; color:var(--white); }
+    .footer-tagline { font-size:.85rem; color:rgba(200,223,192,.35); max-width:240px; line-height:1.7; }
+    .footer-col h4 { font-family:'DM Mono',monospace; font-size:.58rem; letter-spacing:.22em; color:rgba(200,223,192,.25); text-transform:uppercase; margin-bottom:16px; }
+    .footer-col a { display:block; font-size:.85rem; color:rgba(200,223,192,.35); text-decoration:none; margin-bottom:8px; transition:color .2s; }
+    .footer-col a:hover { color:var(--mint); }
+    .footer-bottom { border-top:1px solid rgba(200,223,192,.1); padding-top:24px; display:flex; justify-content:space-between; align-items:center; }
+    .footer-copy { font-size:.78rem; color:rgba(200,223,192,.2); }
+    .footer-cert { font-family:'DM Mono',monospace; font-size:.58rem; letter-spacing:.12em; color:rgba(127,191,143,.3); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(26px);} to{opacity:1;transform:translateY(0);} }
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity .7s ease,transform .7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:960px){
+      nav { padding:0 24px; }
+      .nav-links { display:none; }
+      .hero { grid-template-columns:1fr; padding:90px 24px 60px; min-height:auto; }
+      .hero-right { display:none; }
+      section { padding:72px 24px; }
+      .about-grid,.monitor-grid,.contact-section { grid-template-columns:1fr; gap:40px; }
+      .products-grid { grid-template-columns:1fr; }
+      .process-steps,.impact-grid { grid-template-columns:1fr 1fr; }
+      .footer-top { grid-template-columns:1fr 1fr; }
+      footer { padding:40px 24px 24px; }
+      .cf-row { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-leaf"></div>
+    Verdant Energy
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#monitor">Platform</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get a Quote</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="border:none; padding-top:100px;">
+  <div class="hero-blob blob1"></div>
+  <div class="hero-blob blob2"></div>
+
+  <div class="hero-left">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      Carbon Neutral by 2026
+    </div>
+    <h1>
+      Clean energy,<br>
+      <em>intelligently</em><br>
+      delivered.
+    </h1>
+    <p class="hero-sub">
+      We design, install and monitor solar energy systems backed by smart software — for homes, businesses and communities ready to live sustainably.
+    </p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-green">Explore Solutions</a>
+      <a href="#monitor" class="btn-outline-green">View Platform →</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="solar-illustration">
+      <!-- sun rays -->
+      <div class="sun-rays-wrap" id="sunRays"></div>
+      <!-- sun orb -->
+      <div class="sun-orb"></div>
+
+      <!-- house SVG -->
+      <div class="house-wrap">
+        <svg class="house-svg" viewBox="0 0 400 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- ground -->
+          <rect x="0" y="200" width="400" height="2" fill="#d4e2cc" opacity=".6"/>
+          <!-- house body -->
+          <rect x="80" y="120" width="240" height="80" fill="#e8efe4" stroke="#c8dfc0" stroke-width="1"/>
+          <!-- roof -->
+          <path d="M60 122 L200 50 L340 122Z" fill="#c8dfc0" stroke="#8aad80" stroke-width="1.5"/>
+          <!-- door -->
+          <rect x="180" y="155" width="40" height="45" rx="3" fill="#8aad80" opacity=".6"/>
+          <!-- window left -->
+          <rect x="100" y="135" width="50" height="40" rx="3" fill="white" stroke="#c8dfc0" stroke-width="1"/>
+          <line x1="125" y1="135" x2="125" y2="175" stroke="#c8dfc0" stroke-width=".8"/>
+          <line x1="100" y1="155" x2="150" y2="155" stroke="#c8dfc0" stroke-width=".8"/>
+          <!-- window right -->
+          <rect x="250" y="135" width="50" height="40" rx="3" fill="white" stroke="#c8dfc0" stroke-width="1"/>
+          <line x1="275" y1="135" x2="275" y2="175" stroke="#c8dfc0" stroke-width=".8"/>
+          <line x1="250" y1="155" x2="300" y2="155" stroke="#c8dfc0" stroke-width=".8"/>
+          <!-- solar panels on roof -->
+          <g opacity=".9">
+            <rect x="130" y="78" width="36" height="22" rx="2" fill="#2d5e3a" stroke="#4a8c5c" stroke-width="1"/>
+            <line x1="148" y1="78" x2="148" y2="100" stroke="#4a8c5c" stroke-width=".6" opacity=".5"/>
+            <line x1="130" y1="89" x2="166" y2="89" stroke="#4a8c5c" stroke-width=".6" opacity=".5"/>
+            <rect x="172" y="70" width="36" height="22" rx="2" fill="#2d5e3a" stroke="#4a8c5c" stroke-width="1"/>
+            <line x1="190" y1="70" x2="190" y2="92" stroke="#4a8c5c" stroke-width=".6" opacity=".5"/>
+            <line x1="172" y1="81" x2="208" y2="81" stroke="#4a8c5c" stroke-width=".6" opacity=".5"/>
+            <rect x="214" y="70" width="36" height="22" rx="2" fill="#2d5e3a" stroke="#4a8c5c" stroke-width="1"/>
+            <line x1="232" y1="70" x2="232" y2="92" stroke="#4a8c5c" stroke-width=".6" opacity=".5"/>
+            <line x1="214" y1="81" x2="250" y2="81" stroke="#4a8c5c" stroke-width=".6" opacity=".5"/>
+          </g>
+          <!-- trees -->
+          <ellipse cx="40" cy="175" rx="22" ry="28" fill="#7fbf8f" opacity=".7"/>
+          <rect x="37" y="192" width="6" height="14" fill="#6b7c5a" opacity=".7"/>
+          <ellipse cx="360" cy="180" rx="18" ry="22" fill="#8aad80" opacity=".6"/>
+          <rect x="357" y="195" width="5" height="10" fill="#6b7c5a" opacity=".6"/>
+        </svg>
+      </div>
+
+      <!-- energy flow animated dots -->
+      <canvas id="flowCanvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"></canvas>
+
+      <!-- floating data cards -->
+      <div class="data-card" style="top:12%;left:0%;--cf:3.5s;--cy:-10px;">
+        <div class="dc-label">Output Today</div>
+        <div class="dc-val">28.4 kWh</div>
+        <div class="dc-sub">↑ 12% vs yesterday</div>
+        <div class="dc-bar"><div class="dc-fill" style="--fw:82%;"></div></div>
+      </div>
+      <div class="data-card" style="bottom:28%;right:0%;--cf:4.2s;--cy:8px;">
+        <div class="dc-label">CO₂ Saved</div>
+        <div class="dc-val">14.2 kg</div>
+        <div class="dc-sub">Today · All systems</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about-section reveal">
+  <p class="sec-tag">Who we are</p>
+  <h2>Technology rooted in<br><em>nature's logic</em></h2>
+  <div class="about-grid">
+    <div>
+      <p class="sec-body">We believe the most powerful technologies are those that work with the natural world, not against it. Since 2014, Verdant Energy has installed over 6,200 solar systems — each backed by our proprietary monitoring platform and a team of engineers who care deeply about outcomes, not just outputs.</p>
+      <p class="sec-body" style="margin-top:1em;">Our software layer doesn't just report energy — it learns from it, predicts it, and optimises it continuously.</p>
+    </div>
+    <div class="about-stats">
+      <div class="about-stat">
+        <div class="about-stat-num">6.2K+</div>
+        <div><p class="about-stat-label">Installations Completed</p><p class="about-stat-desc">Across residential, commercial and agricultural properties</p></div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-num">99.6%</div>
+        <div><p class="about-stat-label">System Uptime</p><p class="about-stat-desc">Average across our monitored network — last 24 months</p></div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-num">48K</div>
+        <div><p class="about-stat-label">Tonnes CO₂ Avoided</p><p class="about-stat-desc">Cumulative since our first installation in 2014</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" class="products-section reveal">
+  <p class="sec-tag">Our Solutions</p>
+  <h2>Built for every<br><em>energy need</em></h2>
+  <p class="sec-body">From a single rooftop to a multi-site commercial portfolio — our panels, inverters and software work as a unified system.</p>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="pc-icon">
+        <svg viewBox="0 0 26 26" fill="none" stroke="var(--green)" stroke-width="1.5">
+          <rect x="2" y="5" width="22" height="16" rx="1.5"/>
+          <line x1="2" y1="11" x2="24" y2="11"/><line x1="2" y1="17" x2="24" y2="17"/>
+          <line x1="9" y1="5" x2="9" y2="21"/><line x1="17" y1="5" x2="17" y2="21"/>
+        </svg>
+      </div>
+      <p class="pc-tag">Residential</p>
+      <p class="pc-name">Home Solar Systems</p>
+      <p class="pc-desc">Monocrystalline panels engineered for suburban rooftops. High-efficiency, low-profile and backed by a 25-year performance warranty.</p>
+      <div class="pc-specs"><span class="pc-spec">300–500W</span><span class="pc-spec">22.4% Eff.</span><span class="pc-spec">25yr Warranty</span></div>
+    </div>
+    <div class="product-card">
+      <div class="pc-icon">
+        <svg viewBox="0 0 26 26" fill="none" stroke="var(--green)" stroke-width="1.5">
+          <path d="M13 2L2 8l11 6 11-6-11-6zM2 18l11 6 11-6M2 13l11 6 11-6"/>
+        </svg>
+      </div>
+      <p class="pc-tag">Commercial</p>
+      <p class="pc-name">Commercial Arrays</p>
+      <p class="pc-desc">Large-format bifacial panels for flat commercial rooftops and ground-mount installations. Optimised for maximum annual yield per m².</p>
+      <div class="pc-specs"><span class="pc-spec">550W Bifacial</span><span class="pc-spec">IEC 61215</span><span class="pc-spec">IP68</span></div>
+    </div>
+    <div class="product-card">
+      <div class="pc-icon">
+        <svg viewBox="0 0 26 26" fill="none" stroke="var(--green)" stroke-width="1.5">
+          <rect x="4" y="8" width="18" height="14" rx="1.5"/>
+          <path d="M9 8V6a4 4 0 018 0v2"/>
+          <circle cx="13" cy="15" r="2"/>
+          <line x1="13" y1="17" x2="13" y2="20"/>
+        </svg>
+      </div>
+      <p class="pc-tag">Storage</p>
+      <p class="pc-name">Battery Storage</p>
+      <p class="pc-desc">LiFePO₄ battery systems from 10 to 30 kWh. Store excess solar, reduce grid dependency and maintain power through outages.</p>
+      <div class="pc-specs"><span class="pc-spec">10–30 kWh</span><span class="pc-spec">6000+ Cycles</span><span class="pc-spec">BMS Integrated</span></div>
+    </div>
+    <div class="product-card">
+      <div class="pc-icon">
+        <svg viewBox="0 0 26 26" fill="none" stroke="var(--green)" stroke-width="1.5">
+          <rect x="8" y="3" width="10" height="20" rx="1.5"/>
+          <line x1="11" y1="8" x2="15" y2="8"/><line x1="11" y1="12" x2="15" y2="12"/>
+          <circle cx="13" cy="17" r="1.5"/>
+        </svg>
+      </div>
+      <p class="pc-tag">Conversion</p>
+      <p class="pc-name">Smart Inverters</p>
+      <p class="pc-desc">String and micro-inverters with built-in Wi-Fi monitoring. 98.4% peak efficiency with automatic grid-tie and island-mode switching.</p>
+      <div class="pc-specs"><span class="pc-spec">3–20 kW</span><span class="pc-spec">98.4% Eff.</span><span class="pc-spec">Wi-Fi + API</span></div>
+    </div>
+    <div class="product-card">
+      <div class="pc-icon">
+        <svg viewBox="0 0 26 26" fill="none" stroke="var(--green)" stroke-width="1.5">
+          <circle cx="13" cy="13" r="10"/>
+          <path d="M13 3v4M13 19v4M3 13h4M19 13h4"/>
+          <circle cx="13" cy="13" r="3"/>
+        </svg>
+      </div>
+      <p class="pc-tag">Monitoring</p>
+      <p class="pc-name">Verdant IoT Hub</p>
+      <p class="pc-desc">The nerve centre of your solar system. Real-time data from every panel, over-the-air firmware updates and Modbus / MQTT integration.</p>
+      <div class="pc-specs"><span class="pc-spec">4G + Wi-Fi</span><span class="pc-spec">OTA Updates</span><span class="pc-spec">Open API</span></div>
+    </div>
+    <div class="product-card">
+      <div class="pc-icon">
+        <svg viewBox="0 0 26 26" fill="none" stroke="var(--green)" stroke-width="1.5">
+          <rect x="3" y="3" width="20" height="16" rx="1.5"/>
+          <path d="M8 19v4M18 19v4M5 23h16"/>
+          <path d="M7 11l4 4 8-8"/>
+        </svg>
+      </div>
+      <p class="pc-tag">Software</p>
+      <p class="pc-name">Verdant OS Platform</p>
+      <p class="pc-desc">AI-powered energy management software. Predict output 72h ahead, automate grid trading and receive instant fault alerts — from any device.</p>
+      <div class="pc-specs"><span class="pc-spec">AI Forecasting</span><span class="pc-spec">Auto-Trading</span><span class="pc-spec">Multi-Site</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section reveal">
+  <p class="sec-tag">How it works</p>
+  <h2>From sunlight to<br><em>savings</em> in four steps</h2>
+  <div class="process-steps">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <p class="step-title">Site Assessment</p>
+      <p class="step-desc">Our engineers analyse your roof, energy consumption and local irradiance to design the optimal system.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <p class="step-title">System Design</p>
+      <p class="step-desc">A custom layout is modelled and simulated — panel count, inverter spec and battery sizing all optimised before a single bolt is turned.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <p class="step-title">Installation</p>
+      <p class="step-desc">Certified installers complete most residential systems in a single day. Commercial projects include full grid-connection support.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <p class="step-title">Live Monitoring</p>
+      <p class="step-desc">Your system goes live on the Verdant OS platform — monitored 24/7 with proactive alerts and annual performance reviews.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MONITORING PLATFORM -->
+<section id="monitor" class="monitor-section reveal">
+  <p class="sec-tag">Software Platform</p>
+  <h2>Your energy,<br><em>always visible</em></h2>
+  <div class="monitor-grid">
+    <!-- DASHBOARD MOCK -->
+    <div class="eco-dashboard">
+      <div class="dash-top">
+        <span class="dash-brand">VERDANT OS · LIVE DASHBOARD</span>
+        <span class="dash-live">System Online</span>
+      </div>
+      <div class="dash-body">
+        <div class="dash-kpis">
+          <div class="kpi-box"><span class="kpi-val">8.2kW</span><span class="kpi-lbl">Current</span></div>
+          <div class="kpi-box" style="border-left-color:var(--mint);"><span class="kpi-val">41.6</span><span class="kpi-lbl">kWh Today</span></div>
+          <div class="kpi-box" style="border-left-color:var(--sun);"><span class="kpi-val">94%</span><span class="kpi-lbl">Efficiency</span></div>
+        </div>
+        <div class="eco-chart">
+          <div class="chart-label">OUTPUT · LAST 12 HOURS</div>
+          <div class="chart-bars">
+            <div class="cb cb-green" style="height:20%;--cb:.1s;"></div>
+            <div class="cb cb-green" style="height:35%;--cb:.15s;"></div>
+            <div class="cb cb-mint"  style="height:60%;--cb:.2s;"></div>
+            <div class="cb cb-mint"  style="height:78%;--cb:.25s;"></div>
+            <div class="cb cb-sun"   style="height:90%;--cb:.3s;"></div>
+            <div class="cb cb-sun"   style="height:96%;--cb:.35s;"></div>
+            <div class="cb cb-sun"   style="height:100%;--cb:.4s;"></div>
+            <div class="cb cb-mint"  style="height:88%;--cb:.45s;"></div>
+            <div class="cb cb-green" style="height:72%;--cb:.5s;"></div>
+            <div class="cb cb-green" style="height:55%;--cb:.55s;"></div>
+            <div class="cb cb-green" style="height:38%;--cb:.6s;"></div>
+            <div class="cb cb-green" style="height:18%;--cb:.65s;"></div>
+          </div>
+        </div>
+        <div class="gauge-row">
+          <div class="gauge-item">
+            <div class="gauge-lbl">SELF-CONSUMPTION</div>
+            <div class="gauge-track"><div class="gauge-fill gf-green" style="--fw:74%;"></div></div>
+          </div>
+          <div class="gauge-item">
+            <div class="gauge-lbl">BATTERY LEVEL</div>
+            <div class="gauge-track"><div class="gauge-fill gf-mint" style="--fw:88%;"></div></div>
+          </div>
+          <div class="gauge-item">
+            <div class="gauge-lbl">GRID EXPORT</div>
+            <div class="gauge-track"><div class="gauge-fill gf-sun" style="--fw:26%;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- features -->
+    <div class="monitor-features">
+      <div class="mf-item">
+        <div class="mf-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2z"/><path d="M10 6v5l3 2"/></svg></div>
+        <div><p class="mf-title">72-Hour Energy Forecasting</p><p class="mf-desc">AI models predict your output based on live weather data, panel degradation curves and historical performance.</p></div>
+      </div>
+      <div class="mf-item">
+        <div class="mf-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 10h14M3 5l7 5 7-5M3 15l7-5 7 5"/></svg></div>
+        <div><p class="mf-title">Automated Grid Trading</p><p class="mf-desc">The platform detects peak-price windows and automatically exports excess energy — maximising your feed-in revenue.</p></div>
+      </div>
+      <div class="mf-item">
+        <div class="mf-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="10" cy="10" r="7"/><path d="M10 7v3l2 2"/></svg></div>
+        <div><p class="mf-title">Instant Fault Alerts</p><p class="mf-desc">Any performance drop triggers an immediate notification — with root cause diagnostics so your engineer arrives prepared.</p></div>
+      </div>
+      <div class="mf-item">
+        <div class="mf-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M7 10h6M7 7h3"/></svg></div>
+        <div><p class="mf-title">Open API & Integrations</p><p class="mf-desc">Connect Verdant OS to your building management system, ERP or smart home platform. Full REST & WebSocket API.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact" class="impact-section reveal">
+  <p class="sec-tag">Our Impact</p>
+  <h2>Numbers that<br><em>matter</em></h2>
+  <div class="impact-grid">
+    <div class="impact-card">
+      <span class="impact-icon">☀</span>
+      <span class="impact-val">480 GWh</span>
+      <span class="impact-unit">Clean Energy Generated</span>
+      <p class="impact-desc">Total clean electricity produced by Verdant systems since 2014</p>
+    </div>
+    <div class="impact-card">
+      <span class="impact-icon">🌿</span>
+      <span class="impact-val">48K</span>
+      <span class="impact-unit">Tonnes CO₂ Avoided</span>
+      <p class="impact-desc">Equivalent to planting 780,000 trees or removing 10,000 cars from the road</p>
+    </div>
+    <div class="impact-card">
+      <span class="impact-icon">🏠</span>
+      <span class="impact-val">6,200+</span>
+      <span class="impact-unit">Homes & Businesses</span>
+      <p class="impact-desc">Solar systems installed and monitored across 14 countries</p>
+    </div>
+    <div class="impact-card">
+      <span class="impact-icon">💧</span>
+      <span class="impact-val">€22M</span>
+      <span class="impact-unit">Client Savings / Year</span>
+      <p class="impact-desc">Combined annual energy cost reduction across our client portfolio</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section reveal" style="padding:110px 64px;">
+  <div>
+    <p class="sec-tag">Get in Touch</p>
+    <h2>Start your solar<br><em>journey</em> today.</h2>
+    <p class="sec-body" style="margin-top:16px;">Tell us about your property and energy goals. Our team will design a system and send you a no-obligation proposal within 48 hours.</p>
+    <div class="contact-info">
+      <div class="ci-row">
+        <div class="ci-dot">@</div>
+        <div><p class="ci-label">Email</p><p class="ci-val">hello@verdantenergy.io</p></div>
+      </div>
+      <div class="ci-row">
+        <div class="ci-dot">☎</div>
+        <div><p class="ci-label">Phone</p><p class="ci-val">+31 (0)20 123 4567</p></div>
+      </div>
+      <div class="ci-row">
+        <div class="ci-dot">◎</div>
+        <div><p class="ci-label">Offices</p><p class="ci-val">Amsterdam · Barcelona · Lisbon</p></div>
+      </div>
+    </div>
+  </div>
+  <form class="contact-form" onsubmit="return false;">
+    <div class="cf-row">
+      <div><label class="cf-label">First Name</label><input class="cf-input" type="text" placeholder="Your name"/></div>
+      <div><label class="cf-label">Last Name</label><input class="cf-input" type="text" placeholder="Family name"/></div>
+    </div>
+    <div><label class="cf-label">Email Address</label><input class="cf-input" type="email" placeholder="you@email.com"/></div>
+    <div>
+      <label class="cf-label">Property Type</label>
+      <select class="cf-input" style="background:rgba(255,255,255,.05);">
+        <option value="" style="background:#1a3d25;">Select type</option>
+        <option style="background:#1a3d25;">Residential</option>
+        <option style="background:#1a3d25;">Commercial</option>
+        <option style="background:#1a3d25;">Agricultural</option>
+        <option style="background:#1a3d25;">Industrial</option>
+      </select>
+    </div>
+    <div><label class="cf-label">Monthly Energy Bill (approx.)</label><input class="cf-input" type="text" placeholder="e.g. €180/month"/></div>
+    <div><label class="cf-label">Message</label><textarea class="cf-input" placeholder="Tell us about your project…"></textarea></div>
+    <button class="btn-green" style="align-self:flex-start; cursor:pointer;">Send Enquiry →</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo-wrap">
+        <div class="logo-leaf"></div>
+        <span class="footer-logo-text">Verdant Energy</span>
+      </div>
+      <p class="footer-tagline">Solar energy systems and smart monitoring software for a quieter, cleaner world.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <a href="#">Solar Panels</a>
+      <a href="#">Inverters</a>
+      <a href="#">Battery Storage</a>
+      <a href="#">IoT Hub</a>
+    </div>
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <a href="#">Verdant OS</a>
+      <a href="#">API Docs</a>
+      <a href="#">Integrations</a>
+      <a href="#">System Status</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About Us</a>
+      <a href="#">Sustainability</a>
+      <a href="#">Careers</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 Verdant Energy B.V. · All rights reserved</p>
+    <p class="footer-cert">ISO 14001 · B Corp Certified · Carbon Neutral 2026</p>
+  </div>
+</footer>
+
+<script>
+  // ── CURSOR
+  const cur=document.getElementById('cur'), ring=document.getElementById('cur-ring');
+  document.addEventListener('mousemove',e=>{
+    cur.style.left=e.clientX+'px'; cur.style.top=e.clientY+'px';
+    ring.style.left=e.clientX+'px'; ring.style.top=e.clientY+'px';
+  });
+  document.querySelectorAll('a,button,.product-card,.about-stat,.mf-item').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ cur.style.width='18px'; cur.style.height='18px'; cur.style.background='var(--green-dk)'; ring.style.width='50px'; ring.style.height='50px'; });
+    el.addEventListener('mouseleave',()=>{ cur.style.width='10px'; cur.style.height='10px'; cur.style.background='var(--green)'; ring.style.width='34px'; ring.style.height='34px'; });
+  });
+
+  // ── SUN RAYS
+  const raysWrap=document.getElementById('sunRays');
+  if(raysWrap){
+    for(let i=0;i<12;i++){
+      const r=document.createElement('div');
+      const angle=(i/12)*360;
+      const len=50+Math.random()*30;
+      r.className='sun-ray';
+      r.style.cssText=`transform:rotate(${angle}deg);height:${len}px;margin-left:-0.75px;`;
+      raysWrap.appendChild(r);
+    }
+  }
+
+  // ── LEAF PARTICLES
+  const heroEl=document.querySelector('.hero');
+  for(let i=0;i<10;i++){
+    const p=document.createElement('div');
+    p.className='leaf-particle';
+    const size=6+Math.random()*8;
+    p.style.cssText=`
+      width:${size}px;height:${size}px;
+      background:var(--sage);
+      border-radius:50% 0 50% 50%;
+      left:${5+Math.random()*90}%;
+      top:-10px;
+      --ld:${6+Math.random()*8}s;
+      --ldelay:${Math.random()*8}s;
+      --lr:${180+Math.random()*360}deg;
+    `;
+    heroEl.appendChild(p);
+  }
+
+  // ── FLOW CANVAS (energy dots moving from panels to house)
+  const canvas=document.getElementById('flowCanvas');
+  if(canvas){
+    const ctx=canvas.getContext('2d');
+    function resize(){ canvas.width=canvas.offsetWidth; canvas.height=canvas.offsetHeight; }
+    resize(); window.addEventListener('resize',resize);
+    const dots=[];
+    for(let i=0;i<8;i++){
+      dots.push({
+        x:canvas.width*.38+Math.random()*canvas.width*.15,
+        y:canvas.height*.18+Math.random()*canvas.height*.08,
+        tx:canvas.width*.38+Math.random()*canvas.width*.24,
+        ty:canvas.height*.72,
+        progress:Math.random(),
+        speed:.003+Math.random()*.003,
+        r:2.5+Math.random()*1.5,
+        alpha:0,
+      });
+    }
+    function animDots(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      dots.forEach(d=>{
+        d.progress+=d.speed;
+        if(d.progress>1){ d.progress=0; d.x=canvas.width*.35+Math.random()*canvas.width*.2; d.y=canvas.height*.15+Math.random()*canvas.height*.1; }
+        const x=d.x+(d.tx-d.x)*d.progress;
+        const y=d.y+(d.ty-d.y)*d.progress;
+        const alpha=d.progress<.2?d.progress/.2:d.progress>.8?(1-d.progress)/.2:1;
+        ctx.beginPath();
+        ctx.arc(x,y,d.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(74,140,92,${alpha*.7})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(animDots);
+    }
+    animDots();
+  }
+
+  // ── SCROLL REVEAL
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  },{threshold:.07});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+  // ── LIVE KPI FLICKER (subtle)
+  setInterval(()=>{
+    document.querySelectorAll('.kpi-val').forEach(el=>{
+      el.style.opacity='.5';
+      setTimeout(()=>el.style.opacity='1',60);
+    });
+  },4000);
+</script>
+</body>
+</html>
