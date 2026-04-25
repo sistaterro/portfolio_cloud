@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <title>Contact — Juan Diaz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@500;600;700;800&family=Syne:wght@400;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0a0a0f;
+      --surface: rgba(255,255,255,0.04);
+      --border:  rgba(255,255,255,0.08);
+      --text:    #e8e8f0;
+      --text2:   #a0a0b8;
+      --text3:   #505068;
+      --blue:    #4488ff;
+      --cyan:    #00ccff;
+      --cyan2:   #00aaff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* BG — pure blue/cyan, no orange */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse 65% 50% at 15% 15%, rgba(0,120,255,0.09) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 45% at 85% 85%, rgba(0,180,255,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 50% 50%, rgba(0,80,180,0.04) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* Grid bg */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,204,255,0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,204,255,0.016) 1px, transparent 1px);
+      background-size: 56px 56px;
+      opacity: 0.9;
+      pointer-events: none; z-index: 0;
+    }
+
+    .wrapper {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 60px 24px; gap: 40px;
+    }
+
+    .contact {
+      width: 100%; max-width: 640px;
+      text-align: center;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .eyebrow {
+      display: block; margin-bottom: 18px;
+      color: var(--text3);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 5px; text-transform: uppercase;
+    }
+
+    /* ── GLITCH TITLE — Metal Gear style ── */
+    h1 {
+      position: relative; margin-bottom: 14px;
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(54px, 9vw, 108px);
+      font-weight: 800; letter-spacing: -1px; line-height: 0.92;
+    }
+
+    h1 em {
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      background-clip: text; -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-style: normal;
+    }
+
+    .glitch {
+      display: inline-block;
+      position: relative;
+      /* subtle base glow */
+      text-shadow:
+        0 0 18px rgba(0,170,255,0.22),
+        0 0 42px rgba(255,138,31,0.12);
+    }
+
+    /* Layer 1 — cyan, clips top strip, horizontal offset */
+    .glitch::before {
+      content: attr(data-text);
+      position: absolute; inset: 0;
+      color: var(--cyan);
+      /* -webkit-text-fill-color overrides the em gradient on the pseudo */
+      -webkit-text-fill-color: var(--cyan);
+      text-shadow:
+        -5px 0 rgba(0,204,255,0.95),
+        0 0 22px rgba(0,204,255,0.55);
+      animation: glitch-top 8.2s steps(1) infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 38%, 0 38%);
+      pointer-events: none;
+    }
+
+    /* Layer 2 — electric blue, clips bottom strip */
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute; inset: 0;
+      color: var(--amber);
+      -webkit-text-fill-color: var(--amber);
+      text-shadow:
+        5px 0 rgba(255,138,31,0.9),
+        0 0 24px rgba(255,138,31,0.42);
+      animation: glitch-bot 9.1s steps(1) infinite;
+      clip-path: polygon(0 52%, 100% 52%, 100% 100%, 0 100%);
+      pointer-events: none;
+    }
+
+    @keyframes glitch-top {
+      0%,34%,48%,58%,74%,100% { opacity: 0; transform: translate(0,0); }
+      /* burst 1 */
+      35%  { opacity: 1; transform: translate(-12px, -2px); filter: brightness(1.8); }
+      36%  { opacity: 0.55; transform: translate(9px, 1px); clip-path: polygon(0 0, 100% 0, 100% 20%, 0 20%); }
+      37%  { opacity: 1; transform: translate(-6px, 3px); clip-path: polygon(0 16%, 100% 16%, 100% 46%, 0 46%); }
+      38%  { opacity: 0; transform: translate(0,0); }
+      /* burst 2 */
+      59%  { opacity: 1; transform: translate(14px, -1px); filter: brightness(2); }
+      60%  { opacity: 0.35; transform: translate(-8px, 0); }
+      61%  { opacity: 0.95; transform: translate(6px, -3px); clip-path: polygon(0 2%, 100% 2%, 100% 30%, 0 30%); }
+      62%  { opacity: 0; }
+      /* burst 3 */
+      75%  { opacity: 0.75; transform: translate(-10px, 1px); }
+      76%  { opacity: 0; }
+    }
+
+    @keyframes glitch-bot {
+      0%,24%,42%,68%,84%,100% { opacity: 0; transform: translate(0,0); }
+      /* burst 1 */
+      25%  { opacity: 1; transform: translate(10px, 3px); filter: brightness(1.8); }
+      26%  { opacity: 0.55; transform: translate(-12px, 0); clip-path: polygon(0 66%, 100% 66%, 100% 100%, 0 100%); }
+      27%  { opacity: 0.95; transform: translate(7px, -2px); clip-path: polygon(0 45%, 100% 45%, 100% 78%, 0 78%); }
+      28%  { opacity: 0; transform: translate(0,0); }
+      /* burst 2 */
+      69%  { opacity: 1; transform: translate(-14px, 2px); }
+      70%  { opacity: 0.4; transform: translate(9px, 0); }
+      71%  { opacity: 0.9; transform: translate(-6px, -1px); clip-path: polygon(0 58%, 100% 58%, 100% 92%, 0 92%); }
+      72%  { opacity: 0; }
+      /* burst 3 */
+      85%  { opacity: 0.8; transform: translate(12px, 1px); }
+      86%  { opacity: 0; }
+    }
+
+    /* scanline sweep during glitch */
+    @keyframes scanline {
+      0%,34%,58%,100% { opacity: 0; top: -10%; }
+      35%  { opacity: 0.28; top: 8%; }
+      36%  { opacity: 0.18; top: 44%; }
+      37%  { opacity: 0; top: 110%; }
+      59%  { opacity: 0.25; top: 16%; }
+      61%  { opacity: 0; top: 104%; }
+    }
+    .glitch-scan {
+      position: absolute; left: 0; right: 0; height: 5px;
+      background: linear-gradient(90deg, transparent, rgba(0,220,255,0.7), rgba(255,138,31,0.45), transparent);
+      box-shadow: 0 0 18px rgba(0,220,255,0.5);
+      pointer-events: none;
+      animation: scanline 8.2s steps(1) infinite;
+    }
+
+    .intro {
+      max-width: 520px; margin: 16px auto 30px;
+      color: var(--text2); font-size: 16px; line-height: 1.75;
+    }
+
+    /* ── CONTACT CARD ── */
+    .contact-card {
+      position: relative;
+      display: flex; flex-direction: column; gap: 0;
+      overflow: hidden;
+      border: 1px solid rgba(0,170,255,0.22);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(0,20,50,0.92), rgba(6,8,20,0.97));
+      box-shadow:
+        0 24px 80px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(255,255,255,0.03),
+        inset 0 0 40px rgba(0,100,255,0.03);
+      /* mouse glow vars — set via JS */
+      --mx: 50%; --my: 50%;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    /* Mouse-follow radial glow */
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      inset: 0; z-index: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        280px circle at var(--mx) var(--my),
+        rgba(0,180,255,0.09),
+        transparent 70%
+      );
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .contact-card:hover::before { opacity: 1; }
+
+    /* Top gold line */
+    .contact-card .card-top-line {
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan2), transparent);
+      opacity: 0.7; z-index: 1;
+    }
+
+    /* Corner brackets */
+    .panel-corner {
+      position: absolute;
+      width: 28px; height: 28px;
+      border-color: rgba(0,204,255,0.45);
+      pointer-events: none; z-index: 2;
+    }
+    .panel-corner.tl { top: 14px; left: 14px; border-top: 1px solid; border-left: 1px solid; }
+    .panel-corner.br { bottom: 14px; right: 14px; border-bottom: 1px solid; border-right: 1px solid; }
+
+    /* Card inner padding wrapper */
+    .card-inner {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; gap: 0;
+      padding: 34px;
+    }
+
+    /* Each row */
+    .contact-line {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 18px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .contact-line:last-of-type { border-bottom: none; margin-bottom: 4px; }
+
+    .label {
+      color: rgba(0,200,255,0.6);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    /* Email value — Share Tech Mono, readable size */
+    .value {
+      color: #d8eeff;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: clamp(16px, 3vw, 20px);
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      text-align: right;
+      word-break: break-all;
+    }
+    .value.name-val {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(16px, 3vw, 20px);
+      font-weight: 700;
+      letter-spacing: -0.2px;
+    }
+
+    /* Copy email row */
+    .email-row {
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.2s;
+      padding: 18px 8px;
+      margin: 0 -8px;
+    }
+    .email-row:hover { background: rgba(0,180,255,0.05); }
+    .copy-hint {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 8px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(0,200,255,0.35);
+      transition: color 0.2s;
+      flex-shrink: 0;
+    }
+    .email-row:hover .copy-hint { color: rgba(0,200,255,0.7); }
+    .copy-hint.copied { color: #00ff88 !important; }
+
+    /* ── BUTTONS ── */
+    .actions {
+      display: flex; justify-content: center;
+      gap: 10px; flex-wrap: wrap;
+      margin-top: 20px;
+      position: relative; z-index: 1;
+    }
+
+    .button {
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 38px; padding: 0 20px;
+      border: 1px solid rgba(0,170,255,0.3);
+      border-radius: 4px;
+      background: rgba(0,120,255,0.07);
+      color: rgba(0,200,255,0.85);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.15s;
+      /* clip path for slight angular feel */
+      clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+    }
+    .button::before {
+      content: '';
+      position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0,200,255,0.1), transparent);
+      transition: left 0.4s;
+    }
+    .button:hover { border-color: rgba(0,204,255,0.6); color: var(--cyan); background: rgba(0,150,255,0.1); transform: translateY(-2px); }
+    .button:hover::before { left: 100%; }
+    .button:active { transform: translateY(0); }
+
+    /* ── SIGNAL PILLS ── */
+    .signal-row {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; margin-top: 16px;
+      position: relative; z-index: 1;
+    }
+
+    .signal-pill {
+      border: 1px solid rgba(0,180,255,0.2);
+      border-radius: 3px;
+      padding: 6px 14px;
+      color: rgba(0,200,255,0.55);
+      background: rgba(0,120,255,0.05);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      clip-path: polygon(3px 0, 100% 0, calc(100% - 3px) 100%, 0 100%);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .signal-pill:hover { border-color: rgba(0,200,255,0.4); color: rgba(0,220,255,0.8); }
+
+    /* ── FOOTER ── */
+    .footer {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 10px; text-align: center;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 0.6s ease forwards 0.15s;
+    }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+    .footer-links a {
+      color: var(--text3); font-size: 12px;
+      text-decoration: none; transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--text2); }
+    .footer span { color: var(--text3); font-size: 11px; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .wrapper { align-items: stretch; justify-content: flex-start; padding: 36px 16px; }
+      .contact { text-align: left; }
+      .intro { margin-left: 0; margin-right: 0; }
+      .card-inner { padding: 22px 18px; }
+      .contact-line { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .value { text-align: left; }
+      .email-row { flex-direction: column; gap: 4px; }
+      .copy-hint { align-self: flex-end; }
+      .actions { justify-content: flex-start; }
+      .signal-row { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <main class="contact">
+      <span class="eyebrow">Contact · Eindhoven, Netherlands</span>
+
+      <h1>
+        <span class="glitch" data-text="Juan Diaz">Juan <em>Diaz</em></span>
+      </h1>
+      <div class="glitch-scan"></div>
+
+      <p class="intro">Full-stack engineer building web platforms, production systems and AI-powered products.</p>
+
+      <section class="contact-card" id="contactCard" aria-label="Contact details">
+        <div class="card-top-line"></div>
+        <span class="panel-corner tl" aria-hidden="true"></span>
+        <span class="panel-corner br" aria-hidden="true"></span>
+
+        <div class="card-inner">
+          <div class="contact-line">
+            <span class="label">Name</span>
+            <span class="value name-val">Juan Diaz</span>
+          </div>
+
+          <!-- Email — click to copy, no mailto -->
+          <div class="contact-line email-row" id="emailRow" role="button" tabindex="0" aria-label="Copy email address" title="Click to copy">
+            <span class="label">Email</span>
+            <span class="value" id="emailVal">dazjuancarlos@gmail.com</span>
+            <span class="copy-hint" id="copyHint">COPY</span>
+          </div>
+
+          <div class="contact-line">
+            <span class="label">Location</span>
+            <span class="value" style="font-size:16px">Eindhoven, NL</span>
+          </div>
+
+          <div class="actions">
+            <a class="button" href="index.html">← Portfolio</a>
+            <a class="button" href="https://github.com/sistaterro" target="_blank" rel="noopener">GitHub</a>
+            <a class="button" href="https://www.linkedin.com/in/juancarlosdiaz" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+
+          <div class="signal-row" aria-label="Contact categories">
+            <span class="signal-pill">Requests</span>
+            <span class="signal-pill">Projects</span>
+            <span class="signal-pill">AI Systems</span>
+            <span class="signal-pill">General Contact</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="footer">
+      <div class="footer-links">
+        <a href="index.html">Portfolio</a>
+        <a href="https://github.com/sistaterro" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/sistaterro/Emma-Chat" target="_blank" rel="noopener">Emma Chat</a>
+      </div>
+      <span>© 2026 Juan Diaz · Eindhoven, Netherlands</span>
+    </div>
+  </div>
+
+  <script>
+    // ── MOUSE GLOW ON CARD ──
+    const card = document.getElementById('contactCard');
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1) + '%';
+      const y = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + '%';
+      card.style.setProperty('--mx', x);
+      card.style.setProperty('--my', y);
+    });
+
+    // ── COPY EMAIL ──
+    const emailRow  = document.getElementById('emailRow');
+    const copyHint  = document.getElementById('copyHint');
+    const emailVal  = document.getElementById('emailVal');
+
+    function copyEmail() {
+      navigator.clipboard.writeText(emailVal.textContent.trim()).then(() => {
+        copyHint.textContent = 'COPIED ✓';
+        copyHint.classList.add('copied');
+        emailVal.style.color = '#00ff88';
+        setTimeout(() => {
+          copyHint.textContent = 'COPY';
+          copyHint.classList.remove('copied');
+          emailVal.style.color = '';
+        }, 2200);
+      }).catch(() => {
+        // Fallback for older browsers
+        const sel = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(emailVal);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        copyHint.textContent = 'SELECT & COPY';
+        setTimeout(() => { copyHint.textContent = 'COPY'; }, 2000);
+      });
+    }
+
+    emailRow.addEventListener('click', copyEmail);
+    emailRow.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') copyEmail(); });
+  </script>
+</body>
+</html>
