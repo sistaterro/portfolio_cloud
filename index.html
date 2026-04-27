@@ -100,6 +100,7 @@
     }
 
     .hero h1 {
+      position: relative;
       font-family: 'Syne', sans-serif;
       font-size: clamp(36px, 5vw, 54px);
       font-weight: 800;
@@ -107,6 +108,90 @@
       letter-spacing: -1px;
       color: var(--text);
       margin-bottom: 16px;
+    }
+
+    .glitch {
+      display: inline-block;
+      position: relative;
+      text-shadow:
+        0 0 18px rgba(0, 170, 255, 0.22),
+        0 0 42px rgba(120, 0, 255, 0.12);
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .glitch::before {
+      color: #00ccff;
+      -webkit-text-fill-color: #00ccff;
+      text-shadow:
+        -5px 0 rgba(0, 204, 255, 0.95),
+        0 0 22px rgba(0, 204, 255, 0.55);
+      animation: glitch-top 8.2s steps(1) infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 38%, 0 38%);
+    }
+
+    .glitch::after {
+      color: #4488ff;
+      -webkit-text-fill-color: #4488ff;
+      text-shadow:
+        5px 0 rgba(68, 136, 255, 0.9),
+        0 0 24px rgba(68, 136, 255, 0.42);
+      animation: glitch-bot 9.1s steps(1) infinite;
+      clip-path: polygon(0 52%, 100% 52%, 100% 100%, 0 100%);
+    }
+
+    @keyframes glitch-top {
+      0%, 34%, 48%, 58%, 74%, 100% { opacity: 0; transform: translate(0, 0); }
+      35% { opacity: 1; transform: translate(-12px, -2px); filter: brightness(1.8); }
+      36% { opacity: 0.55; transform: translate(9px, 1px); clip-path: polygon(0 0, 100% 0, 100% 20%, 0 20%); }
+      37% { opacity: 1; transform: translate(-6px, 3px); clip-path: polygon(0 16%, 100% 16%, 100% 46%, 0 46%); }
+      38% { opacity: 0; transform: translate(0, 0); }
+      59% { opacity: 1; transform: translate(14px, -1px); filter: brightness(2); }
+      60% { opacity: 0.35; transform: translate(-8px, 0); }
+      61% { opacity: 0.95; transform: translate(6px, -3px); clip-path: polygon(0 2%, 100% 2%, 100% 30%, 0 30%); }
+      62% { opacity: 0; }
+      75% { opacity: 0.75; transform: translate(-10px, 1px); }
+      76% { opacity: 0; }
+    }
+
+    @keyframes glitch-bot {
+      0%, 24%, 42%, 68%, 84%, 100% { opacity: 0; transform: translate(0, 0); }
+      25% { opacity: 1; transform: translate(10px, 3px); filter: brightness(1.8); }
+      26% { opacity: 0.55; transform: translate(-12px, 0); clip-path: polygon(0 66%, 100% 66%, 100% 100%, 0 100%); }
+      27% { opacity: 0.95; transform: translate(7px, -2px); clip-path: polygon(0 45%, 100% 45%, 100% 78%, 0 78%); }
+      28% { opacity: 0; transform: translate(0, 0); }
+      69% { opacity: 1; transform: translate(-14px, 2px); }
+      70% { opacity: 0.4; transform: translate(9px, 0); }
+      71% { opacity: 0.9; transform: translate(-6px, -1px); clip-path: polygon(0 58%, 100% 58%, 100% 92%, 0 92%); }
+      72% { opacity: 0; }
+      85% { opacity: 0.8; transform: translate(12px, 1px); }
+      86% { opacity: 0; }
+    }
+
+    @keyframes scanline {
+      0%, 34%, 58%, 100% { opacity: 0; top: -10%; }
+      35% { opacity: 0.28; top: 8%; }
+      36% { opacity: 0.18; top: 44%; }
+      37% { opacity: 0; top: 110%; }
+      59% { opacity: 0.25; top: 16%; }
+      61% { opacity: 0; top: 104%; }
+    }
+
+    .glitch-scan {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, transparent, rgba(0, 220, 255, 0.7), rgba(68, 136, 255, 0.45), transparent);
+      box-shadow: 0 0 18px rgba(0, 220, 255, 0.5);
+      pointer-events: none;
+      animation: scanline 8.2s steps(1) infinite;
     }
 
     .hero h1 em {
@@ -121,6 +206,52 @@
       font-size: 15px;
       color: var(--text2);
       line-height: 1.75;
+    }
+
+    .contact-cta {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      margin-top: 24px;
+      padding: 0 22px;
+      border: 1px solid rgba(0, 204, 255, 0.22);
+      border-radius: 999px;
+      background: rgba(0, 120, 255, 0.06);
+      color: #00ccff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-decoration: none;
+      text-transform: uppercase;
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+    }
+
+    .contact-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(0, 204, 255, 0.18), rgba(68, 136, 255, 0.14), transparent);
+      transform: translateX(-120%);
+      transition: transform 0.45s ease;
+    }
+
+    .contact-cta span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-cta:hover {
+      transform: translateY(-2px);
+      border-color: rgba(0, 204, 255, 0.45);
+      color: var(--text);
+      box-shadow: 0 14px 36px rgba(0, 120, 255, 0.14), 0 0 0 1px rgba(0, 204, 255, 0.08);
+    }
+
+    .contact-cta:hover::before {
+      transform: translateX(120%);
     }
 
     /* ── GRID ── */
@@ -547,6 +678,64 @@
       }
     }
 
+    /* TalkingDutch */
+    .card-talkingdutch {
+      background:
+        linear-gradient(135deg, rgba(17, 17, 17, 0.97), rgba(27, 23, 20, 0.99));
+      border-color: rgba(232, 116, 42, 0.2);
+    }
+
+    .card-talkingdutch:hover {
+      box-shadow: 0 20px 60px rgba(232, 116, 42, 0.12), 0 0 0 1px rgba(232, 116, 42, 0.35);
+    }
+
+    .card-talkingdutch::before {
+      background: linear-gradient(90deg, transparent, #ae1c28, #ffffff, #21468b, #e8742a, transparent);
+    }
+
+    .card-talkingdutch .card-tag { color: #f5943a; }
+    .card-talkingdutch .card-title { color: #f4f0ea; }
+    .card-talkingdutch .card-desc { color: #b8aaa0; opacity: 1; }
+    .card-talkingdutch .card-arrow { color: #e8742a; }
+
+    .card-talkingdutch .card-icon {
+      position: relative;
+      background: #111111;
+      border: 1px solid rgba(232, 116, 42, 0.72);
+      box-shadow: inset 0 0 0 1px rgba(255, 155, 64, 0.08), 0 0 18px rgba(232, 116, 42, 0.12);
+      animation: pulseTalkingDutch 3s ease-in-out infinite;
+    }
+
+    .card-talkingdutch .card-icon::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      border-radius: 4px;
+      background: #e8742a;
+      box-shadow: 0 0 10px rgba(232, 116, 42, 0.75), inset 0 0 0 2px rgba(255, 196, 120, 0.16);
+    }
+
+    .card-talkingdutch .tech-pill {
+      background: rgba(232, 116, 42, 0.1);
+      color: #f5943a;
+      border: 1px solid rgba(232, 116, 42, 0.22);
+    }
+
+    .card-talkingdutch .tech-pill:nth-child(2) {
+      background: rgba(33, 70, 139, 0.12);
+      color: #7fa7f0;
+      border-color: rgba(33, 70, 139, 0.28);
+    }
+
+    @keyframes pulseTalkingDutch {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(232, 116, 42, 0); }
+      50%       { box-shadow: 0 0 16px 4px rgba(232, 116, 42, 0.2); }
+    }
+
+    .card-hidden {
+      display: none !important;
+    }
+
     /* ── CLARA NIGHTWELL ── */
     .card-clara {
       background: linear-gradient(135deg, rgba(8, 4, 20, 0.97), rgba(15, 8, 35, 0.99));
@@ -713,14 +902,17 @@
 
     <div class="hero">
       <span class="hero-eyebrow">Software Engineer · AI · Netherlands</span>
-      <h1>Juan <em>Diaz</em></h1>
-      <p>Full-stack engineer with 14+ years of experience building web platforms and production systems, with recent
-        focus on AI-powered products. Based in Eindhoven, NL.</p>
+      <h1>
+        <span class="glitch" data-text="Juan Diaz">Juan <em>Diaz</em></span>
+        <span class="glitch-scan"></span>
+      </h1>
+      <p>Full-stack engineer with 14+ years of experience building web platforms and production systems. AI-focused work includes LLM applications with RAG, TTS pipelines, computer vision, machine learning and deep learning. Based in Eindhoven, NL.</p>
+      <a class="contact-cta" href="contact.html" target="_blank" rel="noopener noreferrer"><span>Contact</span></a>
     </div>
 
     <div class="card-grid">
 
-      <a class="card card-nexus" href="nexusgrid.html">
+      <a class="card card-nexus" href="nexusgrid.html" target="_blank" rel="noopener noreferrer">
         <span class="card-tag">Technology</span>
         <div class="card-icon">⬡</div>
         <div class="card-title">NexusGrid</div>
@@ -735,7 +927,7 @@
         </div>
       </a>
 
-      <a class="card card-emma" href="https://github.com/sistaterro/Emma-Chat" target="_blank">
+      <a class="card card-emma" href="https://github.com/sistaterro/Emma-Chat" target="_blank" rel="noopener noreferrer">
         <span class="card-tag">AI · Local · RAG</span>
         <div class="card-icon">
           <div class="emma-eye">
@@ -755,7 +947,7 @@
         </div>
       </a>
 
-      <a class="card card-soltech" href="soltech_english.html">
+      <a class="card card-soltech" href="soltech_english.html" target="_blank" rel="noopener noreferrer">
         <span class="card-tag">Solar · Software</span>
         <div class="card-icon">☀️</div>
         <div class="card-title">SolTech</div>
@@ -770,7 +962,7 @@
         </div>
       </a>
 
-      <a class="card card-verdant" href="verdant.html">
+      <a class="card card-verdant" href="verdant.html" target="_blank" rel="noopener noreferrer">
         <span class="card-tag">Green Energy</span>
         <div class="card-icon">🌿</div>
         <div class="card-title">Verdant Energy</div>
@@ -785,7 +977,7 @@
         </div>
       </a>
 
-      <a class="card card-lumex" href="lumex.html">
+      <a class="card card-lumex" href="lumex.html" target="_blank" rel="noopener noreferrer">
         <span class="card-tag">Zonne-energie · NL</span>
         <div class="card-icon">⚡</div>
         <div class="card-title">LUMEX</div>
@@ -800,7 +992,21 @@
         </div>
       </a>
 
-      <a class="card card-clara" href="https://www.youtube.com/@ClaraNightwell" target="_blank">
+      <a class="card card-talkingdutch" href="https://talkingdutch.com/" target="_blank" rel="noopener noreferrer">
+        <span class="card-tag">Web Design · Cloud Deploy · Dutch</span>
+        <div class="card-icon" aria-hidden="true"></div>
+        <div class="card-title">TalkingDutch</div>
+        <p class="card-desc">Landing page built for my Dutch professor with HTML, CSS and JavaScript, including responsive web design work and cloud deployment.</p>
+        <div class="card-footer">
+          <div class="card-tech">
+            <span class="tech-pill">HTML · CSS · JS</span>
+            <span class="tech-pill">Cloud</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <a class="card card-clara card-hidden" href="https://www.youtube.com/@ClaraNightwell" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
         <span class="card-tag">AI · YouTube · English</span>
         <div class="card-icon">▶</div>
         <div class="card-title">Clara Nightwell</div>
