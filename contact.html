@@ -55,6 +55,25 @@
       pointer-events: none; z-index: 0;
     }
 
+    .screen-flash {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 40% at 50% 20%, rgba(0,204,255,0.045), transparent 65%),
+        rgba(0,170,255,0.018);
+      mix-blend-mode: screen;
+      opacity: 0;
+      animation: screenFlicker 7s steps(1) infinite;
+    }
+
+    @keyframes screenFlicker {
+      0%, 92%, 94%, 96%, 100% { opacity: 0; }
+      93% { opacity: 0.75; }
+      95% { opacity: 0.28; }
+    }
+
     .wrapper {
       position: relative; z-index: 1;
       min-height: 100vh;
@@ -406,6 +425,7 @@
   </style>
 </head>
 <body>
+  <div class="screen-flash" aria-hidden="true"></div>
   <div class="wrapper">
     <main class="contact">
       <span class="eyebrow">Contact · Eindhoven, Netherlands</span>
