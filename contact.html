@@ -44,23 +44,12 @@
       pointer-events: none; z-index: 0;
     }
 
-    .screen-flash {
+    #flash-canvas {
       position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background:
-        radial-gradient(ellipse 70% 40% at 50% 20%, rgba(0,204,255,0.045), transparent 65%),
-        rgba(0,170,255,0.018);
       mix-blend-mode: screen;
-      opacity: 0;
-      animation: screenFlicker 7s steps(1) infinite;
-    }
-
-    @keyframes screenFlicker {
-      0%, 92%, 94%, 96%, 100% { opacity: 0; }
-      93% { opacity: 0.75; }
-      95% { opacity: 0.28; }
     }
 
     .wrapper {
@@ -414,7 +403,7 @@
   </style>
 </head>
 <body>
-  <div class="screen-flash" aria-hidden="true"></div>
+  <canvas id="flash-canvas" aria-hidden="true"></canvas>
   <div class="wrapper">
     <main class="contact">
       <span class="eyebrow">Contact · Eindhoven, Netherlands</span>
@@ -476,6 +465,119 @@
   </div>
 
   <script>
+    const canvas = document.getElementById('flash-canvas');
+    const ctx = canvas.getContext('2d');
+    let W = 0;
+    let H = 0;
+
+    function resizeCanvas() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const flashes = [];
+    const streaks = [];
+    let flashTimer = 0;
+
+    const flashColors = [
+      [0, 245, 255],
+      [0, 110, 255],
+      [0, 245, 255],
+      [80, 0, 255],
+    ];
+
+    function triggerFlash() {
+      const color = flashColors[Math.floor(Math.random() * flashColors.length)];
+      const count = Math.random() < 0.3 ? 2 + Math.floor(Math.random() * 2) : 1;
+      let delay = 0;
+
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          flashes.push({
+            life: 0,
+            maxLife: 5 + Math.random() * 10,
+            peak: 0.084 + Math.random() * 0.098,
+            r: color[0],
+            g: color[1],
+            b: color[2],
+          });
+        }, delay);
+        delay += 50 + Math.random() * 120;
+      }
+    }
+
+    function triggerStreak() {
+      streaks.push({
+        life: 0,
+        maxLife: 16 + Math.random() * 12,
+        y: Math.random() * H,
+        width: 0.2 + Math.random() * 0.6,
+        cx: Math.random(),
+        r: 0,
+        g: 200 + Math.floor(Math.random() * 55),
+        b: 255,
+        peak: 0.245 + Math.random() * 0.1225,
+      });
+    }
+
+    function drawFlashes() {
+      ctx.clearRect(0, 0, W, H);
+
+      flashTimer++;
+      const interval = 230 + Math.random() * 340;
+      if (flashTimer > interval) {
+        triggerFlash();
+        if (Math.random() < 0.4) triggerStreak();
+        flashTimer = 0;
+      }
+
+      for (let i = flashes.length - 1; i >= 0; i--) {
+        const f = flashes[i];
+        f.life++;
+        const t = f.life / f.maxLife;
+        const alpha = Math.max(0, Math.pow(1 - t, 3)) * f.peak;
+        if (alpha < 0.001) {
+          flashes.splice(i, 1);
+          continue;
+        }
+
+        ctx.fillStyle = `rgba(${f.r},${f.g},${f.b},${alpha})`;
+        ctx.fillRect(0, 0, W, H);
+      }
+
+      for (let i = streaks.length - 1; i >= 0; i--) {
+        const s = streaks[i];
+        s.life++;
+        const t = s.life / s.maxLife;
+        const alpha = Math.max(0, Math.pow(1 - t, 3)) * s.peak;
+        if (alpha < 0.002) {
+          streaks.splice(i, 1);
+          continue;
+        }
+
+        const x0 = (s.cx - s.width / 2) * W;
+        const x1 = (s.cx + s.width / 2) * W;
+        const grd = ctx.createLinearGradient(x0, s.y, x1, s.y);
+        grd.addColorStop(0, `rgba(${s.r},${s.g},${s.b},0)`);
+        grd.addColorStop(0.5, `rgba(${s.r},${s.g},${s.b},${alpha})`);
+        grd.addColorStop(1, `rgba(${s.r},${s.g},${s.b},0)`);
+
+        ctx.strokeStyle = grd;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(x0, s.y);
+        ctx.lineTo(x1, s.y);
+        ctx.stroke();
+      }
+
+      requestAnimationFrame(drawFlashes);
+    }
+
+    drawFlashes();
+
     // ── MOUSE GLOW ON CARD ──
     const card = document.getElementById('contactCard');
     card.addEventListener('mousemove', e => {
