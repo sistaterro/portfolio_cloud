@@ -6,7 +6,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="alternate icon" href="favicon.ico" type="image/x-icon">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <title>Contact — Juan Diaz</title>
+  <title>Contact — Juan Carlos Díaz</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@500;600;700;800&family=Syne:wght@400;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -61,7 +61,7 @@
     }
 
     .contact {
-      width: 100%; max-width: 640px;
+      width: 100%; max-width: 820px;
       text-align: center;
       opacity: 0; transform: translateY(20px);
       animation: fadeUp 0.6s ease forwards;
@@ -80,7 +80,7 @@
       position: relative; margin-bottom: 14px;
       color: var(--text);
       font-family: 'Syne', sans-serif;
-      font-size: clamp(54px, 9vw, 108px);
+      font-size: clamp(42px, 6vw, 78px);
       font-weight: 800; letter-spacing: -1px; line-height: 0.92;
     }
 
@@ -94,6 +94,7 @@
     .glitch {
       display: inline-block;
       position: relative;
+      white-space: nowrap;
       /* subtle base glow */
       text-shadow:
         0 0 18px rgba(0,170,255,0.22),
@@ -390,6 +391,7 @@
     @media (max-width: 640px) {
       .wrapper { align-items: stretch; justify-content: flex-start; padding: 36px 16px; }
       .contact { text-align: left; }
+      h1 { font-size: 36px; }
       .intro { margin-left: 0; margin-right: 0; }
       .card-inner { padding: 22px 18px; }
       .contact-line { flex-direction: column; align-items: flex-start; gap: 6px; }
@@ -400,16 +402,25 @@
       .actions { justify-content: flex-start; }
       .signal-row { justify-content: flex-start; }
     }
+
+    @media (max-width: 520px) {
+      h1 { font-size: 31px; }
+    }
+
+    @media (max-width: 420px) {
+      h1 { font-size: 25px; }
+      .eyebrow { letter-spacing: 3px; }
+    }
   </style>
 </head>
 <body>
   <canvas id="flash-canvas" aria-hidden="true"></canvas>
   <div class="wrapper">
     <main class="contact">
-      <span class="eyebrow">Contact · Eindhoven, Netherlands</span>
+      <span class="eyebrow">Contact</span>
 
       <h1>
-        <span class="glitch" data-text="Juan Diaz">Juan <em>Diaz</em></span>
+        <span class="glitch" data-text="Juan Carlos Díaz">Juan Carlos <em>Díaz</em></span>
       </h1>
       <div class="glitch-scan"></div>
 
@@ -423,7 +434,7 @@
         <div class="card-inner">
           <div class="contact-line">
             <span class="label">Name</span>
-            <span class="value name-val">Juan Diaz</span>
+            <span class="value name-val">Juan Carlos Díaz</span>
           </div>
 
           <!-- Email — click to copy, no mailto -->
@@ -431,11 +442,6 @@
             <span class="label">Email</span>
             <span class="value" id="emailVal">dazjuancarlos@gmail.com</span>
             <span class="copy-hint" id="copyHint">COPY</span>
-          </div>
-
-          <div class="contact-line">
-            <span class="label">Location</span>
-            <span class="value" style="font-size:16px">Eindhoven, NL</span>
           </div>
 
           <div class="actions">
@@ -460,7 +466,7 @@
         <a href="https://github.com/sistaterro" target="_blank" rel="noopener">GitHub</a>
         <a href="https://github.com/sistaterro/Emma-Chat" target="_blank" rel="noopener">Emma Chat</a>
       </div>
-      <span>© 2026 Juan Diaz · Eindhoven, Netherlands</span>
+      <span>© 2026 Juan Carlos Díaz</span>
     </div>
   </div>
 
@@ -480,7 +486,9 @@
 
     const flashes = [];
     const streaks = [];
-    let flashTimer = 0;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let flashTimeout = 0;
+    let flashRaf = 0;
 
     const flashColors = [
       [0, 245, 255],
@@ -523,16 +531,37 @@
       });
     }
 
-    function drawFlashes() {
-      ctx.clearRect(0, 0, W, H);
+    function canAnimateFlashes() {
+      return !document.hidden && !reduceMotion.matches;
+    }
 
-      flashTimer++;
-      const interval = 230 + Math.random() * 340;
-      if (flashTimer > interval) {
+    function requestFlashFrame() {
+      if (!flashRaf && canAnimateFlashes()) {
+        flashRaf = requestAnimationFrame(drawFlashes);
+      }
+    }
+
+    function scheduleNextFlash() {
+      clearTimeout(flashTimeout);
+      if (!canAnimateFlashes()) return;
+
+      flashTimeout = setTimeout(() => {
         triggerFlash();
         if (Math.random() < 0.4) triggerStreak();
-        flashTimer = 0;
-      }
+        requestFlashFrame();
+        scheduleNextFlash();
+      }, 3800 + Math.random() * 5200);
+    }
+
+    function clearFlashCanvas() {
+      flashes.length = 0;
+      streaks.length = 0;
+      ctx.clearRect(0, 0, W, H);
+    }
+
+    function drawFlashes() {
+      flashRaf = 0;
+      ctx.clearRect(0, 0, W, H);
 
       for (let i = flashes.length - 1; i >= 0; i--) {
         const f = flashes[i];
@@ -573,19 +602,44 @@
         ctx.stroke();
       }
 
-      requestAnimationFrame(drawFlashes);
+      if (flashes.length || streaks.length) {
+        requestFlashFrame();
+      }
     }
 
-    drawFlashes();
+    scheduleNextFlash();
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden || reduceMotion.matches) {
+        clearTimeout(flashTimeout);
+        if (flashRaf) cancelAnimationFrame(flashRaf);
+        flashRaf = 0;
+        clearFlashCanvas();
+      } else {
+        scheduleNextFlash();
+      }
+    });
+    reduceMotion.addEventListener('change', () => {
+      clearFlashCanvas();
+      scheduleNextFlash();
+    });
 
     // ── MOUSE GLOW ON CARD ──
     const card = document.getElementById('contactCard');
+    let cardGlowRaf = 0;
+    let cardGlowEvent = null;
     card.addEventListener('mousemove', e => {
-      const rect = card.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1) + '%';
-      const y = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + '%';
-      card.style.setProperty('--mx', x);
-      card.style.setProperty('--my', y);
+      cardGlowEvent = e;
+      if (cardGlowRaf) return;
+      cardGlowRaf = requestAnimationFrame(() => {
+        cardGlowRaf = 0;
+        const e = cardGlowEvent;
+        if (!e) return;
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1) + '%';
+        const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1) + '%';
+        card.style.setProperty('--mx', x);
+        card.style.setProperty('--my', y);
+      });
     });
 
     // ── COPY EMAIL ──
