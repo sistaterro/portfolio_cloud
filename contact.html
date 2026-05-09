@@ -77,11 +77,15 @@
 
     /* ── GLITCH TITLE — Metal Gear style ── */
     h1 {
-      position: relative; margin-bottom: 14px;
+      position: relative; margin: 0 0 14px;
       color: var(--text);
       font-family: 'Syne', sans-serif;
       font-size: clamp(42px, 6vw, 78px);
       font-weight: 800; letter-spacing: -1px; line-height: 0.92;
+      text-align: center;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      padding: 0 24px;
     }
 
     h1 em {
@@ -94,6 +98,7 @@
     .glitch {
       display: inline-block;
       position: relative;
+      max-width: 100%;
       white-space: nowrap;
       /* subtle base glow */
       text-shadow:
@@ -391,7 +396,7 @@
     @media (max-width: 640px) {
       .wrapper { align-items: stretch; justify-content: flex-start; padding: 36px 16px; }
       .contact { text-align: left; }
-      h1 { font-size: 36px; }
+      h1 { font-size: 36px; padding: 0 16px; }
       .intro { margin-left: 0; margin-right: 0; }
       .card-inner { padding: 22px 18px; }
       .contact-line { flex-direction: column; align-items: flex-start; gap: 6px; }

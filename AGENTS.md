@@ -42,7 +42,7 @@ Cada página del portfolio fue diseñada con un lenguaje visual único:
 
 ## 5. Estado Actual del Portfolio Principal
 - **Nombre visible:** El hero principal y la página de contacto usan `Juan Carlos Díaz`; `Juan Carlos` permanece en blanco y `Díaz` mantiene el tratamiento azul/degradado del glitch.
-- **Responsive del nombre:** `index.html` y `contact.html` mantienen el nombre en una sola línea mediante `white-space: nowrap` y breakpoints específicos para evitar overflow horizontal en narrow viewports.
+- **Responsive del nombre:** `index.html` y `contact.html` mantienen el nombre en una sola línea mediante `white-space: nowrap` y breakpoints específicos para evitar overflow horizontal en narrow viewports. En `contact.html`, el `h1` usa una banda full-bleed (`width: 100vw` + `margin-left: calc(50% - 50vw)`) para centrar el nombre contra el viewport, no contra el ancho de la tarjeta de contacto.
 - **CTAs del hero:** En desktop, `Contact` y `PCAP Certification` aparecen debajo de la bio; en narrow, ambos quedan centrados aunque el texto del hero esté alineado a la izquierda.
 - **Privacidad / Ubicación:** Se removieron referencias visibles a `Eindhoven`, `Netherlands`, `NL`, `Location` y textos tipo `Based in...` en `index.html` y `contact.html`.
 - **Performance de animaciones:** El efecto de relámpago en `index.html` y `contact.html` ya no corre en un loop continuo de `requestAnimationFrame`; se agenda por ráfagas, pausa con `document.hidden` y respeta `prefers-reduced-motion`.
