@@ -26,9 +26,10 @@ Este documento centraliza las observaciones técnicas y estructurales del portfo
 Cada página del portfolio fue diseñada con un lenguaje visual único:
 1. **NexusGrid:** Estética Cyberpunk/High-tech (Azules/Cian, Share Tech Mono).
 2. **SolTech:** Fusión Solar-Tech (Naranjas/Amarillos, Outfit/Rajdhani).
-3. **Verdant:** Diseño Orgánico/Sostenible (Verdes/Menta, DM Sans).
-4. **Lumex:** Neon-Futurism (Púrpuras/Cian, Exo 2).
-5. **TalkingDutch:** Branding Institucional Holandés (Rojo/Blanco/Azul/Naranja).
+3. **Aesthetic Store:** Catálogo de referencias visuales frontend para humanos y agentes IA (cian/coral/lima, cards compactas, estética de biblioteca visual).
+4. **Verdant:** Diseño Orgánico/Sostenible (Verdes/Menta, DM Sans), conservado en hide dentro del grid principal.
+5. **Lumex:** Neon-Futurism (Púrpuras/Cian, Exo 2).
+6. **TalkingDutch:** Branding Institucional Holandés (Rojo/Blanco/Azul/Naranja).
 
 ## 4. Estado de los Componentes Críticos
 
@@ -47,6 +48,7 @@ Cada página del portfolio fue diseñada con un lenguaje visual único:
 - **Privacidad / Ubicación:** Se removieron referencias visibles a `Eindhoven`, `Netherlands`, `NL`, `Location` y textos tipo `Based in...` en `index.html` y `contact.html`.
 - **Performance de animaciones:** El efecto de relámpago en `index.html` y `contact.html` ya no corre en un loop continuo de `requestAnimationFrame`; se agenda por ráfagas, pausa con `document.hidden` y respeta `prefers-reduced-motion`.
 - **Lumex:** `lumex.html` conserva su identidad neon, pero el canvas de partículas se limitó a 30fps, con menos partículas, pausa por pestaña oculta y cursor custom throttleado por RAF.
+- **Verdant:** La card de `verdant.html` permanece en `card-hidden`; su espacio visible fue reemplazado por Aesthetic Store.
 
 ## 6. Roadmap de Refactorización Recomendado
 1. **Extracción de Assets:** Mover los bloques `<style>` y `<script>` a archivos `.css` y `.js` externos compartidos.
