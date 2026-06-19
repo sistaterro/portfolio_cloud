@@ -2,6 +2,8 @@
 
 Static multi-page portfolio for Juan Carlos Díaz, built with HTML, CSS and vanilla JavaScript. The site uses a hub-and-spoke structure where `index.html` presents the main profile and links to individual project pages, each with its own visual identity.
 
+Repository: https://github.com/sistaterro/portfolio_cloud
+
 ## Pages
 
 - `index.html` - Main portfolio hub with project cards, contact CTA and PCAP certification link.
