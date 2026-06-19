@@ -420,7 +420,10 @@
 
     /* ── NEXUSGRID ── */
     .card-nexus {
-      background: linear-gradient(135deg, rgba(0, 20, 50, 0.92), rgba(0, 10, 30, 0.96));
+      background:
+        radial-gradient(circle at 18% 16%, rgba(0, 204, 255, 0.14), transparent 32%),
+        radial-gradient(circle at 88% 10%, rgba(0, 113, 227, 0.12), transparent 30%),
+        linear-gradient(135deg, rgba(0, 20, 50, 0.92), rgba(0, 10, 30, 0.96));
       border-color: rgba(0, 170, 255, 0.18);
     }
 
@@ -449,9 +452,33 @@
     }
 
     .card-nexus .card-icon {
+      position: relative;
       background: rgba(0, 170, 255, 0.1);
       border: 1px solid rgba(0, 170, 255, 0.2);
       animation: pulse1 3s ease-in-out infinite;
+      font-size: 0;
+    }
+
+    .card-nexus .card-icon::before {
+      content: '';
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 204, 255, 0.42);
+      background:
+        radial-gradient(circle at 50% 50%, #00aaff 0 3px, transparent 3.5px),
+        radial-gradient(circle at 20% 28%, #00f5ff 0 2px, transparent 2.5px),
+        radial-gradient(circle at 78% 72%, #0071e3 0 2px, transparent 2.5px);
+      box-shadow: 0 0 14px rgba(0, 170, 255, 0.28);
+    }
+
+    .card-nexus .card-icon::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(0, 245, 255, 0), rgba(0, 245, 255, 0.7), rgba(0, 113, 227, 0));
+      transform: rotate(36deg);
     }
 
     .card-nexus .tech-pill {
@@ -527,8 +554,58 @@
     }
 
     /* ── EMMA CHAT ── */
+    /* AI Mascot */
+    .card-mascot {
+      background:
+        radial-gradient(circle at 18% 16%, rgba(255, 183, 77, 0.18), transparent 32%),
+        radial-gradient(circle at 86% 20%, rgba(255, 107, 53, 0.14), transparent 30%),
+        linear-gradient(135deg, rgba(24, 13, 9, 0.96), rgba(9, 13, 22, 0.99));
+      border-color: rgba(255, 139, 76, 0.24);
+    }
+
+    .card-mascot:hover {
+      box-shadow: 0 20px 60px rgba(255, 107, 53, 0.12), 0 0 0 1px rgba(255, 183, 77, 0.32);
+    }
+
+    .card-mascot::before {
+      background: linear-gradient(90deg, transparent, #ffb74d, #ff6b35, transparent);
+    }
+
+    .card-mascot .card-tag { color: #ffb74d; }
+    .card-mascot .card-title { color: #fff2dc; }
+    .card-mascot .card-desc { color: #d6bda4; opacity: 1; }
+    .card-mascot .card-arrow { color: #ff8c5a; }
+
+    .card-mascot .card-icon {
+      background: rgba(255, 139, 76, 0.12);
+      border: 1px solid rgba(255, 139, 76, 0.26);
+      color: #ffcc80;
+      font-size: 23px;
+      animation: pulseMascot 3s ease-in-out infinite;
+    }
+
+    .card-mascot .tech-pill {
+      background: rgba(255, 139, 76, 0.1);
+      color: #ffb074;
+      border: 1px solid rgba(255, 139, 76, 0.22);
+    }
+
+    .card-mascot .tech-pill:nth-child(2) {
+      background: rgba(255, 183, 77, 0.08);
+      color: #ffd28a;
+      border-color: rgba(255, 183, 77, 0.22);
+    }
+
+    @keyframes pulseMascot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0); transform: translateY(0); }
+      50%       { box-shadow: 0 0 16px 4px rgba(255, 107, 53, 0.18); transform: translateY(-1px); }
+    }
+
     .card-emma {
-      background: linear-gradient(135deg, rgba(0, 8, 28, 0.95), rgba(0, 4, 18, 0.98));
+      background:
+        radial-gradient(circle at 18% 16%, rgba(77, 168, 255, 0.15), transparent 32%),
+        radial-gradient(circle at 86% 12%, rgba(0, 204, 255, 0.1), transparent 30%),
+        linear-gradient(135deg, rgba(0, 8, 28, 0.95), rgba(0, 4, 18, 0.98));
       border-color: rgba(0, 113, 227, 0.2);
     }
 
@@ -731,7 +808,10 @@
 
     /* ── LUMEX ── */
     .card-lumex {
-      background: linear-gradient(135deg, rgba(6, 0, 26, 0.97), rgba(3, 0, 15, 0.99));
+      background:
+        radial-gradient(circle at 18% 16%, rgba(191, 0, 255, 0.16), transparent 32%),
+        radial-gradient(circle at 88% 10%, rgba(0, 245, 255, 0.12), transparent 30%),
+        linear-gradient(135deg, rgba(6, 0, 26, 0.97), rgba(3, 0, 15, 0.99));
       border-color: rgba(191, 0, 255, 0.18);
     }
 
@@ -793,6 +873,9 @@
     /* TalkingDutch */
     .card-talkingdutch {
       background:
+        radial-gradient(circle at 18% 16%, rgba(232, 116, 42, 0.16), transparent 32%),
+        radial-gradient(circle at 88% 12%, rgba(33, 70, 139, 0.16), transparent 30%),
+        radial-gradient(circle at 62% 0%, rgba(174, 28, 40, 0.1), transparent 26%),
         linear-gradient(135deg, rgba(17, 17, 17, 0.97), rgba(27, 23, 20, 0.99));
       border-color: rgba(232, 116, 42, 0.2);
     }
@@ -1051,16 +1134,15 @@
 
     <div class="card-grid">
 
-      <a class="card card-nexus" href="nexusgrid.html" target="_blank" rel="noopener noreferrer">
-        <span class="card-tag">Technology</span>
-        <div class="card-icon">⬡</div>
-        <div class="card-title">NexusGrid</div>
-        <p class="card-desc">Advanced technology systems platform with a cyberpunk-inspired interface for
-          next-generation infrastructure.</p>
+      <a class="card card-aesthetic" href="https://github.com/sistaterro/frontend_portfolio" target="_blank" rel="noopener noreferrer">
+        <span class="card-tag">Frontend / Design Systems</span>
+        <div class="card-icon" aria-hidden="true"></div>
+        <div class="card-title">Aesthetic Store</div>
+        <p class="card-desc">Reusable frontend aesthetics built as executable visual references for developers and AI-assisted workflows.</p>
         <div class="card-footer">
           <div class="card-tech">
-            <span class="tech-pill">FastAPI</span>
-            <span class="tech-pill">Python</span>
+            <span class="tech-pill">HTML / CSS / JS</span>
+            <span class="tech-pill">AI Ready</span>
           </div>
           <span class="card-arrow">→</span>
         </div>
@@ -1086,30 +1168,30 @@
         </div>
       </a>
 
-      <a class="card card-soltech" href="soltech_english.html" target="_blank" rel="noopener noreferrer">
-        <span class="card-tag">Solar · Software</span>
-        <div class="card-icon">☀️</div>
-        <div class="card-title">SolTech</div>
-        <p class="card-desc">Solar energy meets software engineering. End-to-end platform for renewable energy
-          monitoring and optimization.</p>
+      <a class="card card-mascot" href="https://github.com/sistaterro/ai_mascot" target="_blank" rel="noopener noreferrer">
+        <span class="card-tag">Widget / AI UI</span>
+        <div class="card-icon" aria-hidden="true">😉</div>
+        <div class="card-title">AI Mascot</div>
+        <p class="card-desc">Tiny embeddable JavaScript mascot widget with moods, speech bubbles and a small public API for friendly UI feedback.</p>
         <div class="card-footer">
           <div class="card-tech">
-            <span class="tech-pill">Python</span>
-            <span class="tech-pill">ML</span>
+            <span class="tech-pill">JavaScript</span>
+            <span class="tech-pill">Widget API</span>
           </div>
           <span class="card-arrow">→</span>
         </div>
       </a>
 
-      <a class="card card-aesthetic" href="https://github.com/sistaterro/frontend_portfolio" target="_blank" rel="noopener noreferrer">
-        <span class="card-tag">Frontend / Design Systems</span>
+      <a class="card card-nexus" href="nexusgrid.html" target="_blank" rel="noopener noreferrer">
+        <span class="card-tag">Technology</span>
         <div class="card-icon" aria-hidden="true"></div>
-        <div class="card-title">Aesthetic Store</div>
-        <p class="card-desc">Reusable frontend aesthetics built as executable visual references for developers and AI-assisted workflows.</p>
+        <div class="card-title">NexusGrid</div>
+        <p class="card-desc">Advanced technology systems platform with a cyberpunk-inspired interface for
+          next-generation infrastructure.</p>
         <div class="card-footer">
           <div class="card-tech">
-            <span class="tech-pill">HTML / CSS / JS</span>
-            <span class="tech-pill">AI Ready</span>
+            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">Python</span>
           </div>
           <span class="card-arrow">→</span>
         </div>
@@ -1139,6 +1221,20 @@
           <div class="card-tech">
             <span class="tech-pill">HTML · CSS · JS</span>
             <span class="tech-pill">Cloud</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <a class="card card-soltech card-hidden" href="soltech_english.html" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
+        <span class="card-tag">Solar / Software</span>
+        <div class="card-icon">S</div>
+        <div class="card-title">SolTech</div>
+        <p class="card-desc">Solar energy meets software engineering. End-to-end platform for renewable energy monitoring and optimization.</p>
+        <div class="card-footer">
+          <div class="card-tech">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">ML</span>
           </div>
           <span class="card-arrow">→</span>
         </div>

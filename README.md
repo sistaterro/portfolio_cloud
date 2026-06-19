@@ -7,7 +7,7 @@ Static multi-page portfolio for Juan Carlos Díaz, built with HTML, CSS and vani
 - `index.html` - Main portfolio hub with project cards, contact CTA and PCAP certification link.
 - `contact.html` - Contact card with copy-to-clipboard email interaction.
 - `nexusgrid.html` - Cyberpunk/high-tech project page.
-- `soltech_english.html` - Solar-tech project page.
+- `soltech_english.html` - Solar-tech project page, currently hidden from the main portfolio grid.
 - `verdant.html` - Organic/sustainable energy project page, currently hidden from the main portfolio grid.
 - `lumex.html` - Neon-futurist Dutch solar energy concept page.
 - `talkingdutch.html` - Web design/cloud deploy project page.
@@ -15,6 +15,7 @@ Static multi-page portfolio for Juan Carlos Díaz, built with HTML, CSS and vani
 ## External Project Cards
 
 - Aesthetic Store - Frontend visual reference catalog linked from the main portfolio grid.
+- AI Mascot - Embeddable JavaScript mascot widget linked from the main portfolio grid.
 
 ## Assets
 
