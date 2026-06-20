@@ -557,48 +557,48 @@
     /* AI Mascot */
     .card-mascot {
       background:
-        radial-gradient(circle at 18% 16%, rgba(255, 183, 77, 0.18), transparent 32%),
-        radial-gradient(circle at 86% 20%, rgba(255, 107, 53, 0.14), transparent 30%),
-        linear-gradient(135deg, rgba(24, 13, 9, 0.96), rgba(9, 13, 22, 0.99));
-      border-color: rgba(255, 139, 76, 0.24);
+        radial-gradient(circle at 18% 16%, rgba(96, 255, 202, 0.16), transparent 32%),
+        radial-gradient(circle at 86% 20%, rgba(176, 255, 86, 0.12), transparent 30%),
+        linear-gradient(135deg, rgba(5, 24, 22, 0.96), rgba(5, 13, 22, 0.99));
+      border-color: rgba(96, 255, 202, 0.24);
     }
 
     .card-mascot:hover {
-      box-shadow: 0 20px 60px rgba(255, 107, 53, 0.12), 0 0 0 1px rgba(255, 183, 77, 0.32);
+      box-shadow: 0 20px 60px rgba(96, 255, 202, 0.12), 0 0 0 1px rgba(176, 255, 86, 0.3);
     }
 
     .card-mascot::before {
-      background: linear-gradient(90deg, transparent, #ffb74d, #ff6b35, transparent);
+      background: linear-gradient(90deg, transparent, #60ffca, #b0ff56, transparent);
     }
 
-    .card-mascot .card-tag { color: #ffb74d; }
-    .card-mascot .card-title { color: #fff2dc; }
-    .card-mascot .card-desc { color: #d6bda4; opacity: 1; }
-    .card-mascot .card-arrow { color: #ff8c5a; }
+    .card-mascot .card-tag { color: #60ffca; }
+    .card-mascot .card-title { color: #eafff7; }
+    .card-mascot .card-desc { color: #a9d9cb; opacity: 1; }
+    .card-mascot .card-arrow { color: #b0ff56; }
 
     .card-mascot .card-icon {
-      background: rgba(255, 139, 76, 0.12);
-      border: 1px solid rgba(255, 139, 76, 0.26);
-      color: #ffcc80;
+      background: rgba(96, 255, 202, 0.1);
+      border: 1px solid rgba(96, 255, 202, 0.26);
+      color: #b0ff56;
       font-size: 23px;
       animation: pulseMascot 3s ease-in-out infinite;
     }
 
     .card-mascot .tech-pill {
-      background: rgba(255, 139, 76, 0.1);
-      color: #ffb074;
-      border: 1px solid rgba(255, 139, 76, 0.22);
+      background: rgba(96, 255, 202, 0.1);
+      color: #60ffca;
+      border: 1px solid rgba(96, 255, 202, 0.22);
     }
 
     .card-mascot .tech-pill:nth-child(2) {
-      background: rgba(255, 183, 77, 0.08);
-      color: #ffd28a;
-      border-color: rgba(255, 183, 77, 0.22);
+      background: rgba(176, 255, 86, 0.08);
+      color: #c8ff7a;
+      border-color: rgba(176, 255, 86, 0.22);
     }
 
     @keyframes pulseMascot {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0); transform: translateY(0); }
-      50%       { box-shadow: 0 0 16px 4px rgba(255, 107, 53, 0.18); transform: translateY(-1px); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(96, 255, 202, 0); transform: translateY(0); }
+      50%       { box-shadow: 0 0 16px 4px rgba(96, 255, 202, 0.18); transform: translateY(-1px); }
     }
 
     .card-emma {
@@ -623,8 +623,9 @@
     .card-emma .card-arrow { color: #4da8ff; }
 
     .card-emma .card-icon {
-      background: rgba(0, 113, 227, 0.1);
-      border: 1px solid rgba(0, 113, 227, 0.25);
+      background: linear-gradient(145deg, rgba(248, 253, 255, 0.96), rgba(202, 244, 255, 0.9));
+      border: 1px solid rgba(190, 244, 255, 0.78);
+      box-shadow: 0 0 20px rgba(0, 204, 255, 0.16), inset 0 0 14px rgba(0, 113, 227, 0.08);
       animation: pulseEmma 4s ease-in-out infinite;
       position: relative;
       overflow: visible;
@@ -639,20 +640,22 @@
     .emma-eye .e-ring {
       position: absolute; inset: 0;
       border-radius: 50%;
-      border: 1px solid rgba(0, 113, 227, 0.4);
+      border: 1px solid rgba(0, 113, 227, 0.38);
+      background: rgba(255, 255, 255, 0.72);
       animation: ringEmma 4s ease-in-out infinite;
     }
     .emma-eye .e-ring2 {
       position: absolute; inset: 5px;
       border-radius: 50%;
-      border: 1px solid rgba(0, 113, 227, 0.2);
+      border: 1px solid rgba(0, 170, 255, 0.28);
+      background: rgba(221, 250, 255, 0.72);
       animation: ringEmma 4s ease-in-out infinite 0.8s;
     }
     .emma-eye .e-lens {
       position: absolute; inset: 9px;
       border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #5eaeff 0%, #0071e3 40%, #003080 100%);
-      box-shadow: 0 0 8px rgba(0, 113, 227, 0.6), 0 0 20px rgba(0, 113, 227, 0.25);
+      background: radial-gradient(circle at 36% 34%, #8bd5ff 0%, #0071e3 44%, #002a85 100%);
+      box-shadow: 0 0 8px rgba(0, 113, 227, 0.72), 0 0 20px rgba(0, 204, 255, 0.28);
       animation: breathEmma 4s ease-in-out infinite;
     }
     .emma-eye .e-lens::after {
@@ -895,6 +898,76 @@
       50%       { filter: drop-shadow(0 0 12px rgba(240, 92, 0, 0.28)); transform: translateY(-1px); }
     }
 
+    /* CodeRisk AI / PR Sentinel */
+    .card-coderisk {
+      background:
+        radial-gradient(circle at 16% 16%, rgba(191, 0, 255, 0.18), transparent 32%),
+        radial-gradient(circle at 86% 10%, rgba(0, 245, 255, 0.14), transparent 30%),
+        radial-gradient(circle at 58% 0%, rgba(255, 184, 77, 0.1), transparent 28%),
+        linear-gradient(135deg, rgba(7, 3, 24, 0.98), rgba(2, 9, 18, 0.99));
+      border-color: rgba(0, 245, 255, 0.22);
+    }
+
+    .card-coderisk:hover {
+      box-shadow: 0 20px 60px rgba(0, 245, 255, 0.13), 0 0 0 1px rgba(191, 0, 255, 0.34);
+    }
+
+    .card-coderisk::before {
+      background: linear-gradient(90deg, transparent, #bf00ff, #00f5ff, #ffb84d, transparent);
+    }
+
+    .card-coderisk .card-tag { color: #00f5ff; }
+    .card-coderisk .card-title { color: #f1e8ff; }
+    .card-coderisk .card-desc { color: #aeb8dc; opacity: 1; }
+    .card-coderisk .card-arrow { color: #ffb84d; }
+
+    .card-coderisk .card-icon {
+      position: relative;
+      background: rgba(0, 245, 255, 0.08);
+      border: 1px solid rgba(0, 245, 255, 0.24);
+      box-shadow: inset 0 0 0 1px rgba(191, 0, 255, 0.08);
+      animation: pulseCodeRisk 3s ease-in-out infinite;
+      overflow: hidden;
+    }
+
+    .card-coderisk .card-icon::before {
+      content: '';
+      width: 22px;
+      height: 26px;
+      border-radius: 8px 8px 10px 10px;
+      border: 2px solid rgba(0, 245, 255, 0.8);
+      background:
+        linear-gradient(135deg, transparent 44%, rgba(255, 184, 77, 0.95) 45% 56%, transparent 57%),
+        radial-gradient(circle at 50% 34%, rgba(191, 0, 255, 0.7) 0 4px, transparent 4.5px);
+      box-shadow: 0 0 18px rgba(0, 245, 255, 0.28);
+    }
+
+    .card-coderisk .card-icon::after {
+      content: '';
+      position: absolute;
+      width: 34px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.85), transparent);
+      transform: rotate(-28deg);
+    }
+
+    .card-coderisk .tech-pill {
+      background: rgba(0, 245, 255, 0.09);
+      color: #00f5ff;
+      border: 1px solid rgba(0, 245, 255, 0.22);
+    }
+
+    .card-coderisk .tech-pill:nth-child(2) {
+      background: rgba(191, 0, 255, 0.1);
+      color: #d980ff;
+      border-color: rgba(191, 0, 255, 0.24);
+    }
+
+    @keyframes pulseCodeRisk {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0, 245, 255, 0), inset 0 0 0 1px rgba(191, 0, 255, 0.08); }
+      50%       { box-shadow: 0 0 18px 4px rgba(0, 245, 255, 0.18), inset 0 0 18px rgba(191, 0, 255, 0.12); }
+    }
+
     /* ── LUMEX ── */
     .card-lumex {
       background:
@@ -1112,8 +1185,9 @@
     .card:nth-child(5) { animation-delay: 0.6s; }
     .card:nth-child(6) { animation-delay: 0.7s; }
     .card:nth-child(7) { animation-delay: 0.8s; }
+    .card:nth-child(8) { animation-delay: 0.9s; }
 
-    .footer { animation-delay: 0.9s; }
+    .footer { animation-delay: 1s; }
 
     @keyframes fadeUp {
       to {
@@ -1303,7 +1377,21 @@
         </div>
       </a>
 
-      <a class="card card-lumex" href="lumex.html" target="_blank" rel="noopener noreferrer">
+      <a class="card card-coderisk" href="https://github.com/sistaterro/coderisk_ai" target="_blank" rel="noopener noreferrer">
+        <span class="card-tag">AI Code Review / Risk</span>
+        <div class="card-icon" aria-hidden="true"></div>
+        <div class="card-title">CodeRisk AI</div>
+        <p class="card-desc">AI-assisted pull request risk reviewer with FastAPI, Gemini-ready analysis, strict JSON validation, deterministic rubrics and exportable HTML reports.</p>
+        <div class="card-footer">
+          <div class="card-tech">
+            <span class="tech-pill">FastAPI / Gemini</span>
+            <span class="tech-pill">PR Sentinel</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <a class="card card-lumex card-hidden" href="lumex.html" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
         <span class="card-tag">Zonne-energie</span>
         <div class="card-icon">⚡</div>
         <div class="card-title">LUMEX</div>
