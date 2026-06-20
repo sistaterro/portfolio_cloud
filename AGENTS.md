@@ -24,14 +24,15 @@ Este documento centraliza las observaciones técnicas y estructurales del portfo
 
 ## 3. Desglose de Proyectos (Micro-Brands)
 Cada página del portfolio fue diseñada con un lenguaje visual único:
-1. **Aesthetic Store:** Catálogo de referencias visuales frontend para humanos y agentes IA (cian/coral/lima, cards compactas, estética de biblioteca visual).
+1. **ForoBardo:** Producto comunitario full-stack real (negro/crema/naranja, wordmark inclinado tipo sticker, estética dura de foro/media platform).
 2. **Emma Chat 2.0:** Asistente IA con LangChain/RAG (azules eléctricos, lente tipo HAL, interfaz técnica).
-3. **AI Mascot:** Widget JavaScript embebible para mascotas de IA (naranja/coral, amigable, API pequeña, logo sonriente).
-4. **NexusGrid:** Estética Cyberpunk/High-tech (Azules/Cian, Share Tech Mono).
-5. **SolTech:** Fusión Solar-Tech (Naranjas/Amarillos, Outfit/Rajdhani), conservado en hide dentro del grid principal.
-6. **Verdant:** Diseño Orgánico/Sostenible (Verdes/Menta, DM Sans), conservado en hide dentro del grid principal.
-7. **Lumex:** Neon-Futurism (Púrpuras/Cian, Exo 2).
-8. **TalkingDutch:** Branding Institucional Holandés (Rojo/Blanco/Azul/Naranja).
+3. **Aesthetic Store:** Catálogo de referencias visuales frontend para humanos y agentes IA (cian/coral/lima, cards compactas, estética de biblioteca visual).
+4. **AI Mascot:** Widget JavaScript embebible para mascotas de IA (naranja/coral, amigable, API pequeña, logo sonriente).
+5. **NexusGrid:** Estética Cyberpunk/High-tech (Azules/Cian, Share Tech Mono), conservado en hide dentro del grid principal.
+6. **SolTech:** Fusión Solar-Tech (Naranjas/Amarillos, Outfit/Rajdhani), conservado en hide dentro del grid principal.
+7. **Verdant:** Diseño Orgánico/Sostenible (Verdes/Menta, DM Sans), conservado en hide dentro del grid principal.
+8. **Lumex:** Neon-Futurism (Púrpuras/Cian, Exo 2).
+9. **TalkingDutch:** Branding Institucional Holandés (Rojo/Blanco/Azul/Naranja).
 
 ## 4. Estado de los Componentes Críticos
 
@@ -47,11 +48,14 @@ Cada página del portfolio fue diseñada con un lenguaje visual único:
 - **Nombre visible:** El hero principal y la página de contacto usan `Juan Carlos Díaz`; `Juan Carlos` permanece en blanco y `Díaz` mantiene el tratamiento azul/degradado del glitch.
 - **Responsive del nombre:** `index.html` y `contact.html` mantienen el nombre en una sola línea mediante `white-space: nowrap` y breakpoints específicos para evitar overflow horizontal en narrow viewports. En `contact.html`, el `h1` usa una banda full-bleed (`width: 100vw` + `margin-left: calc(50% - 50vw)`) para centrar el nombre contra el viewport, no contra el ancho de la tarjeta de contacto.
 - **CTAs del hero:** En desktop, `Contact` y `PCAP Certification` aparecen debajo de la bio; en narrow, ambos quedan centrados aunque el texto del hero esté alineado a la izquierda.
+- **Orden visible del grid:** `ForoBardo`, `Emma Chat 2.0`, `Aesthetic Store`, `AI Mascot`, `Lumex` y `TalkingDutch`.
 - **Privacidad / Ubicación:** Se removieron referencias visibles a `Eindhoven`, `Netherlands`, `NL`, `Location` y textos tipo `Based in...` en `index.html` y `contact.html`.
 - **Performance de animaciones:** El efecto de relámpago en `index.html` y `contact.html` ya no corre en un loop continuo de `requestAnimationFrame`; se agenda por ráfagas, pausa con `document.hidden` y respeta `prefers-reduced-motion`.
 - **Lumex:** `lumex.html` conserva su identidad neon, pero el canvas de partículas se limitó a 30fps, con menos partículas, pausa por pestaña oculta y cursor custom throttleado por RAF.
 - **SolTech:** La card de `soltech_english.html` permanece en `card-hidden`; su espacio visible fue reemplazado por AI Mascot.
 - **Verdant:** La card de `verdant.html` permanece en `card-hidden`; su espacio visible fue reemplazado por Aesthetic Store.
+- **NexusGrid:** La card de `nexusgrid.html` permanece en `card-hidden`; el proyecto sigue disponible por URL directa y como micro-brand documentado.
+- **ForoBardo:** La card visible enlaza `https://forobardo.net/` y usa `forum.html` como referencia visual local para el wordmark y sistema negro/crema/naranja.
 
 ## 6. Roadmap de Refactorización Recomendado
 1. **Extracción de Assets:** Mover los bloques `<style>` y `<script>` a archivos `.css` y `.js` externos compartidos.

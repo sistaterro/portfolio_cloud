@@ -8,7 +8,8 @@ Repository: https://github.com/sistaterro/portfolio_cloud
 
 - `index.html` - Main portfolio hub with project cards, contact CTA and PCAP certification link.
 - `contact.html` - Contact card with copy-to-clipboard email interaction.
-- `nexusgrid.html` - Cyberpunk/high-tech project page.
+- `forum.html` - ForoBardo component sketch used as a visual reference for the portfolio card.
+- `nexusgrid.html` - Cyberpunk/high-tech project page, currently hidden from the main portfolio grid.
 - `soltech_english.html` - Solar-tech project page, currently hidden from the main portfolio grid.
 - `verdant.html` - Organic/sustainable energy project page, currently hidden from the main portfolio grid.
 - `lumex.html` - Neon-futurist Dutch solar energy concept page.
@@ -16,6 +17,7 @@ Repository: https://github.com/sistaterro/portfolio_cloud
 
 ## External Project Cards
 
+- ForoBardo - Independent full-stack community product linked from the main portfolio grid.
 - Aesthetic Store - Frontend visual reference catalog linked from the main portfolio grid.
 - AI Mascot - Embeddable JavaScript mascot widget linked from the main portfolio grid.
 

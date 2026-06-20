@@ -1,0 +1,1688 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ForoBardo Component Sketch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!--
+  FOROBARDO COMPONENT SKETCH
+
+  Purpose:
+  - Portable UI reference for recreating the ForoBardo look in another project.
+  - No images are required; the logo/brand marks below are CSS-only placeholders.
+  - Keep this as one HTML file for handoff, then split using the labeled sections.
+
+  Suggested extraction:
+  - tokens.css      -> DESIGN TOKENS
+  - base.css        -> BASE + SKETCH HELPERS
+  - layout.css      -> APP CHROME + PAGE LAYOUTS
+  - components.css  -> BUTTONS, BADGES, CARDS, FORMS, TABLES, MODALS, TOASTS
+  - forum.js        -> everything inside the final JS block
+-->
+
+<!-- CSS: move this to tokens.css + base.css + layout.css + components.css later -->
+<style>
+
+/* ============================================================
+   DESIGN TOKENS
+============================================================ */
+:root {
+  /* Surfaces */
+  --fb-black: #080706;
+  --fb-ink: #0e0c0a;
+  --fb-shell: #14110f;
+  --fb-panel: #1b1713;
+  --fb-panel-2: #221d18;
+  --fb-panel-3: #2a241c;
+
+  /* Brand */
+  --fb-orange: #f05c00;
+  --fb-orange-hot: #ff7a1a;
+  --fb-orange-soft: #ff9944;
+  --fb-red-ochre: #b84f2d;
+
+  /* Type */
+  --fb-cream: #f0e8d8;
+  --fb-cream-soft: #dfd2bd;
+  --fb-cream-dim: #b9aa8f;
+  --fb-muted: #8a8070;
+  --fb-muted-2: #5a5040;
+  --fb-white: #faf6f0;
+
+  /* Lines */
+  --fb-border: #2e2820;
+  --fb-border-strong: #463929;
+  --fb-border-hot: rgba(240, 92, 0, 0.7);
+
+  /* Content accents */
+  --fb-text: #ff9944;
+  --fb-youtube: #e84b35;
+  --fb-tiktok: #69c9d0;
+  --fb-instagram: #ff69bf;
+  --fb-image: #91ff42;
+  --fb-audio: #a66cff;
+  --fb-video: #5d91ff;
+  --fb-success: #baff82;
+
+  /* Effects */
+  --fb-glow: 0 0 28px rgba(240, 92, 0, 0.22);
+  --fb-glow-strong: 0 0 42px rgba(240, 92, 0, 0.34);
+  --fb-shadow: 0 18px 42px rgba(0, 0, 0, 0.32);
+  --fb-shadow-deep: 0 28px 90px rgba(0, 0, 0, 0.62);
+
+  /* Typography */
+  --font-display: "Bebas Neue", Impact, sans-serif;
+  --font-ui: "Barlow Condensed", Arial Narrow, sans-serif;
+  --font-body: "Barlow", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", Consolas, monospace;
+
+  /* Scale */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+}
+
+/* ============================================================
+   BASE
+============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--fb-cream);
+  background:
+    radial-gradient(ellipse at 14% 7%, rgba(240, 92, 0, 0.16), transparent 30%),
+    radial-gradient(ellipse at 88% 60%, rgba(240, 92, 0, 0.1), transparent 38%),
+    linear-gradient(135deg, var(--fb-black) 0%, var(--fb-ink) 56%, #15110d 100%);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea,
+select { font: inherit; }
+
+button,
+a { -webkit-tap-highlight-color: transparent; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(240, 92, 0, 0.86);
+  color: #080604;
+}
+
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: var(--fb-black); }
+::-webkit-scrollbar-thumb { background: var(--fb-border-strong); border: 2px solid var(--fb-black); }
+::-webkit-scrollbar-thumb:hover { background: var(--fb-orange); }
+
+h1,
+h2,
+h3,
+.fb-heading {
+  margin: 0;
+  color: var(--fb-white);
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+h1 { font-size: clamp(58px, 11vw, 136px); }
+h2 { font-size: clamp(38px, 5vw, 66px); }
+h3 { font-size: clamp(28px, 3vw, 40px); }
+
+p { margin: 0; }
+
+/* ============================================================
+   SKETCH HELPERS
+   These wrappers are only for this component inventory page.
+============================================================ */
+.sketch-page {
+  width: min(1560px, 100%);
+  margin: 0 auto;
+  border-left: 1px solid rgba(240, 92, 0, 0.16);
+  border-right: 1px solid rgba(240, 92, 0, 0.16);
+  background: rgba(8, 7, 6, 0.24);
+}
+
+.sketch-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--sp-6);
+  align-items: end;
+  padding: var(--sp-10) var(--sp-8) var(--sp-8);
+  border-bottom: 3px solid var(--fb-orange);
+  background:
+    radial-gradient(ellipse at 0 0, rgba(240, 92, 0, 0.16), transparent 36%),
+    rgba(14, 12, 10, 0.72);
+}
+
+.sketch-note {
+  max-width: 720px;
+  margin-top: var(--sp-4);
+  color: var(--fb-muted);
+  font-size: 19px;
+  line-height: 1.45;
+}
+
+.sketch-section {
+  padding: var(--sp-10) var(--sp-8);
+  border-bottom: 1px solid var(--fb-border);
+}
+
+.sketch-section-header {
+  display: grid;
+  grid-template-columns: minmax(0, 680px) auto;
+  gap: var(--sp-6);
+  align-items: end;
+  margin-bottom: var(--sp-8);
+}
+
+.sketch-section-title {
+  margin: var(--sp-3) 0 var(--sp-2);
+}
+
+.sketch-section-desc {
+  max-width: 660px;
+  color: var(--fb-muted);
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.component-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  align-items: flex-start;
+  margin-bottom: var(--sp-6);
+}
+
+.component-row.center { align-items: center; }
+.component-row.vertical { flex-direction: column; }
+
+.component-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-6);
+}
+
+.component-grid.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.component-label {
+  display: block;
+  margin: 0 0 var(--sp-3);
+  color: var(--fb-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+}
+
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: var(--sp-3);
+}
+
+.swatch {
+  min-height: 82px;
+  padding: var(--sp-3);
+  border: 1px solid var(--fb-border-strong);
+  background: var(--swatch);
+  color: var(--label, var(--fb-cream));
+  display: grid;
+  align-content: end;
+  gap: var(--sp-1);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.swatch strong {
+  font-family: var(--font-ui);
+  font-size: 18px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   APP CHROME
+============================================================ */
+.fb-page {
+  min-height: 620px;
+  border: 1px solid var(--fb-border);
+  background: rgba(8, 7, 6, 0.46);
+}
+
+.fb-topbar {
+  min-height: 112px;
+  display: grid;
+  grid-template-columns: 210px minmax(150px, 1fr) minmax(280px, 520px) auto;
+  gap: 28px;
+  align-items: center;
+  padding: 8px 30px;
+  border-bottom: 1px solid var(--fb-border);
+  background: rgba(12, 10, 9, 0.88);
+}
+
+.fb-brand {
+  position: relative;
+  width: 172px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+.fb-brand::before,
+.fb-brand::after {
+  content: "";
+  position: absolute;
+  inset: 18% 4% 8%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 122, 26, 0.54), rgba(240, 92, 0, 0.24) 42%, transparent 74%);
+  filter: blur(18px);
+  animation: fbPulse 3.1s ease-in-out infinite;
+}
+
+.fb-brand::after {
+  inset: 22% 14% 14%;
+  opacity: 0.36;
+  filter: blur(30px);
+}
+
+.fb-wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  padding: 7px 13px 5px;
+  transform: rotate(-6deg) skew(-8deg);
+  color: var(--fb-white);
+  background: #f6efe3;
+  border: 3px solid #050403;
+  box-shadow: 7px 7px 0 #050403, 0 0 22px rgba(240, 92, 0, 0.72);
+  font-family: var(--font-display);
+  font-size: 34px;
+  line-height: 0.85;
+  text-shadow: 2px 2px 0 #050403;
+}
+
+.fb-wordmark span { color: var(--fb-orange); }
+
+.fb-brand.compact {
+  width: 132px;
+  height: 48px;
+}
+
+.fb-brand.compact .fb-wordmark { font-size: 25px; border-width: 2px; box-shadow: 5px 5px 0 #050403, 0 0 18px rgba(240, 92, 0, 0.62); }
+
+.fb-brand.large {
+  width: 240px;
+  height: 92px;
+}
+
+.fb-brand.large .fb-wordmark { font-size: 48px; }
+
+.fb-tagline {
+  margin: 0;
+  padding-left: 18px;
+  border-left: 2px solid var(--fb-border-strong);
+  color: var(--fb-muted);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 1.4px;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.fb-search {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  border: 1px solid var(--fb-border-strong);
+  background: rgba(30, 27, 24, 0.78);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.fb-search:hover,
+.fb-search:focus-within {
+  border-color: var(--fb-orange);
+  box-shadow: var(--fb-glow);
+}
+
+.fb-search input {
+  width: 100%;
+  min-width: 0;
+  padding: 0 var(--sp-4);
+  border: 0;
+  outline: 0;
+  color: var(--fb-cream);
+  background: transparent;
+  font-size: 16px;
+}
+
+.fb-search input::placeholder { color: var(--fb-muted-2); }
+
+.fb-search button {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  background: transparent;
+  color: var(--fb-cream-soft);
+  cursor: pointer;
+}
+
+.fb-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sp-3);
+}
+
+.fb-nav {
+  display: flex;
+  min-height: 46px;
+  overflow-x: auto;
+  border-bottom: 3px solid var(--fb-orange);
+  background: rgba(22, 20, 18, 0.94);
+}
+
+.fb-nav button {
+  min-width: 106px;
+  border: 0;
+  border-right: 1px solid var(--fb-border);
+  color: var(--fb-muted);
+  background: transparent;
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.fb-nav button:hover,
+.fb-nav button.is-active {
+  color: var(--fb-orange);
+  background: rgba(240, 92, 0, 0.08);
+}
+
+.fb-nav button.is-active { box-shadow: inset 0 -3px 0 var(--fb-orange); }
+
+.fb-layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr) 320px;
+  min-height: 460px;
+}
+
+.fb-left,
+.fb-right {
+  background: rgba(18, 16, 14, 0.88);
+}
+
+.fb-left { border-right: 1px solid var(--fb-border); }
+.fb-right { border-left: 1px solid var(--fb-border); }
+
+.fb-main {
+  padding: var(--sp-6);
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(240, 92, 0, 0.1), transparent 32%),
+    rgba(14, 12, 10, 0.58);
+}
+
+/* ============================================================
+   PAGE LAYOUTS
+============================================================ */
+.fb-detail-hero,
+.fb-panel-hero,
+.fb-creator-hero {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--sp-8);
+  align-items: center;
+  padding: var(--sp-6) 0 var(--sp-8);
+  border-bottom: 3px solid var(--fb-orange);
+}
+
+.fb-detail-hero .fb-brand {
+  width: 150px;
+  height: 56px;
+}
+
+.fb-detail-hero .fb-wordmark { font-size: 29px; }
+
+.fb-page-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: var(--sp-6);
+  align-items: start;
+  padding-top: var(--sp-6);
+}
+
+.fb-admin-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: var(--sp-6);
+  align-items: start;
+}
+
+/* ============================================================
+   PANELS AND SIDEBARS
+============================================================ */
+.fb-panel {
+  padding: 18px 22px 22px;
+  border-bottom: 1px solid var(--fb-border);
+}
+
+.fb-panel.box {
+  border: 1px solid var(--fb-border-strong);
+  border-left: 4px solid var(--fb-orange);
+  background: rgba(18, 16, 14, 0.88);
+}
+
+.fb-panel-title,
+.fb-section-label {
+  margin: 0 0 var(--sp-4);
+  color: var(--fb-orange);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+.fb-section-label { color: var(--fb-muted); }
+
+.fb-section-list {
+  display: grid;
+  margin: 0 -22px;
+}
+
+.fb-section-list button {
+  --accent: var(--fb-orange-soft);
+  min-height: 56px;
+  padding: 0 22px;
+  border: 0;
+  border-top: 1px solid rgba(46, 40, 32, 0.7);
+  color: var(--fb-cream);
+  background: transparent;
+  font-family: var(--font-ui);
+  font-size: 22px;
+  font-weight: 900;
+  text-align: center;
+  cursor: pointer;
+}
+
+.fb-section-list button::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0;
+}
+
+.fb-section-list button:hover,
+.fb-section-list button.is-active {
+  color: var(--accent);
+  background: rgba(255, 122, 26, 0.06);
+}
+
+.fb-section-list button.is-active::before { opacity: 1; }
+
+.type-text { --accent: var(--fb-text); }
+.type-youtube { --accent: var(--fb-youtube); }
+.type-tiktok { --accent: var(--fb-tiktok); }
+.type-instagram { --accent: var(--fb-instagram); }
+.type-image { --accent: var(--fb-image); }
+.type-audio { --accent: var(--fb-audio); }
+.type-video { --accent: var(--fb-video); }
+
+.fb-tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.fb-rank-list {
+  display: grid;
+  margin: 0 -22px -22px;
+}
+
+.fb-rank-item {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: var(--sp-2);
+  padding: 15px 22px;
+  border-top: 1px solid var(--fb-border);
+}
+
+.fb-rank-number {
+  color: var(--fb-orange);
+  font-family: var(--font-mono);
+  font-weight: 800;
+}
+
+.fb-rank-title {
+  display: block;
+  color: var(--fb-cream);
+  font-family: var(--font-ui);
+  font-size: 19px;
+  font-weight: 900;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.fb-rank-points {
+  display: block;
+  margin-top: var(--sp-1);
+  color: var(--fb-muted-2);
+  font-size: 13px;
+}
+
+.fb-ad-slot {
+  min-height: 330px;
+  display: grid;
+  place-items: center;
+  border: 3px solid rgba(255, 0, 35, 0.88);
+  color: var(--fb-muted-2);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+.fb-btn {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: 0 18px;
+  border: 1px solid var(--fb-border-strong);
+  color: var(--fb-orange-soft);
+  background: transparent;
+  font-family: var(--font-ui);
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 0.7px;
+  line-height: 1;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.16s ease, border-color 0.16s ease, color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+}
+
+.fb-btn:hover,
+.fb-btn:focus-visible {
+  transform: translateY(-1px);
+  border-color: var(--fb-orange);
+  color: var(--fb-white);
+  box-shadow: var(--fb-glow);
+  outline: 0;
+}
+
+.fb-btn.primary {
+  color: #080604;
+  border-color: var(--fb-orange);
+  background: var(--fb-orange);
+}
+
+.fb-btn.primary:hover {
+  border-color: var(--fb-orange-hot);
+  background: var(--fb-orange-hot);
+}
+
+.fb-btn.danger {
+  color: #ffb08f;
+  border-color: var(--fb-red-ochre);
+  background: rgba(184, 79, 45, 0.1);
+}
+
+.fb-btn.ghost {
+  color: var(--fb-cream-soft);
+  background: rgba(18, 16, 14, 0.42);
+}
+
+.fb-btn.sm {
+  min-height: 32px;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.fb-btn.lg {
+  min-height: 54px;
+  padding: 0 30px;
+  font-size: 20px;
+}
+
+.fb-btn.icon {
+  width: 42px;
+  padding: 0;
+  font-family: var(--font-mono);
+}
+
+.fb-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ============================================================
+   BADGES, CHIPS, STATUS
+============================================================ */
+.fb-kicker,
+.fb-badge,
+.fb-chip,
+.fb-status {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.fb-kicker {
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--fb-orange);
+  color: var(--fb-orange);
+  background: rgba(240, 92, 0, 0.08);
+  font-size: 13px;
+  letter-spacing: 1.1px;
+}
+
+.fb-badge {
+  --accent: var(--fb-orange);
+  min-height: 30px;
+  padding: 0 9px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: rgba(240, 92, 0, 0.06);
+  font-size: 13px;
+  letter-spacing: 0.8px;
+}
+
+.fb-chip {
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--fb-border-strong);
+  color: var(--fb-cream-soft);
+  background: rgba(37, 33, 24, 0.78);
+  font-size: 13px;
+  text-transform: none;
+}
+
+.fb-chip::before {
+  content: "#";
+  margin-right: 1px;
+  opacity: 0.5;
+}
+
+.fb-chip.selected,
+.fb-chip:hover {
+  border-color: var(--fb-orange);
+  color: var(--fb-white);
+}
+
+.fb-status {
+  min-height: 28px;
+  padding: 0 9px;
+  border: 1px solid var(--fb-border-strong);
+  color: var(--fb-cream-soft);
+  background: rgba(18, 16, 14, 0.55);
+  font-size: 12px;
+}
+
+.fb-status.ok { color: var(--fb-success); border-color: #7fbf45; }
+.fb-status.warn { color: var(--fb-orange-soft); border-color: var(--fb-orange); }
+.fb-status.dead { color: #ff8b71; border-color: var(--fb-red-ochre); }
+
+/* ============================================================
+   POST CARDS AND MEDIA
+============================================================ */
+.fb-post-card {
+  position: relative;
+  overflow: hidden;
+  padding: 18px 20px 0;
+  border: 1px solid var(--fb-border-strong);
+  background:
+    linear-gradient(135deg, rgba(240, 92, 0, 0.055), transparent 42%),
+    rgba(18, 16, 14, 0.92);
+  box-shadow: var(--fb-shadow);
+}
+
+.fb-post-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--fb-orange);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.18s ease;
+}
+
+.fb-post-card:hover::before { transform: scaleY(1); }
+.fb-post-card:hover .fb-post-title { color: var(--fb-orange-soft); }
+
+.fb-post-card.compact {
+  padding: 14px 16px 0;
+  box-shadow: none;
+}
+
+.fb-post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  color: var(--fb-cream);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.fb-post-meta .dot { color: var(--fb-muted-2); }
+
+.fb-post-title {
+  margin-top: var(--sp-3);
+  transition: color 0.16s ease;
+}
+
+.fb-media-frame {
+  min-height: 260px;
+  margin: 18px auto 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--fb-border-hot);
+  background:
+    radial-gradient(circle at 50% 48%, rgba(240, 92, 0, 0.1), transparent 34%),
+    repeating-linear-gradient(135deg, rgba(240, 92, 0, 0.07) 0 1px, transparent 1px 12px),
+    #0a0807;
+  color: var(--fb-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.fb-media-frame.wide { aspect-ratio: 16 / 9; min-height: 0; }
+.fb-media-frame.vertical { width: min(360px, 100%); aspect-ratio: 9 / 16; min-height: 0; }
+.fb-media-frame.square { width: min(420px, 100%); aspect-ratio: 1; min-height: 0; }
+.fb-media-frame.short { width: min(420px, 100%); aspect-ratio: 4 / 5; min-height: 0; }
+
+.fb-post-body {
+  margin: 18px 0 0;
+  color: var(--fb-cream-soft);
+  font-size: 19px;
+  line-height: 1.45;
+}
+
+.fb-chip-row,
+.fb-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-top: var(--sp-4);
+}
+
+.fb-post-footer {
+  display: grid;
+  grid-template-columns: auto auto minmax(120px, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  margin: 18px -20px 0;
+  padding: 14px 20px;
+  border-top: 1px solid var(--fb-border);
+  color: var(--fb-cream);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.fb-post-card.compact .fb-post-footer {
+  margin-left: -16px;
+  margin-right: -16px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* ============================================================
+   FORMS
+============================================================ */
+.fb-form-card,
+.fb-preview-card,
+.fb-data-card {
+  border: 1px solid var(--fb-border-strong);
+  background:
+    linear-gradient(135deg, rgba(240, 92, 0, 0.055), transparent 48%),
+    rgba(18, 16, 14, 0.92);
+  box-shadow: var(--fb-shadow);
+}
+
+.fb-form-card,
+.fb-preview-card,
+.fb-data-card { padding: var(--sp-6); }
+
+.fb-form-card {
+  display: grid;
+  gap: var(--sp-4);
+}
+
+.fb-field {
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.fb-field label {
+  color: var(--fb-cream-soft);
+  font-family: var(--font-ui);
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.fb-field input,
+.fb-field textarea,
+.fb-field select {
+  width: 100%;
+  min-height: 48px;
+  padding: 13px 16px;
+  border: 1px solid var(--fb-border-strong);
+  outline: 0;
+  color: var(--fb-cream);
+  background: rgba(30, 27, 24, 0.72);
+  font-size: 16px;
+}
+
+.fb-field textarea {
+  min-height: 116px;
+  resize: vertical;
+}
+
+.fb-field input::placeholder,
+.fb-field textarea::placeholder { color: var(--fb-muted-2); }
+
+.fb-field input:hover,
+.fb-field textarea:hover,
+.fb-field select:hover,
+.fb-field input:focus,
+.fb-field textarea:focus,
+.fb-field select:focus {
+  border-color: var(--fb-orange);
+  box-shadow: var(--fb-glow);
+}
+
+.fb-field.invalid input,
+.fb-field.invalid textarea,
+.fb-field.invalid select {
+  border-color: var(--fb-red-ochre);
+  box-shadow: 0 0 22px rgba(184, 79, 45, 0.18);
+}
+
+.fb-hint,
+.fb-error-text {
+  color: var(--fb-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.fb-error-text { color: #ff8b71; }
+
+.fb-control-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+}
+
+.fb-toggle,
+.fb-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--fb-border-strong);
+  color: var(--fb-cream-soft);
+  background: rgba(30, 27, 24, 0.6);
+  font-family: var(--font-ui);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.fb-toggle input,
+.fb-radio input { accent-color: var(--fb-orange); }
+
+.fb-dropzone {
+  min-height: 150px;
+  display: grid;
+  place-items: center;
+  padding: var(--sp-5);
+  border: 1px dashed var(--fb-border-hot);
+  background:
+    repeating-linear-gradient(135deg, rgba(240, 92, 0, 0.06) 0 1px, transparent 1px 11px),
+    rgba(10, 8, 7, 0.78);
+  color: var(--fb-muted);
+  font-family: var(--font-mono);
+  text-align: center;
+}
+
+/* ============================================================
+   DATA CARDS, TABLES, LISTS
+============================================================ */
+.fb-data-list {
+  display: grid;
+  margin-top: var(--sp-4);
+}
+
+.fb-data-list div {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: var(--sp-3);
+  padding: 13px 0;
+  border-top: 1px solid var(--fb-border);
+}
+
+.fb-data-list dt {
+  color: var(--fb-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.fb-data-list dd {
+  margin: 0;
+  color: var(--fb-cream);
+  font-family: var(--font-ui);
+  font-size: 21px;
+  font-weight: 900;
+}
+
+.fb-table-card {
+  overflow: hidden;
+  border: 1px solid var(--fb-border-strong);
+  background: rgba(18, 16, 14, 0.92);
+}
+
+.fb-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fb-table th,
+.fb-table td {
+  padding: 15px 16px;
+  border-bottom: 1px solid var(--fb-border);
+  text-align: left;
+}
+
+.fb-table th {
+  color: var(--fb-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.fb-table td { color: var(--fb-cream-soft); }
+
+.fb-skeleton {
+  position: relative;
+  overflow: hidden;
+  background: rgba(46, 40, 32, 0.72);
+}
+
+.fb-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(240, 232, 216, 0.12), transparent);
+  animation: fbShimmer 1.4s infinite;
+}
+
+.fb-empty-state {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  padding: var(--sp-8);
+  border: 1px solid var(--fb-border-strong);
+  color: var(--fb-muted);
+  background: rgba(18, 16, 14, 0.72);
+  text-align: center;
+}
+
+.fb-empty-state strong {
+  display: block;
+  margin-bottom: var(--sp-2);
+  color: var(--fb-cream);
+  font-family: var(--font-ui);
+  font-size: 26px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   MODAL AND TOAST
+============================================================ */
+.fb-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: none;
+  place-items: center;
+  padding: var(--sp-6);
+  background:
+    radial-gradient(circle at 50% 48%, rgba(240, 92, 0, 0.16), transparent 34%),
+    rgba(3, 3, 3, 0.76);
+}
+
+.fb-modal-backdrop.is-open { display: grid; }
+
+.fb-modal {
+  width: min(560px, 100%);
+  padding: 28px 32px 32px;
+  border: 1px solid var(--fb-border-strong);
+  border-left: 4px solid var(--fb-orange);
+  background:
+    linear-gradient(135deg, rgba(240, 92, 0, 0.08), transparent 46%),
+    #1b1713;
+  box-shadow: var(--fb-shadow-deep), var(--fb-glow-strong);
+}
+
+.fb-modal-symbol {
+  width: 124px;
+  height: 88px;
+  margin: 0 auto var(--sp-5);
+  display: grid;
+  place-items: center;
+  color: var(--fb-white);
+  font-family: var(--font-display);
+  font-size: 66px;
+  background:
+    radial-gradient(ellipse at center, rgba(240, 92, 0, 0.42), transparent 60%),
+    #0b0907;
+  border: 1px solid var(--fb-border-strong);
+  box-shadow: 0 0 34px rgba(240, 92, 0, 0.22);
+}
+
+.fb-toast {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 30;
+  max-width: min(360px, calc(100vw - 44px));
+  padding: 14px 18px;
+  transform: translateX(calc(100% + 30px));
+  transition: transform 0.22s ease;
+  border: 1px solid var(--fb-border-strong);
+  border-left: 3px solid var(--fb-orange);
+  background: rgba(18, 16, 14, 0.96);
+  color: var(--fb-cream);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), var(--fb-glow);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.fb-toast.is-visible { transform: translateX(0); }
+
+/* ============================================================
+   ANIMATION
+============================================================ */
+@keyframes fbPulse {
+  0%, 100% { opacity: 0.55; transform: scaleX(1.02) scaleY(0.92); }
+  50% { opacity: 1; transform: scaleX(1.24) scaleY(1.08); }
+}
+
+@keyframes fbShimmer {
+  100% { transform: translateX(100%); }
+}
+
+/* ============================================================
+   RESPONSIVE RULES
+============================================================ */
+@media (max-width: 1180px) {
+  .fb-topbar {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .fb-tagline { display: none; }
+  .fb-layout { grid-template-columns: 220px minmax(0, 1fr); }
+  .fb-right { display: none; }
+  .component-grid,
+  .component-grid.three,
+  .fb-admin-grid,
+  .fb-page-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+  .sketch-intro,
+  .sketch-section,
+  .fb-main { padding-left: var(--sp-4); padding-right: var(--sp-4); }
+
+  .sketch-intro,
+  .sketch-section-header,
+  .fb-topbar,
+  .fb-detail-hero,
+  .fb-panel-hero,
+  .fb-creator-hero { grid-template-columns: 1fr; }
+
+  .fb-layout { grid-template-columns: 1fr; }
+  .fb-left { border-right: 0; }
+  .fb-section-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fb-post-footer { grid-template-columns: 1fr 1fr; }
+  .fb-data-list div { grid-template-columns: 1fr; gap: 4px; }
+}
+
+@media (max-width: 520px) {
+  .fb-brand { width: 142px; }
+  .fb-wordmark { font-size: 27px; }
+  .fb-actions { justify-content: flex-start; }
+  .fb-section-list { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+<div class="sketch-page">
+  <header class="sketch-intro">
+    <div>
+      <span class="fb-kicker">Portable UI kit</span>
+      <h1 style="margin-top:14px">ForoBardo Components</h1>
+      <p class="sketch-note">A single-file, image-free reference for the ForoBardo visual language: hot black surfaces, hard orange borders, loud condensed type, mono metadata, content-type accents, dense sidebars, and blunt controls.</p>
+    </div>
+    <button class="fb-btn primary js-toast-trigger" type="button">Test toast</button>
+  </header>
+
+  <!-- ============================================================
+       SECTION 01: TOKENS
+  ============================================================ -->
+  <section class="sketch-section">
+    <div class="sketch-section-header">
+      <div>
+        <span class="component-label">01 / Tokens</span>
+        <h2 class="sketch-section-title">Color and Type</h2>
+        <p class="sketch-section-desc">Use the black/orange system as the shell. Content-type colors are accents only; the product should never become a one-color theme.</p>
+      </div>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch" style="--swatch:var(--fb-black)"><strong>Black</strong><span>#080706</span></div>
+      <div class="swatch" style="--swatch:var(--fb-panel)"><strong>Panel</strong><span>#1b1713</span></div>
+      <div class="swatch" style="--swatch:var(--fb-orange);--label:#080604"><strong>Orange</strong><span>#f05c00</span></div>
+      <div class="swatch" style="--swatch:var(--fb-cream);--label:#080604"><strong>Cream</strong><span>#f0e8d8</span></div>
+      <div class="swatch" style="--swatch:var(--fb-youtube)"><strong>YouTube</strong><span>#e84b35</span></div>
+      <div class="swatch" style="--swatch:var(--fb-tiktok);--label:#080604"><strong>TikTok</strong><span>#69c9d0</span></div>
+      <div class="swatch" style="--swatch:var(--fb-instagram);--label:#080604"><strong>Instagram</strong><span>#ff69bf</span></div>
+      <div class="swatch" style="--swatch:var(--fb-image);--label:#080604"><strong>Image</strong><span>#91ff42</span></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 02: BRAND AND CHROME
+  ============================================================ -->
+  <section class="sketch-section">
+    <div class="sketch-section-header">
+      <div>
+        <span class="component-label">02 / Chrome</span>
+        <h2 class="sketch-section-title">Brand, Header, Nav</h2>
+        <p class="sketch-section-desc">The mark is intentionally rough and glowing. Use the compact mark in dense headers and the large mark only on empty/login/panel-style hero moments.</p>
+      </div>
+    </div>
+    <div class="component-row center">
+      <a class="fb-brand compact" href="#"><span class="fb-wordmark">Foro<span>Bardo</span></span></a>
+      <a class="fb-brand" href="#"><span class="fb-wordmark">Foro<span>Bardo</span></span></a>
+      <a class="fb-brand large" href="#"><span class="fb-wordmark">Foro<span>Bardo</span></span></a>
+    </div>
+
+    <div class="fb-page">
+      <header class="fb-topbar">
+        <a class="fb-brand compact" href="#"><span class="fb-wordmark">Foro<span>Bardo</span></span></a>
+        <p class="fb-tagline">Internet argentino<br>sin algoritmo</p>
+        <form class="fb-search">
+          <input type="search" placeholder="search a video, meme, lost moment...">
+          <button type="button" aria-label="Search">?</button>
+        </form>
+        <div class="fb-actions">
+          <button class="fb-btn primary" type="button">Panel</button>
+          <button class="fb-btn" type="button">Exit</button>
+        </div>
+      </header>
+      <nav class="fb-nav js-tabs" aria-label="Content types">
+        <button class="is-active" type="button">Home</button>
+        <button type="button">Text</button>
+        <button type="button">Image</button>
+        <button type="button">YouTube</button>
+        <button type="button">Instagram</button>
+        <button type="button">TikTok</button>
+      </nav>
+      <div class="fb-layout">
+        <aside class="fb-left">
+          <section class="fb-panel">
+            <h3 class="fb-section-label">Sections</h3>
+            <div class="fb-section-list js-section-list">
+              <button class="is-active type-text" type="button">All</button>
+              <button class="type-text" type="button">Text</button>
+              <button class="type-image" type="button">Image</button>
+              <button class="type-youtube" type="button">YouTube</button>
+              <button class="type-instagram" type="button">Instagram</button>
+              <button class="type-tiktok" type="button">TikTok</button>
+            </div>
+          </section>
+          <section class="fb-panel">
+            <h3 class="fb-panel-title">Ad slot</h3>
+            <div class="fb-ad-slot">300 x 600</div>
+          </section>
+        </aside>
+        <main class="fb-main">
+          <article class="fb-post-card">
+            <div class="fb-post-meta">
+              <span class="fb-badge type-youtube">YouTube</span>
+              <strong>ForoBardo</strong>
+              <span class="dot">-</span>
+              <span>4 h ago</span>
+            </div>
+            <h3 class="fb-post-title">Extreme shipwreck</h3>
+            <div class="fb-media-frame vertical">Embed / preview</div>
+            <p class="fb-post-body">A feed card must feel dense, clickable, and slightly hostile. Keep metadata small, titles loud, and media centered.</p>
+            <div class="fb-chip-row">
+              <span class="fb-chip">archive</span>
+              <span class="fb-chip">internet</span>
+              <span class="fb-chip">night-tv</span>
+            </div>
+            <footer class="fb-post-footer">
+              <span>16 views</span>
+              <span>2 shares</span>
+              <span>by <strong>electric</strong></span>
+              <span class="fb-button-row" style="margin:0"><button class="fb-btn sm" type="button">Link</button><button class="fb-btn sm" type="button">Share</button></span>
+            </footer>
+          </article>
+        </main>
+        <aside class="fb-right">
+          <section class="fb-panel">
+            <h3 class="fb-panel-title">Hot tags</h3>
+            <div class="fb-tag-cloud">
+              <span class="fb-chip">music</span>
+              <span class="fb-chip">accident</span>
+              <span class="fb-chip">moon</span>
+              <span class="fb-chip">blender</span>
+              <span class="fb-chip">archive</span>
+            </div>
+          </section>
+          <section class="fb-panel">
+            <h3 class="fb-panel-title">Top bardos</h3>
+            <div class="fb-rank-list">
+              <a class="fb-rank-item" href="#"><span class="fb-rank-number">1</span><span><span class="fb-rank-title">Tintarella di luna, YouTube has room for everything</span><span class="fb-rank-points">10 points</span></span></a>
+              <a class="fb-rank-item" href="#"><span class="fb-rank-number">2</span><span><span class="fb-rank-title">The immortal whistle</span><span class="fb-rank-points">9 points</span></span></a>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 03: BUTTONS AND LABELS
+  ============================================================ -->
+  <section class="sketch-section">
+    <div class="sketch-section-header">
+      <div>
+        <span class="component-label">03 / Controls</span>
+        <h2 class="sketch-section-title">Buttons, Badges, Chips</h2>
+        <p class="sketch-section-desc">Buttons are square, loud, and condensed. Badges carry content-type color. Chips are low-contrast until selected or hovered.</p>
+      </div>
+    </div>
+
+    <span class="component-label">Button sizes and states</span>
+    <div class="component-row center">
+      <button class="fb-btn sm" type="button">Small</button>
+      <button class="fb-btn" type="button">Default</button>
+      <button class="fb-btn lg" type="button">Large</button>
+      <button class="fb-btn primary" type="button">Primary</button>
+      <button class="fb-btn danger" type="button">Danger</button>
+      <button class="fb-btn ghost" type="button">Ghost</button>
+      <button class="fb-btn icon" type="button">NE</button>
+      <button class="fb-btn" disabled type="button">Disabled</button>
+    </div>
+
+    <span class="component-label">Badges and content accents</span>
+    <div class="component-row center">
+      <span class="fb-badge type-text">Text</span>
+      <span class="fb-badge type-image">Image</span>
+      <span class="fb-badge type-youtube">YouTube</span>
+      <span class="fb-badge type-instagram">Instagram</span>
+      <span class="fb-badge type-tiktok">TikTok</span>
+      <span class="fb-badge type-audio">Audio</span>
+      <span class="fb-badge type-video">Video</span>
+      <span class="fb-status ok">Active</span>
+      <span class="fb-status warn">Pending</span>
+      <span class="fb-status dead">Deleted</span>
+    </div>
+
+    <span class="component-label">Filter chips</span>
+    <div class="component-row center">
+      <span class="fb-chip selected">archive</span>
+      <span class="fb-chip">weird</span>
+      <span class="fb-chip">argentina</span>
+      <span class="fb-chip">late-night</span>
+      <span class="fb-chip">lost-media</span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 04: POSTS AND MEDIA CASES
+  ============================================================ -->
+  <section class="sketch-section">
+    <div class="sketch-section-header">
+      <div>
+        <span class="component-label">04 / Feed</span>
+        <h2 class="sketch-section-title">Post Card Cases</h2>
+        <p class="sketch-section-desc">Use the same card shell for every content type. The media frame changes shape: wide for YouTube, vertical for reels/shorts, square for image-heavy posts, compact rows for panel and creator archives.</p>
+      </div>
+    </div>
+
+    <div class="component-grid">
+      <article class="fb-post-card">
+        <div class="fb-post-meta"><span class="fb-badge type-youtube">YouTube</span><strong>ForoBardo</strong><span class="dot">-</span><span>3 h ago</span></div>
+        <h3 class="fb-post-title">Wide video frame</h3>
+        <div class="fb-media-frame wide">16:9 media</div>
+        <p class="fb-post-body">A wide frame for normal YouTube embeds or landscape images.</p>
+        <footer class="fb-post-footer"><span>4 views</span><span>2 shares</span><span>by <strong>electric</strong></span><button class="fb-btn sm">Share</button></footer>
+      </article>
+
+      <article class="fb-post-card">
+        <div class="fb-post-meta"><span class="fb-badge type-tiktok">TikTok</span><strong>ForoBardo</strong><span class="dot">-</span><span>now</span></div>
+        <h3 class="fb-post-title">Vertical embed frame</h3>
+        <div class="fb-media-frame vertical">9:16 media</div>
+        <p class="fb-post-body">A tall centered frame for TikTok, Instagram reels, and shorts.</p>
+        <footer class="fb-post-footer"><span>0 views</span><span>0 shares</span><span>by <strong>electric</strong></span><button class="fb-btn sm">Share</button></footer>
+      </article>
+
+      <article class="fb-post-card compact">
+        <div class="fb-post-meta"><span class="fb-badge type-image">Image</span><strong>electric</strong><span class="dot">-</span><span>1 d ago</span></div>
+        <h3 class="fb-post-title">Compact archive row</h3>
+        <p class="fb-post-body">Panel and creator archive rows should stay lighter, with actions aligned at the bottom.</p>
+        <div class="fb-chip-row"><span class="fb-chip">gif</span><span class="fb-chip">rare</span></div>
+        <footer class="fb-post-footer"><span>18 views</span><span>4 shares</span><span>by <strong>electric</strong></span><span class="fb-button-row" style="margin:0"><button class="fb-btn sm">View</button><button class="fb-btn sm">Share</button></span></footer>
+      </article>
+
+      <article class="fb-post-card">
+        <div class="fb-post-meta"><span class="fb-badge type-text">Text</span><strong>ForoBardo</strong><span class="dot">-</span><span>scheduled</span></div>
+        <h3 class="fb-post-title">Text-only bardo</h3>
+        <p class="fb-post-body">Text posts should still feel like posts, not notes. Keep the same footer rhythm and metadata language.</p>
+        <div class="fb-chip-row"><span class="fb-chip">theory</span><span class="fb-chip">forum</span></div>
+        <footer class="fb-post-footer"><span>0 views</span><span>0 shares</span><span>by <strong>electric</strong></span><button class="fb-btn sm">Share</button></footer>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 05: PANEL / FORM
+  ============================================================ -->
+  <section class="sketch-section">
+    <div class="sketch-section-header">
+      <div>
+        <span class="component-label">05 / Panel</span>
+        <h2 class="sketch-section-title">Publishing Form</h2>
+        <p class="sketch-section-desc">The admin/panel surface is utilitarian but still branded. The form is the work area; the preview card is a right-side checkpoint.</p>
+      </div>
+    </div>
+
+    <div class="fb-admin-grid">
+      <form class="fb-form-card">
+        <span class="fb-kicker">Private panel</span>
+        <h2>Publish bardo</h2>
+        <div class="fb-field">
+          <label for="demo-title">Title</label>
+          <input id="demo-title" placeholder="The lost cable clip at 3 a.m.">
+        </div>
+        <div class="fb-field">
+          <label for="demo-tags">Hashtags</label>
+          <input id="demo-tags" placeholder="suburbia, archive, weird">
+          <span class="fb-hint">Comma-separated. Keep the semantic poetry under control.</span>
+        </div>
+        <div class="fb-field">
+          <label for="demo-body">Body</label>
+          <textarea id="demo-body" placeholder="Write the finding, the theory, or the documented delirium."></textarea>
+        </div>
+        <div class="fb-field invalid">
+          <label for="demo-invalid">Invalid state</label>
+          <input id="demo-invalid" placeholder="Ochre-red border, not emergency red">
+          <span class="fb-error-text">This field needs a usable value.</span>
+        </div>
+        <div class="component-grid">
+          <div class="fb-field">
+            <label for="demo-type">Content type</label>
+            <select id="demo-type">
+              <option>Text</option>
+              <option>Image / GIF</option>
+              <option>YouTube</option>
+              <option>Instagram</option>
+              <option>TikTok</option>
+            </select>
+          </div>
+          <div class="fb-field">
+            <label for="demo-date">Publish date</label>
+            <input id="demo-date" type="datetime-local">
+          </div>
+        </div>
+        <div class="fb-dropzone">Dropzone / browse file / source URL area</div>
+        <div class="fb-control-row">
+          <label class="fb-toggle"><input type="checkbox" checked> Published</label>
+          <label class="fb-toggle"><input type="checkbox"> Scheduled</label>
+          <label class="fb-radio"><input name="demo-mode" type="radio" checked> Forum</label>
+          <label class="fb-radio"><input name="demo-mode" type="radio"> Panel</label>
+        </div>
+        <div class="fb-button-row">
+          <button class="fb-btn primary" type="button">Publish bardo</button>
+          <button class="fb-btn" type="button">Clear</button>
+          <button class="fb-btn danger js-modal-trigger" type="button">Delete</button>
+        </div>
+      </form>
+
+      <aside class="fb-preview-card">
+        <span class="fb-kicker">Local preview</span>
+        <h2 style="margin-top:12px">This will go out</h2>
+        <dl class="fb-data-list">
+          <div><dt>Title</dt><dd>No title yet</dd></div>
+          <div><dt>Tags</dt><dd>No hashtags</dd></div>
+          <div><dt>Type</dt><dd>text</dd></div>
+          <div><dt>Publish</dt><dd>Jun 5, 2026</dd></div>
+        </dl>
+        <p class="fb-post-body">Preview copy belongs here before the bardo hits the backend.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 06: DETAIL AND CREATOR PAGES
+  ============================================================ -->
+  <section class="sketch-section">
+    <div class="sketch-section-header">
+      <div>
+        <span class="component-label">06 / Page variants</span>
+        <h2 class="sketch-section-title">Post Detail and Creator Archive</h2>
+        <p class="sketch-section-desc">Detail pages use a smaller left mark and put the text immediately beside it. Creator archive pages reuse the panel/list rhythm and keep the sidebar factual.</p>
+      </div>
+    </div>
+
+    <div class="fb-page-grid">
+      <div>
+        <header class="fb-detail-hero">
+          <a class="fb-brand" href="#"><span class="fb-wordmark">Foro<span>Bardo</span></span></a>
+          <div>
+            <span class="fb-kicker">Shareable bardo</span>
+            <h2 style="margin-top:12px">Detail page title</h2>
+            <p class="fb-post-body">By <strong>electric</strong> - Jun 9, 2026, 1:09 p.m.</p>
+          </div>
+        </header>
+        <article class="fb-post-card" style="margin-top:24px">
+          <div class="fb-post-meta"><span class="fb-badge type-youtube">YouTube</span><span class="fb-badge">Published</span></div>
+          <div class="fb-media-frame wide">Detail media frame</div>
+          <p class="fb-post-body">Long-form body copy can live below the media. Keep paragraphs comfortable, not corporate.</p>
+        </article>
+      </div>
+
+      <aside class="fb-data-card">
+        <span class="fb-kicker">Creator</span>
+        <dl class="fb-data-list">
+          <div><dt>Role</dt><dd>superadmin</dd></div>
+          <div><dt>Posts</dt><dd>140</dd></div>
+          <div><dt>Views</dt><dd>1.1K</dd></div>
+          <div><dt>Shares</dt><dd>140</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 07: TABLES, EMPTY, LOADING
+  ============================================================ -->
+  <section class="sketch-section">
+    <div class="sketch-section-header">
+      <div>
+        <span class="component-label">07 / Admin data</span>
+        <h2 class="sketch-section-title">Tables and States</h2>
+        <p class="sketch-section-desc">User administration keeps the same hard edges. Statuses are factual; destructive actions should open the branded confirm modal.</p>
+      </div>
+    </div>
+
+    <div class="component-grid">
+      <div class="fb-table-card">
+        <table class="fb-table">
+          <thead>
+            <tr><th>User</th><th>Role</th><th>Status</th><th>Action</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>electric</td><td><span class="fb-badge">Superadmin</span></td><td><span class="fb-status ok">Active</span></td><td><button class="fb-btn sm">Edit</button></td></tr>
+            <tr><td>unknown</td><td><span class="fb-badge type-instagram">Admin</span></td><td><span class="fb-status dead">Deleted</span></td><td><button class="fb-btn sm danger">Deleted</button></td></tr>
+            <tr><td>sistaterror</td><td><span class="fb-badge type-tiktok">User</span></td><td><span class="fb-status warn">Pending</span></td><td><button class="fb-btn sm">Invite</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="component-row vertical">
+        <div class="fb-empty-state">
+          <div>
+            <strong>No bardos yet</strong>
+            <p>The empty state should be blunt, quiet, and still inside the brand shell.</p>
+          </div>
+        </div>
+        <div class="fb-data-card">
+          <span class="component-label">Skeleton loader</span>
+          <div class="fb-skeleton" style="height:18px;width:68%;margin-bottom:12px"></div>
+          <div class="fb-skeleton" style="height:12px;width:92%;margin-bottom:8px"></div>
+          <div class="fb-skeleton" style="height:12px;width:76%;margin-bottom:8px"></div>
+          <div class="fb-skeleton" style="height:110px;width:100%;margin-top:16px"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     MODAL AND TOAST INSTANCES
+============================================================ -->
+<div class="fb-modal-backdrop" id="confirmModal">
+  <div class="fb-modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <div class="fb-modal-symbol">!</div>
+    <span class="fb-kicker">Are you sure?</span>
+    <h2 id="confirmTitle" style="margin-top:12px">Delete bardo</h2>
+    <p class="fb-post-body">Sensitive operation. This mirrors the destructive confirm pattern without depending on image assets.</p>
+    <div class="fb-button-row">
+      <button class="fb-btn js-modal-close" type="button">Cancel</button>
+      <button class="fb-btn primary" type="button">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="fb-toast" id="toast">Copied to clipboard.</div>
+
+<!-- JS: move this to forum.js later -->
+<script>
+
+// ============================================================
+// ACTIVE TAB / SECTION STATES
+// ============================================================
+function bindActiveGroup(selector) {
+  document.querySelectorAll(selector).forEach((group) => {
+    group.addEventListener("click", (event) => {
+      const button = event.target.closest("button");
+      if (!button) return;
+      group.querySelectorAll("button").forEach((item) => item.classList.remove("is-active"));
+      button.classList.add("is-active");
+    });
+  });
+}
+
+bindActiveGroup(".js-tabs");
+bindActiveGroup(".js-section-list");
+
+// ============================================================
+// MODAL
+// ============================================================
+const confirmModal = document.getElementById("confirmModal");
+
+document.querySelectorAll(".js-modal-trigger").forEach((button) => {
+  button.addEventListener("click", () => confirmModal.classList.add("is-open"));
+});
+
+document.querySelectorAll(".js-modal-close").forEach((button) => {
+  button.addEventListener("click", () => confirmModal.classList.remove("is-open"));
+});
+
+confirmModal.addEventListener("click", (event) => {
+  if (event.target === confirmModal) confirmModal.classList.remove("is-open");
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") confirmModal.classList.remove("is-open");
+});
+
+// ============================================================
+// TOAST
+// ============================================================
+const toast = document.getElementById("toast");
+let toastTimer = null;
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add("is-visible");
+  window.clearTimeout(toastTimer);
+  toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 1800);
+}
+
+document.querySelectorAll(".js-toast-trigger").forEach((button) => {
+  button.addEventListener("click", () => showToast("ForoBardo component sketch is alive."));
+});
+
+</script>
+</body>
+</html>

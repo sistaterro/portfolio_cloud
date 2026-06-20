@@ -18,7 +18,7 @@
     gtag('config', 'G-0WQ37WKF2T');
   </script>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;700;800&display=swap"
     rel="stylesheet">
   <style>
     :root {
@@ -806,6 +806,95 @@
       50%       { box-shadow: 0 0 18px 4px rgba(0, 214, 201, 0.18); }
     }
 
+    /* ForoBardo */
+    .card-forobardo {
+      background:
+        radial-gradient(circle at 20% 16%, rgba(240, 92, 0, 0.22), transparent 30%),
+        radial-gradient(circle at 84% 12%, rgba(255, 122, 26, 0.12), transparent 28%),
+        linear-gradient(135deg, rgba(20, 14, 9, 0.98), rgba(8, 7, 6, 0.99));
+      border-color: rgba(240, 92, 0, 0.28);
+    }
+
+    .card-forobardo:hover {
+      box-shadow: 0 20px 60px rgba(240, 92, 0, 0.14), 0 0 0 1px rgba(255, 122, 26, 0.34);
+    }
+
+    .card-forobardo::before {
+      background: linear-gradient(90deg, transparent, #f05c00, #faf6f0, #ff7a1a, transparent);
+    }
+
+    .card-forobardo .card-tag { color: #ff9944; }
+    .card-forobardo .card-title { color: #faf6f0; }
+    .card-forobardo .card-desc { color: #dfd2bd; opacity: 1; }
+    .card-forobardo .card-arrow { color: #ff7a1a; }
+
+    .card-forobardo .card-icon {
+      position: relative;
+      width: 118px;
+      height: 48px;
+      border-radius: 0;
+      background: transparent;
+      border: 0;
+      animation: pulseForoBardo 3s ease-in-out infinite;
+    }
+
+    .card-forobardo .card-icon::before,
+    .card-forobardo .card-icon::after {
+      content: '';
+      position: absolute;
+      inset: 8px 4px 4px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(255, 122, 26, 0.52), rgba(240, 92, 0, 0.2) 42%, transparent 72%);
+      filter: blur(14px);
+    }
+
+    .card-forobardo .card-icon::after {
+      inset: 12px 18px 8px;
+      opacity: 0.46;
+      filter: blur(24px);
+    }
+
+    .forobardo-wordmark {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 2px;
+      padding: 8px 12px 5px;
+      transform: rotate(-5deg) skew(-8deg);
+      color: #faf6f0;
+      background: #f6efe3;
+      border: 2px solid #050403;
+      box-shadow: 5px 5px 0 #050403, 0 0 20px rgba(240, 92, 0, 0.62);
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 26px;
+      line-height: 0.85;
+      letter-spacing: 0;
+      text-shadow: 2px 2px 0 #050403;
+      white-space: nowrap;
+    }
+
+    .forobardo-wordmark span {
+      color: #f05c00;
+    }
+
+    .card-forobardo .tech-pill {
+      background: rgba(240, 92, 0, 0.1);
+      color: #ff9944;
+      border: 1px solid rgba(240, 92, 0, 0.24);
+    }
+
+    .card-forobardo .tech-pill:nth-child(2) {
+      background: rgba(250, 246, 240, 0.07);
+      color: #f0e8d8;
+      border-color: rgba(250, 246, 240, 0.18);
+    }
+
+    @keyframes pulseForoBardo {
+      0%, 100% { filter: drop-shadow(0 0 0 rgba(240, 92, 0, 0)); transform: translateY(0); }
+      50%       { filter: drop-shadow(0 0 12px rgba(240, 92, 0, 0.28)); transform: translateY(-1px); }
+    }
+
     /* ── LUMEX ── */
     .card-lumex {
       background:
@@ -1022,8 +1111,9 @@
     .card:nth-child(4) { animation-delay: 0.5s; }
     .card:nth-child(5) { animation-delay: 0.6s; }
     .card:nth-child(6) { animation-delay: 0.7s; }
+    .card:nth-child(7) { animation-delay: 0.8s; }
 
-    .footer { animation-delay: 0.8s; }
+    .footer { animation-delay: 0.9s; }
 
     @keyframes fadeUp {
       to {
@@ -1134,15 +1224,17 @@
 
     <div class="card-grid">
 
-      <a class="card card-aesthetic" href="https://github.com/sistaterro/frontend_portfolio" target="_blank" rel="noopener noreferrer">
-        <span class="card-tag">Frontend / Design Systems</span>
-        <div class="card-icon" aria-hidden="true"></div>
-        <div class="card-title">Aesthetic Store</div>
-        <p class="card-desc">Reusable frontend aesthetics built as executable visual references for developers and AI-assisted workflows.</p>
+      <a class="card card-forobardo" href="https://forobardo.net/" target="_blank" rel="noopener noreferrer">
+        <span class="card-tag">Full Stack / Product</span>
+        <div class="card-icon" aria-hidden="true">
+          <span class="forobardo-wordmark">Foro<span>Bardo</span></span>
+        </div>
+        <div class="card-title">ForoBardo</div>
+        <p class="card-desc">Community platform built, deployed, operated and maintained as an independent product, with authentication, media storage, SEO, analytics and cloud infrastructure.</p>
         <div class="card-footer">
           <div class="card-tech">
-            <span class="tech-pill">HTML / CSS / JS</span>
-            <span class="tech-pill">AI Ready</span>
+            <span class="tech-pill">Supabase / R2</span>
+            <span class="tech-pill">Full Stack</span>
           </div>
           <span class="card-arrow">→</span>
         </div>
@@ -1168,6 +1260,20 @@
         </div>
       </a>
 
+      <a class="card card-aesthetic" href="https://github.com/sistaterro/frontend_portfolio" target="_blank" rel="noopener noreferrer">
+        <span class="card-tag">Frontend / Design Systems</span>
+        <div class="card-icon" aria-hidden="true"></div>
+        <div class="card-title">Aesthetic Store</div>
+        <p class="card-desc">Reusable frontend aesthetics built as executable visual references for developers and AI-assisted workflows.</p>
+        <div class="card-footer">
+          <div class="card-tech">
+            <span class="tech-pill">HTML / CSS / JS</span>
+            <span class="tech-pill">AI Ready</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
       <a class="card card-mascot" href="https://github.com/sistaterro/ai_mascot" target="_blank" rel="noopener noreferrer">
         <span class="card-tag">Widget / AI UI</span>
         <div class="card-icon" aria-hidden="true">😉</div>
@@ -1182,7 +1288,7 @@
         </div>
       </a>
 
-      <a class="card card-nexus" href="nexusgrid.html" target="_blank" rel="noopener noreferrer">
+      <a class="card card-nexus card-hidden" href="nexusgrid.html" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
         <span class="card-tag">Technology</span>
         <div class="card-icon" aria-hidden="true"></div>
         <div class="card-title">NexusGrid</div>
