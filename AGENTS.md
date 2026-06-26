@@ -51,7 +51,7 @@ Cada página del portfolio fue diseñada con un lenguaje visual único:
 - **Responsive del nombre:** `index.html` y `contact.html` mantienen el nombre en una sola línea mediante `white-space: nowrap` y breakpoints específicos para evitar overflow horizontal en narrow viewports. En `contact.html`, el `h1` usa una banda full-bleed (`width: 100vw` + `margin-left: calc(50% - 50vw)`) para centrar el nombre contra el viewport, no contra el ancho de la tarjeta de contacto.
 - **CTAs del hero:** En desktop, `Contact` y `PCAP Certification` aparecen debajo de la bio; en narrow, ambos quedan centrados aunque el texto del hero esté alineado a la izquierda.
 - **Orden visible del grid:** `ForoBardo`, `Emma Chat 2.0`, `Aesthetic Store`, `AI Mascot`, `Audiobook Generator TTS` y `TalkingDutch`.
-- **Privacidad / Ubicación:** Se removieron referencias visibles a `Eindhoven`, `Netherlands`, `NL`, `Location` y textos tipo `Based in...` en `index.html` y `contact.html`.
+- **Privacidad / Ubicación:** `index.html` y `contact.html` no muestran ubicación personal; cualquier referencia visible heredada a la ciudad anterior debe reemplazarse por `Buenos Aires` y mantenerse en inglés.
 - **Performance de animaciones:** El efecto de relámpago en `index.html` y `contact.html` ya no corre en un loop continuo de `requestAnimationFrame`; se agenda por ráfagas, pausa con `document.hidden` y respeta `prefers-reduced-motion`.
 - **Lumex:** `lumex.html` conserva su identidad neon, pero su card permanece en `card-hidden`; el canvas de partículas se limitó a 30fps, con menos partículas, pausa por pestaña oculta y cursor custom throttleado por RAF.
 - **SolTech:** La card de `soltech_english.html` permanece en `card-hidden`; su espacio visible fue reemplazado por AI Mascot.
