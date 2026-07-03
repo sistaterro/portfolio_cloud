@@ -25,7 +25,7 @@ Este documento centraliza las observaciones técnicas y estructurales del portfo
 ## 3. Desglose de Proyectos (Micro-Brands)
 Cada página del portfolio fue diseñada con un lenguaje visual único:
 1. **ForoBardo:** Producto comunitario full-stack real (negro/crema/naranja, wordmark inclinado tipo sticker, estética dura de foro/media platform).
-2. **Emma Chat 2.0:** Asistente IA con LangChain/RAG (azules eléctricos, lente/punto azul sobre base blanco-cyan, interfaz técnica).
+2. **Emma 3.0:** Asistente IA local-first e híbrido con LangChain/RAG, compatible con modelos locales y servicios externos (azules eléctricos, lente/punto azul sobre base blanco-cyan, interfaz técnica).
 3. **Aesthetic Store:** Catálogo de referencias visuales frontend para humanos y agentes IA (cian/coral/lima, cards compactas, estética de biblioteca visual).
 4. **AI Mascot:** Widget JavaScript embebible para mascotas de IA (verde/turquesa/lima, amigable, API pequeña, logo sonriente).
 5. **Audiobook Generator TTS:** Pipeline local XTTS para audiolibros (violeta/cian/ámbar, icono de onda de audio, enfoque long-form/ACX).
@@ -50,7 +50,7 @@ Cada página del portfolio fue diseñada con un lenguaje visual único:
 - **Nombre visible:** El hero principal y la página de contacto usan `Juan Carlos Díaz`; `Juan Carlos` permanece en blanco y `Díaz` mantiene el tratamiento azul/degradado del glitch.
 - **Responsive del nombre:** `index.html` y `contact.html` mantienen el nombre en una sola línea mediante `white-space: nowrap` y breakpoints específicos para evitar overflow horizontal en narrow viewports. En `contact.html`, el `h1` usa una banda full-bleed (`width: 100vw` + `margin-left: calc(50% - 50vw)`) para centrar el nombre contra el viewport, no contra el ancho de la tarjeta de contacto.
 - **CTAs del hero:** En desktop, `Contact` y `PCAP Certification` aparecen debajo de la bio; en narrow, ambos quedan centrados aunque el texto del hero esté alineado a la izquierda.
-- **Orden visible del grid:** `ForoBardo`, `Emma Chat 2.0`, `Aesthetic Store`, `AI Mascot`, `Audiobook Generator TTS` y `TalkingDutch`.
+- **Orden visible del grid:** `ForoBardo`, `Emma 3.0`, `Aesthetic Store`, `AI Mascot`, `Audiobook Generator TTS` y `TalkingDutch`.
 - **Privacidad / Ubicación:** `index.html` y `contact.html` no muestran ubicación personal; cualquier referencia visible heredada a la ciudad anterior debe reemplazarse por `Buenos Aires` y mantenerse en inglés.
 - **Performance de animaciones:** El efecto de relámpago en `index.html` y `contact.html` ya no corre en un loop continuo de `requestAnimationFrame`; se agenda por ráfagas, pausa con `document.hidden` y respeta `prefers-reduced-motion`.
 - **Lumex:** `lumex.html` conserva su identidad neon, pero su card permanece en `card-hidden`; el canvas de partículas se limitó a 30fps, con menos partículas, pausa por pestaña oculta y cursor custom throttleado por RAF.

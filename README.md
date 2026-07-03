@@ -18,6 +18,7 @@ Repository: https://github.com/sistaterro/portfolio_cloud
 ## External Project Cards
 
 - ForoBardo - Independent full-stack community product linked from the main portfolio grid.
+- Emma 3.0 - Local-first hybrid AI assistant with private local RAG and support for both local models and configured external AI services.
 - Audiobook Generator TTS - Local XTTS audiobook pipeline linked from the main portfolio grid.
 - Aesthetic Store - Frontend visual reference catalog linked from the main portfolio grid.
 - AI Mascot - Embeddable JavaScript mascot widget linked from the main portfolio grid.
