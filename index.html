@@ -809,6 +809,77 @@
       50%       { box-shadow: 0 0 18px 4px rgba(0, 214, 201, 0.18); }
     }
 
+    /* Lighttown Barbershop */
+    .card-lighttown {
+      background:
+        radial-gradient(circle at 18% 14%, rgba(199, 160, 82, 0.18), transparent 32%),
+        radial-gradient(circle at 88% 10%, rgba(125, 28, 34, 0.2), transparent 30%),
+        linear-gradient(135deg, rgba(31, 24, 19, 0.98), rgba(13, 11, 9, 0.99));
+      border-color: rgba(199, 160, 82, 0.3);
+    }
+
+    .card-lighttown:hover {
+      box-shadow: 0 20px 60px rgba(125, 28, 34, 0.2), 0 0 0 1px rgba(199, 160, 82, 0.42);
+    }
+
+    .card-lighttown::before {
+      background: linear-gradient(90deg, transparent, #7d1c22, #c7a052, #f2e4ca, transparent);
+    }
+
+    .card-lighttown .card-tag { color: #d8b66f; }
+    .card-lighttown .card-title { color: #f5ead6; }
+    .card-lighttown .card-desc { color: #cdbfa9; opacity: 1; }
+    .card-lighttown .card-arrow { color: #d8b66f; }
+
+    .card-lighttown .card-icon {
+      position: relative;
+      overflow: hidden;
+      background: #f2e4ca;
+      border: 2px solid #c7a052;
+      border-radius: 14px;
+      box-shadow: 0 0 18px rgba(199, 160, 82, 0.2);
+      animation: pulseLighttown 3.2s ease-in-out infinite;
+    }
+
+    .card-lighttown .card-icon::before {
+      content: '';
+      position: absolute;
+      inset: -54px -8px;
+      background: repeating-linear-gradient(135deg, #7d1c22 0 9px, #f2e4ca 9px 18px, #244b57 18px 27px, #f2e4ca 27px 36px);
+      animation: barberPole 5s linear infinite;
+      will-change: transform;
+    }
+
+    .card-lighttown .card-icon::after {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border: 1px solid rgba(45, 32, 23, 0.28);
+      border-radius: 9px;
+    }
+
+    .card-lighttown .tech-pill {
+      background: rgba(199, 160, 82, 0.1);
+      color: #e3c584;
+      border: 1px solid rgba(199, 160, 82, 0.24);
+    }
+
+    .card-lighttown .tech-pill:nth-child(2) {
+      background: rgba(125, 28, 34, 0.13);
+      color: #e5a7a9;
+      border-color: rgba(173, 59, 65, 0.28);
+    }
+
+    @keyframes barberPole {
+      from { transform: translate3d(0, -50.9117px, 0); }
+      to { transform: translate3d(0, 0, 0); }
+    }
+
+    @keyframes pulseLighttown {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(199, 160, 82, 0); }
+      50% { box-shadow: 0 0 18px 4px rgba(199, 160, 82, 0.2); }
+    }
+
     /* ForoBardo */
     .card-forobardo {
       background:
@@ -1375,7 +1446,21 @@
 
     <div class="card-grid">
 
-      <a class="card card-forobardo" href="https://forobardo.net/" target="_blank" rel="noopener noreferrer">
+      <a class="card card-lighttown" href="https://lighttown-barbershop.nl/" target="_blank" rel="noopener noreferrer">
+        <span class="card-tag">Client Work / Netherlands</span>
+        <div class="card-icon" aria-hidden="true"></div>
+        <div class="card-title">Lighttown Barbershop</div>
+        <p class="card-desc">Custom website created for a Dutch barbershop, blending a polished retro aesthetic with a clear, responsive experience tailored to the client's brand.</p>
+        <div class="card-footer">
+          <div class="card-tech">
+            <span class="tech-pill">HTML · CSS</span>
+            <span class="tech-pill">JavaScript</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <a class="card card-forobardo card-hidden" href="https://forobardo.net/" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
         <span class="card-tag">Full Stack / Product</span>
         <div class="card-icon" aria-hidden="true">
           <span class="forobardo-wordmark">Foro<span>Bardo</span></span>
