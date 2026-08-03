@@ -27,15 +27,16 @@ Cada página del portfolio fue diseñada con un lenguaje visual único:
 1. **Lighttown Barbershop:** Sitio web realizado por encargo para una barbería neerlandesa (crema/bordó/dorado, estética retro y barber pole animado).
 2. **ForoBardo:** Producto comunitario full-stack real (negro/crema/naranja, wordmark inclinado tipo sticker, estética dura de foro/media platform), conservado en hide dentro del grid principal.
 3. **Emma 3.0:** Asistente IA local-first e híbrido con LangChain/RAG, compatible con modelos locales y servicios externos (azules eléctricos, lente/punto azul sobre base blanco-cyan, interfaz técnica).
-4. **Aesthetic Store:** Catálogo de referencias visuales frontend para humanos y agentes IA (cian/coral/lima, cards compactas, estética de biblioteca visual).
-5. **AI Mascot:** Widget JavaScript embebible para mascotas de IA (verde/turquesa/lima, amigable, API pequeña, logo sonriente).
-6. **Audiobook Generator TTS:** Pipeline local XTTS para audiolibros (violeta/cian/ámbar, icono de onda de audio, enfoque long-form/ACX).
-7. **CodeRisk AI / PR Sentinel:** Reviewer de riesgo para pull requests asistido por IA (púrpura/cian/ámbar, dashboard técnico, icono tipo escudo/sentinel), conservado en hide dentro del grid principal.
-8. **NexusGrid:** Estética Cyberpunk/High-tech (Azules/Cian, Share Tech Mono), conservado en hide dentro del grid principal.
-9. **SolTech:** Fusión Solar-Tech (Naranjas/Amarillos, Outfit/Rajdhani), conservado en hide dentro del grid principal.
-10. **Verdant:** Diseño Orgánico/Sostenible (Verdes/Menta, DM Sans), conservado en hide dentro del grid principal.
-11. **Lumex:** Neon-Futurism (Púrpuras/Cian, Exo 2), conservado en hide dentro del grid principal.
-12. **TalkingDutch:** Branding Institucional Holandés (Rojo/Blanco/Azul/Naranja).
+4. **Emma Node:** La misma versión funcional de Emma reconstruida con Node.js y React (verde Node/cian React, interfaz técnica emparentada con Emma 3.0).
+5. **Aesthetic Store:** Catálogo de referencias visuales frontend para humanos y agentes IA (cian/coral/lima, cards compactas, estética de biblioteca visual).
+6. **AI Mascot:** Widget JavaScript embebible para mascotas de IA (verde/turquesa/lima, amigable, API pequeña, logo sonriente).
+7. **Audiobook Generator TTS:** Pipeline local XTTS para audiolibros (violeta/cian/ámbar, icono de onda de audio, enfoque long-form/ACX).
+8. **CodeRisk AI / PR Sentinel:** Reviewer de riesgo para pull requests asistido por IA (púrpura/cian/ámbar, dashboard técnico, icono tipo escudo/sentinel), conservado en hide dentro del grid principal.
+9. **NexusGrid:** Estética Cyberpunk/High-tech (Azules/Cian, Share Tech Mono), conservado en hide dentro del grid principal.
+10. **SolTech:** Fusión Solar-Tech (Naranjas/Amarillos, Outfit/Rajdhani), conservado en hide dentro del grid principal.
+11. **Verdant:** Diseño Orgánico/Sostenible (Verdes/Menta, DM Sans), conservado en hide dentro del grid principal.
+12. **Lumex:** Neon-Futurism (Púrpuras/Cian, Exo 2), conservado en hide dentro del grid principal.
+13. **TalkingDutch:** Branding Institucional Holandés (Rojo/Blanco/Azul/Naranja), conservado en hide dentro del grid principal.
 
 ## 4. Estado de los Componentes Críticos
 
@@ -51,7 +52,7 @@ Cada página del portfolio fue diseñada con un lenguaje visual único:
 - **Nombre visible:** El hero principal y la página de contacto usan `Juan Carlos Díaz`; `Juan Carlos` permanece en blanco y `Díaz` mantiene el tratamiento azul/degradado del glitch.
 - **Responsive del nombre:** `index.html` y `contact.html` mantienen el nombre en una sola línea mediante `white-space: nowrap` y breakpoints específicos para evitar overflow horizontal en narrow viewports. En `contact.html`, el `h1` usa una banda full-bleed (`width: 100vw` + `margin-left: calc(50% - 50vw)`) para centrar el nombre contra el viewport, no contra el ancho de la tarjeta de contacto.
 - **CTAs del hero:** En desktop, `Contact` y `PCAP Certification` aparecen debajo de la bio; en narrow, ambos quedan centrados aunque el texto del hero esté alineado a la izquierda.
-- **Orden visible del grid:** `Lighttown Barbershop`, `Emma 3.0`, `Aesthetic Store`, `AI Mascot`, `Audiobook Generator TTS` y `TalkingDutch`.
+- **Orden visible del grid:** `Lighttown Barbershop`, `Emma 3.0`, `Emma Node`, `Aesthetic Store`, `AI Mascot` y `Audiobook Generator TTS`.
 - **Privacidad / Ubicación:** `index.html` y `contact.html` no muestran ubicación personal; cualquier referencia visible heredada a la ciudad anterior debe reemplazarse por `Buenos Aires` y mantenerse en inglés.
 - **Performance de animaciones:** El efecto de relámpago en `index.html` y `contact.html` ya no corre en un loop continuo de `requestAnimationFrame`; se agenda por ráfagas, pausa con `document.hidden` y respeta `prefers-reduced-motion`.
 - **Lumex:** `lumex.html` conserva su identidad neon, pero su card permanece en `card-hidden`; el canvas de partículas se limitó a 30fps, con menos partículas, pausa por pestaña oculta y cursor custom throttleado por RAF.
@@ -60,6 +61,8 @@ Cada página del portfolio fue diseñada con un lenguaje visual único:
 - **NexusGrid:** La card de `nexusgrid.html` permanece en `card-hidden`; el proyecto sigue disponible por URL directa y como micro-brand documentado.
 - **Lighttown Barbershop:** La card visible enlaza `https://lighttown-barbershop.nl/` y presenta el sitio realizado por encargo en Países Bajos con HTML, CSS y JavaScript.
 - **ForoBardo:** La card enlaza `https://forobardo.net/` pero permanece en `card-hidden`; usa `forum.html` como referencia visual local para el wordmark y sistema negro/crema/naranja.
+- **Emma Node:** La card visible enlaza `https://github.com/sistaterro/emma_node` y presenta la misma versión de Emma reconstruida con Node.js y React.
+- **TalkingDutch:** La card enlaza `https://talkingdutch.com/` pero permanece en `card-hidden`.
 - **CodeRisk AI:** La card enlaza `https://github.com/sistaterro/coderisk_ai` pero permanece en `card-hidden`.
 - **Audiobook Generator TTS:** La card visible enlaza `https://github.com/sistaterro/audiobook_generator_tts` y resume el producto como pipeline local XTTS para convertir scripts narrables en WAV/MP3 con voces curadas, limpieza de silencios, merge y export ACX-style.
 
