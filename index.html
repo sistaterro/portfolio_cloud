@@ -1443,6 +1443,10 @@
       animation-delay: 0.1s;
     }
 
+    body:not(.portfolio-unlocked) .card:nth-child(n+7) {
+      display: none;
+    }
+
     .card:nth-child(1) { animation-delay: 0.2s; }
     .card:nth-child(2) { animation-delay: 0.3s; }
     .card:nth-child(3) { animation-delay: 0.4s; }
@@ -1789,6 +1793,10 @@
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let flashTimeout = 0;
     let flashRaf = 0;
+    let unlockClicks = [];
+    let portfolioUnlocked = false;
+    const unlockClickCount = 6;
+    const unlockWindowMs = 20000;
 
     const flashColors = [
       [0, 245, 255],
@@ -1830,6 +1838,39 @@
         peak: 0.245 + Math.random() * 0.1225,
       });
     }
+
+    function unlockPortfolio() {
+      if (portfolioUnlocked) return;
+      portfolioUnlocked = true;
+      document.body.classList.add('portfolio-unlocked');
+
+      if (!reduceMotion.matches) {
+        for (let i = 0; i < 4; i++) {
+          setTimeout(() => {
+            triggerFlash();
+            triggerStreak();
+            requestFlashFrame();
+          }, i * 90);
+        }
+      }
+    }
+
+    function isBackgroundUnlockClick(event) {
+      if (event.button !== 0) return false;
+      return !event.target.closest('a, button, input, textarea, select, label, .card, .hero, .footer');
+    }
+
+    document.addEventListener('pointerdown', (event) => {
+      if (portfolioUnlocked || !isBackgroundUnlockClick(event)) return;
+
+      const now = Date.now();
+      unlockClicks = unlockClicks.filter((clickedAt) => now - clickedAt <= unlockWindowMs);
+      unlockClicks.push(now);
+
+      if (unlockClicks.length >= unlockClickCount) {
+        unlockPortfolio();
+      }
+    });
 
     function canAnimateFlashes() {
       return !document.hidden && !reduceMotion.matches;

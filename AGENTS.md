@@ -1,76 +1,79 @@
 # Project Intelligence & Structural Observations: Portfolio Cloud
 
-Este documento centraliza las observaciones técnicas y estructurales del portfolio desarrollado por Juan Carlos Díaz, diseñado bajo una arquitectura de múltiples páginas estáticas (MPA) con un alto enfoque en fidelidad visual y micro-interacciones.
+This file centralizes the technical and structural context for Juan Carlos Diaz's portfolio. Treat it as a handoff notebook for future agents, not end-user documentation. Keep project documentation in English unless the user explicitly asks otherwise.
 
-## 1. Arquitectura del Proyecto
-- **Modelo:** Multi-Page Application (MPA).
-- **Tecnologías:** HTML5, CSS3 (Custom Variables, Grids, Flexbox), Vanilla JavaScript.
-- **Estructura de Archivos:** Flat structure (todos los archivos en el root).
-- **Navegación:** Sistema de Hub-and-Spoke. El `index.html` actúa como núcleo central que distribuye a proyectos específicos (`nexusgrid.html`, `soltech_english.html`, etc.).
+## 1. Project Architecture
+- **Model:** Multi-Page Application (MPA).
+- **Technologies:** HTML5, CSS3 (custom variables, grids, flexbox), vanilla JavaScript.
+- **File structure:** Flat structure, with all primary HTML files in the project root.
+- **Navigation:** Hub-and-spoke system. `index.html` acts as the central hub and links to project-specific pages such as `nexusgrid.html`, `soltech_english.html`, and others.
 
-## 2. Observaciones de Ingeniería de Software
+## 2. Engineering Observations
 
-### Fortalezas
-- **Variables CSS:** Excelente uso de `:root` para mantener temas coherentes por cada sub-marca de proyecto.
-- **Performance Visual:** Uso de `requestAnimationFrame` para animaciones de Canvas y backgrounds, con optimizaciones recientes para evitar loops permanentes cuando no hay animación visible.
-- **Interacciones:** Implementación de cursores personalizados y efectos de scroll reveal que elevan la percepción de calidad (Polished UI).
-- **Seguridad:** Uso correcto de `target="_blank"` con `rel="noopener noreferrer"` en los enlaces externos.
+### Strengths
+- **CSS variables:** Strong use of `:root` variables to keep each project micro-brand coherent.
+- **Visual performance:** Canvas/background animations use `requestAnimationFrame`, with recent optimizations to avoid permanent loops when no visible animation is active.
+- **Interactions:** Custom cursors and reveal/hover effects give the portfolio a polished feel.
+- **Security:** External links correctly use `target="_blank"` with `rel="noopener noreferrer"`.
 
-### Áreas de Mejora (Deuda Técnica)
-- **Duplicación de Código:** Elementos globales (Google Analytics, Cursor logic, Nav/Footer) están replicados manualmente en cada archivo.
-    - *Sugerencia:* Mover a un generador de sitios estáticos (SSG) como Astro o Jekyll para usar componentes reutilizables.
-- **Asset Management:** Los estilos y scripts están inline dentro de los archivos HTML. Esto dificulta el caching del navegador y el mantenimiento.
-- **Accesibilidad (A11y):** Algunos elementos decorativos y enlaces con `role="button"` podrían mejorar su semántica para lectores de pantalla.
+### Technical Debt
+- **Code duplication:** Global elements such as Google Analytics, cursor logic, navigation, and footer patterns are manually repeated across pages.
+    - *Suggestion:* Move to a static site generator such as Astro or Jekyll when reuse starts costing more than the current simple setup.
+- **Asset management:** Styles and scripts are inline inside HTML files, which limits browser caching and makes maintenance harder.
+- **Accessibility:** Some decorative elements and links with button-like behavior could use stronger semantics for screen readers.
 
-## 3. Desglose de Proyectos (Micro-Brands)
-Cada página del portfolio fue diseñada con un lenguaje visual único:
-1. **Lighttown Barbershop:** Sitio web realizado por encargo para una barbería neerlandesa (crema/bordó/dorado, estética retro y barber pole animado).
-2. **Emma 3.0:** Asistente IA local-first e híbrido con LangChain/RAG, compatible con modelos locales y servicios externos (azules eléctricos, lente/punto azul sobre base blanco-cyan, interfaz técnica).
-3. **Emma Node:** La misma versión funcional de Emma reconstruida con Node.js y React (verde Node/cian React, interfaz técnica emparentada con Emma 3.0).
-4. **Aesthetic Store:** Catálogo de referencias visuales frontend para humanos y agentes IA (cian/coral/lima, cards compactas, estética de biblioteca visual).
-5. **Santo Rosario:** App Android offline para rezar el Santo Rosario, construida con HTML/CSS/JS vanilla y Capacitor (azul profundo/pergamino/dorado, icono de rosario, enfoque sereno y legible para personas mayores).
-6. **AI Mascot:** Widget JavaScript embebible para mascotas de IA (verde/turquesa/lima, amigable, API pequeña, logo sonriente).
-7. **Audiobook Generator TTS:** Pipeline local XTTS para audiolibros (violeta/cian/ámbar, icono de onda de audio, enfoque long-form/ACX).
-8. **NexusGrid:** Estética Cyberpunk/High-tech (Azules/Cian, Share Tech Mono).
-9. **SolTech:** Fusión Solar-Tech (Naranjas/Amarillos, Outfit/Rajdhani).
-10. **Verdant:** Diseño Orgánico/Sostenible (Verdes/Menta, DM Sans).
-11. **Lumex:** Neon-Futurism (Púrpuras/Cian, Exo 2).
-12. **TalkingDutch:** Branding Institucional Holandés (Rojo/Blanco/Azul/Naranja).
+## 3. Project Breakdown (Micro-Brands)
+Each portfolio page/card has its own visual language:
+1. **Lighttown Barbershop:** Client website for a Dutch barbershop (cream/burgundy/gold, retro aesthetic, animated barber pole).
+2. **Emma 3.0:** Local-first hybrid AI assistant with LangChain/RAG, compatible with local models and external services (electric blues, lens/blue-dot mark, technical interface).
+3. **Emma Node:** The same functional Emma concept rebuilt with Node.js and React (Node green/React cyan, visually related to Emma 3.0).
+4. **Aesthetic Store:** Frontend visual reference catalog for humans and AI agents (cyan/coral/lime, compact cards, visual-library feel).
+5. **Santo Rosario:** Offline Android app for praying the Holy Rosary, built with vanilla HTML/CSS/JS and Capacitor (deep blue/parchment/gold, rosary icon, serene and readable for older users).
+6. **AI Mascot:** Embeddable JavaScript AI mascot widget (green/turquoise/lime, friendly, small public API, smiling icon).
+7. **Audiobook Generator TTS:** Local XTTS audiobook pipeline (violet/cyan/amber, audio-wave icon, long-form/ACX-oriented).
+8. **NexusGrid:** Cyberpunk/high-tech visual system (blue/cyan, Share Tech Mono).
+9. **SolTech:** Solar-tech fusion (orange/yellow/cyan, orbital solar icon).
+10. **Verdant:** Organic/sustainable design system (greens/mint, leaf icon).
+11. **Lumex:** Neon futurism (purple/cyan/amber, lightning icon).
+12. **TalkingDutch:** Dutch institutional branding (red/white/blue/orange).
+13. **Clara Nightwell:** Automated AI YouTube/content pipeline card (purple/pink/blue, generated-media icon).
 
-## 4. Estado de los Componentes Críticos
+## 4. Critical Component Status
 
-| Componente | Estado | Notas |
+| Component | Status | Notes |
 | :--- | :--- | :--- |
-| **Global Cursor** | Operacional | Replicado en múltiples archivos con variaciones de color. |
-| **Canvas background** | Optimizado | Flash en `index.html` y `contact.html` se agenda por ráfagas; Lumex limita partículas y FPS. |
-| **Formulario de Contacto** | UI Only | El frontend es robusto, pero requiere integración con un backend o servicio (Formspree/Netlify) para la funcionalidad. |
-| **SEO / Meta** | Básico | Se recomienda estandarizar las etiquetas OpenGraph y meta-descriptions en todas las páginas. |
-| **Certificación PCAP** | Visible | `index.html` enlaza `certificate_XkrV.RHDC.X8CV.pdf` desde un CTA secundario debajo de `Contact`. |
+| **Global Cursor** | Operational | Repeated across multiple files with color variations. |
+| **Canvas background** | Optimized | Flash effects in `index.html` and `contact.html` are burst-scheduled; Lumex particles are FPS-limited. |
+| **Contact form** | UI only | The frontend is robust, but still needs backend/service integration such as Formspree or Netlify Forms for real submissions. |
+| **SEO / Meta** | Basic | OpenGraph tags and meta descriptions should eventually be standardized across all pages. |
+| **PCAP Certification** | Visible | `index.html` links to `certificate_XkrV.RHDC.X8CV.pdf` from the secondary CTA below `Contact`. |
 
-## 5. Estado Actual del Portfolio Principal
-- **Nombre visible:** El hero principal y la página de contacto usan `Juan Carlos Díaz`; `Juan Carlos` permanece en blanco y `Díaz` mantiene el tratamiento azul/degradado del glitch.
-- **Responsive del nombre:** `index.html` y `contact.html` mantienen el nombre en una sola línea mediante `white-space: nowrap` y breakpoints específicos para evitar overflow horizontal en narrow viewports. En `contact.html`, el `h1` usa una banda full-bleed (`width: 100vw` + `margin-left: calc(50% - 50vw)`) para centrar el nombre contra el viewport, no contra el ancho de la tarjeta de contacto.
-- **CTAs del hero:** En desktop, `Contact` y `PCAP Certification` aparecen debajo de la bio; en narrow, ambos quedan centrados aunque el texto del hero esté alineado a la izquierda.
-- **Orden visible del grid:** Todas las cards del portfolio están visibles en `index.html`, distribuidas en 3 columnas en desktop, 2 columnas en tablet y 1 columna en mobile.
-- **Tratamiento visual de cards antiguas:** Las cards que estuvieron ocultas durante más tiempo (`NexusGrid`, `Lumex`, `TalkingDutch`, `SolTech`, `Verdant` y `Clara Nightwell`) fueron actualizadas para igualar la estética nueva: fondos con múltiples acentos, iconos CSS decorativos, pills más refinadas y mejor contraste.
-- **Privacidad / Ubicación:** `index.html` y `contact.html` no muestran ubicación personal; cualquier referencia visible heredada a la ciudad anterior debe reemplazarse por `Buenos Aires` y mantenerse en inglés.
-- **Performance de animaciones:** El efecto de relámpago en `index.html` y `contact.html` ya no corre en un loop continuo de `requestAnimationFrame`; se agenda por ráfagas, pausa con `document.hidden` y respeta `prefers-reduced-motion`.
-- **Lumex:** `lumex.html` conserva su identidad neon; el canvas de partículas se limitó a 30fps, con menos partículas, pausa por pestaña oculta y cursor custom throttleado por RAF.
-- **SolTech:** La card de `soltech_english.html` vuelve a estar visible dentro del grid principal.
-- **Verdant:** La card de `verdant.html` vuelve a estar visible dentro del grid principal.
-- **NexusGrid:** La card de `nexusgrid.html` vuelve a estar visible dentro del grid principal.
-- **Lighttown Barbershop:** La card visible enlaza `https://lighttown-barbershop.nl/` y presenta el sitio realizado por encargo en Países Bajos con HTML, CSS y JavaScript.
-- **Emma Node:** La card visible enlaza `https://github.com/sistaterro/emma_node` y presenta la misma versión de Emma reconstruida con Node.js y React.
-- **Santo Rosario:** La card visible enlaza `https://github.com/sistaterro/santo_rosario` y presenta la app Android offline hecha con HTML/CSS/JS vanilla y Capacitor para rezar el Santo Rosario con flujo claro y botones grandes.
-- **AI Mascot:** La card enlaza `https://github.com/sistaterro/ai_mascot` y vuelve a estar visible dentro del grid principal.
-- **TalkingDutch:** La card enlaza `https://talkingdutch.com/` y vuelve a estar visible dentro del grid principal.
-- **Audiobook Generator TTS:** La card visible enlaza `https://github.com/sistaterro/audiobook_generator_tts` y resume el producto como pipeline local XTTS para convertir scripts narrables en WAV/MP3 con voces curadas, limpieza de silencios, merge y export ACX-style.
+## 5. Current Main Portfolio State
+- **Visible name:** The main hero and contact page use `Juan Carlos Diaz`; `Juan Carlos` stays white and `Diaz` keeps the blue/glitch gradient treatment.
+- **Name responsiveness:** `index.html` and `contact.html` keep the name on one line via `white-space: nowrap` and targeted breakpoints to avoid horizontal overflow on narrow viewports. In `contact.html`, the `h1` uses a full-bleed band (`width: 100vw` plus `margin-left: calc(50% - 50vw)`) so the name centers against the viewport rather than the contact card width.
+- **Hero CTAs:** On desktop, `Contact` and `PCAP Certification` appear below the bio. On narrow screens, both remain centered even when the hero text is left-aligned.
+- **Grid order:** All portfolio cards remain in `index.html`. When the full grid is unlocked, they flow as 3 columns on desktop, 2 columns on tablet, and 1 column on mobile.
+- **Hidden grid mode:** On initial load, `index.html` shows only the first 6 cards. If the user clicks the background 6 times within 20 seconds, `portfolio-unlocked` is added to `body`, revealing the remaining cards with the same staggered entrance animation and a canvas flash burst.
+- **Refreshed legacy cards:** The cards that were hidden the longest (`NexusGrid`, `Lumex`, `TalkingDutch`, `SolTech`, `Verdant`, and `Clara Nightwell`) were updated to match the newer aesthetic: multi-accent backgrounds, decorative CSS icons, more refined pills, and improved contrast.
+- **Privacy / location:** `index.html` and `contact.html` do not show a personal location. Any inherited visible reference to a previous city should be replaced with `Buenos Aires` and kept in English.
+- **Animation performance:** The lightning/flash effect in `index.html` and `contact.html` no longer runs in a continuous `requestAnimationFrame` loop. It is scheduled in bursts, pauses when `document.hidden`, and respects `prefers-reduced-motion`.
+- **Lumex:** `lumex.html` keeps its neon identity; the particle canvas is limited to 30fps, uses fewer particles, pauses on hidden tabs, and throttles the custom cursor through RAF.
+- **SolTech:** `soltech_english.html` is visible in the main grid after unlock.
+- **Verdant:** `verdant.html` is visible in the main grid after unlock.
+- **NexusGrid:** `nexusgrid.html` is visible in the main grid after unlock.
+- **Lighttown Barbershop:** The card links to `https://lighttown-barbershop.nl/` and presents the Dutch client site built with HTML, CSS, and JavaScript.
+- **Emma Node:** The card links to `https://github.com/sistaterro/emma_node` and presents the Node.js/React rebuild of Emma.
+- **Santo Rosario:** The card links to `https://github.com/sistaterro/santo_rosario` and presents the offline Android rosary app built with vanilla HTML/CSS/JS and Capacitor.
+- **AI Mascot:** The card links to `https://github.com/sistaterro/ai_mascot` and is visible in the main grid after unlock.
+- **TalkingDutch:** The card links to `https://talkingdutch.com/` and is visible in the main grid after unlock.
+- **Audiobook Generator TTS:** The card links to `https://github.com/sistaterro/audiobook_generator_tts` and describes the local XTTS pipeline for turning narratable scripts into audiobook-ready WAV/MP3 output with curated voices, silence cleanup, merge, and ACX-style export.
+- **Removed projects:** ForoBardo and CodeRisk AI were intentionally removed from the portfolio because those projects disappeared and should not be reintroduced unless the user explicitly asks.
 
-## 6. Roadmap de Refactorización Recomendado
-1. **Extracción de Assets:** Mover los bloques `<style>` y `<script>` a archivos `.css` y `.js` externos compartidos.
-2. **Normalización de GA:** Centralizar el script de Google Tag Manager para evitar errores de medición entre páginas.
-3. **Optimización de Imágenes:** Asegurar que los favicons y cualquier imagen futura utilicen formatos modernos (WebP/SVG).
-4. **Lógica de Contacto:** Implementar feedback visual (Toast notifications) cuando el usuario interactúa con los formularios.
+## 6. Recommended Refactor Roadmap
+1. **Extract assets:** Move inline `<style>` and `<script>` blocks into shared `.css` and `.js` files.
+2. **Normalize analytics:** Centralize Google Tag Manager / Analytics snippets to avoid measurement drift between pages.
+3. **Optimize images:** Ensure favicons and any future image assets use modern formats such as WebP/SVG where appropriate.
+4. **Contact logic:** Add visual feedback such as toast notifications when users interact with contact forms.
 
 ---
-*Documento actualizado para reflejar el estado actual del portfolio y las últimas decisiones de implementación.*
+*Updated to reflect the current portfolio state and recent implementation decisions.*
